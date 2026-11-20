@@ -1,0 +1,4 @@
+{
+  "app": { "name": "Seetlu", "tagline": "Chaque soir : l'activité du jour correspond-elle à l'argent du jour ?" },
+  "status": { "apiOk": "Serveur connecté", "apiDown": "Serveur injoignable", "loading": "Chargement…" }
+}

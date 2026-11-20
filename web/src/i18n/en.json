@@ -1,0 +1,4 @@
+{
+  "app": { "name": "Seetlu", "tagline": "Every evening: did today's activity match today's money?" },
+  "status": { "apiOk": "Server connected", "apiDown": "Server unreachable", "loading": "Loading…" }
+}
