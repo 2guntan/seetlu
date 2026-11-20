@@ -3,8 +3,52 @@
 Camera kit + service for small shops in Senegal and Côte d'Ivoire: every evening, one WhatsApp message
 tells the owner whether the day's activity matched the day's money.
 
-This repository starts as a **build pack**: specifications for Claude Code to build the whole system
-end to end. Start with `CLAUDE.md`, then `docs/11-milestones.md`.
+Specifications live in `docs/` (start with `CLAUDE.md`, then `docs/11-milestones.md`); code is built
+milestone by milestone (M0–M10).
+
+## Status
+
+| Milestone | State |
+| --- | --- |
+| M0 Repo scaffold | done: monorepo layout, Makefile, dev compose, CI |
+| M1–M10 | to do |
+
+## Quick start (dev)
+
+Requirements: Docker Desktop, `uv` (Python 3.12), Node 22, `make`.
+
+```bash
+make install   # local Python + npm deps (for lint/test outside Docker)
+make up        # build + start the dev stack, waits for health
+make lint
+make test
+make down
+```
+
+| Service | URL |
+| --- | --- |
+| API (OpenAPI UI) | http://localhost:8000/docs (health: `/healthz`) |
+| Web app (PWA) | http://localhost:5173 |
+| Mock WhatsApp inbox | http://localhost:8025/messages |
+| MinIO console | http://localhost:9001 (minio / minio123) |
+| fake-frigate | http://localhost:5050/api/version |
+| MQTT (mosquitto) | localhost:1883 |
+
+Secrets come from `.env` (copied from `.env.example` on first `make up`); never commit real values.
+
+## Repo layout
+
+```
+backend/            FastAPI api, Celery worker/beat, report engine, messaging (incl. mock inbox)
+edge/agent/         seetlu-agent (runs next to Frigate on the kit, arm64)
+edge/fake-frigate/  Frigate simulator for dev and tests
+edge/mosquitto/     dev MQTT broker config
+web/                React PWA (owner, installer, support)
+ops/                dev and production scripts
+docs/               specs + decisions.md
+```
+
+## Docs
 
 | Doc | Content |
 | --- | --- |
