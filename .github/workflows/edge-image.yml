@@ -2,10 +2,10 @@ name: edge-image
 
 on:
   pull_request:
-    paths: ["edge/agent/**", ".github/workflows/edge-image.yml"]
+    paths: ["edge/agent/**", "edge/frigate/**", ".github/workflows/edge-image.yml"]
   push:
     branches: [main]
-    paths: ["edge/agent/**", ".github/workflows/edge-image.yml"]
+    paths: ["edge/agent/**", "edge/frigate/**", ".github/workflows/edge-image.yml"]
 
 jobs:
   build:
@@ -25,7 +25,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v6
         with:
-          context: edge/agent
+          context: edge
+          file: edge/agent/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name == 'push' }}
           tags: ghcr.io/${{ github.repository_owner }}/seetlu-agent:${{ github.sha }}

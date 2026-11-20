@@ -15,6 +15,7 @@ from fake_frigate.generator import Message
 log = logging.getLogger("fake_frigate.publisher")
 
 Publish = Callable[[Message], None]
+CLOCK_TOPIC = "seetlu-sim/clock"
 
 
 class SimState:
@@ -47,6 +48,17 @@ def play(
     return len(msgs)
 
 
+def with_clock(msgs: list[Message]) -> list[Message]:
+    """Precede every message with a `seetlu-sim/clock` tick carrying its exact simulated time, so an agent
+    running on the simulator clock (SIM_CLOCK=1) timestamps zone counts exactly, at any playback speed."""
+    out: list[Message] = []
+    for msg in msgs:
+        if msg.topic != CLOCK_TOPIC:
+            out.append(Message(msg.ts, msg.seq, CLOCK_TOPIC, f"{msg.ts:.3f}"))
+        out.append(msg)
+    return out
+
+
 def mqtt_publisher(host: str, port: int) -> tuple[mqtt.Client, Publish]:
     client = mqtt.Client(CallbackAPIVersion.VERSION2, client_id=f"fake-frigate-run-{time.time_ns()}")
     client.connect(host, port)
@@ -63,6 +75,7 @@ def run_scenario(name: str, host: str, port: int, speed: float, day: date | None
     if day is not None:
         sc = sc.with_date(day)
     msgs, _ = generator.generate(sc)
+    msgs = with_clock(msgs)
     client, publish = mqtt_publisher(host, port)
     STATE.running = sc.name
     try:

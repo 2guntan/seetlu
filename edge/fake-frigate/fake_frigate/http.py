@@ -32,6 +32,10 @@ def create_app() -> FastAPI:
     def version() -> str:
         return FRIGATE_VERSION
 
+    @app.post("/api/restart")
+    def restart() -> dict[str, object]:
+        return {"success": True, "message": "Restarting (simulated)"}
+
     @app.get("/api/{camera}/latest.jpg")
     def latest(camera: str) -> FileResponse:
         if camera not in CAMERAS:

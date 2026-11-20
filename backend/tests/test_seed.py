@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from seetlu.core.security import verify_token
 from seetlu.db import models as m
 from seetlu.seed.demo import seed_demo
+from seetlu.seed.kit_serial import kit_serial
 
 
 def _counts(s: Session) -> dict[str, int]:
@@ -28,3 +29,11 @@ def test_m1_seed_skeleton_is_idempotent(migrated_engine: Engine) -> None:
         kit = s.scalars(select(m.Kit).filter_by(serial="DEV-KIT-0001")).one()
         assert verify_token(kit.claim_token_hash, "tok")
         assert not verify_token(kit.claim_token_hash, "wrong")
+
+
+def test_m5_kit_serial_lookup_for_sim_day(migrated_engine: Engine) -> None:
+    with Session(migrated_engine) as s:
+        result = seed_demo(s, claim_token="tok")
+        assert kit_serial(s, str(result.shop_ids[1])) == result.kit_serials[1]
+        assert kit_serial(s, "DEV-KIT-0001") == "DEV-KIT-0001"
+        assert kit_serial(s, "00000000-0000-7000-8000-000000000000") is None
