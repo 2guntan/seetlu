@@ -13,7 +13,8 @@ milestone by milestone (M0–M10).
 | M0 Repo scaffold | done: monorepo layout, Makefile, dev compose, CI |
 | M1 Database | done: Alembic migration (03-data-model.sql), SQLAlchemy models, UUIDv7, seed skeleton |
 | M2 Auth + core API | done: OTP login over (mock) WhatsApp, JWT access/refresh, `authorize()` matrix, shops/users/alert-rules, problem+json |
-| M3–M10 | to do |
+| M3 Edge ingest API | done: register, config (ETag), idempotent events, heartbeat, command queue + results, presigned uploads |
+| M4–M10 | to do |
 
 ## Quick start (dev)
 
@@ -47,6 +48,13 @@ Secrets come from `.env` (copied from `.env.example` on first `make up`); never 
 ```bash
 curl -X POST localhost:8000/v1/auth/otp/request -H 'content-type: application/json' -d '{"phone_e164":"+221770000001"}'
 curl -X POST localhost:8000/v1/auth/otp/verify  -H 'content-type: application/json' -d '{"phone_e164":"+221770000001","code":"000000"}'
+```
+
+Edge endpoints (as the agent will call them):
+
+```bash
+curl -X POST localhost:8000/v1/edge/register -H 'content-type: application/json' -d '{"serial":"DEV-KIT-0001","claim_token":"dev-claim-token"}'
+curl localhost:8000/v1/edge/config -H "Authorization: Bearer <device_token>"
 ```
 
 ## Repo layout

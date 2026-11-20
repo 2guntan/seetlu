@@ -26,6 +26,13 @@ IMPLEMENTED: set[tuple[str, str]] = {
     ("post", "/v1/shops/{shop_id}/users"),
     ("get", "/v1/shops/{shop_id}/alert-rules"),
     ("put", "/v1/shops/{shop_id}/alert-rules"),
+    # M3
+    ("post", "/v1/edge/register"),
+    ("get", "/v1/edge/config"),
+    ("post", "/v1/edge/events"),
+    ("post", "/v1/edge/heartbeat"),
+    ("get", "/v1/edge/commands"),
+    ("post", "/v1/edge/commands/{command_id}/result"),
 }
 METHODS = {"get", "post", "put", "patch", "delete"}
 

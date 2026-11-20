@@ -81,10 +81,10 @@ SHOPS: list[dict[str, Any]] = [
     },
 ]
 
-# Normalised (0..1) geometries on a 640x360 detect frame.
-DOOR_LINE = {"points": [[0.30, 0.55], [0.70, 0.55]]}
-CUSTOMER_SIDE = {"polygon": [[0.10, 0.55], [0.90, 0.55], [0.90, 0.95], [0.10, 0.95]]}
-STAFF_SIDE = {"polygon": [[0.10, 0.10], [0.90, 0.10], [0.90, 0.45], [0.10, 0.45]]}
+# Normalised (0..1) geometries as lists of [x, y] points (docs/04 EdgeConfig.zones.geometry).
+DOOR_LINE = [[0.30, 0.55], [0.70, 0.55]]
+CUSTOMER_SIDE = [[0.10, 0.55], [0.90, 0.55], [0.90, 0.95], [0.10, 0.95]]
+STAFF_SIDE = [[0.10, 0.10], [0.90, 0.10], [0.90, 0.45], [0.10, 0.45]]
 
 
 @dataclass

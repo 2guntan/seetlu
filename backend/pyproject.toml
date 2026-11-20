@@ -29,6 +29,8 @@ dev = [
   "testcontainers[postgres]>=4.9",
   "pyyaml>=6",
   "types-pyyaml>=6",
+  "jsonschema>=4.23",
+  "types-jsonschema>=4.26.0.20261006",
 ]
 
 [build-system]
