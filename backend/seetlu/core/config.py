@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     dev_fixed_otp: str | None = None
     messaging_provider: str = "mock"
     mock_whatsapp_url: str = "http://localhost:8025"
+    parser_version: str = "1"  # current shop-phone parser rules version (sales confidence, docs/06)
 
 
 @lru_cache

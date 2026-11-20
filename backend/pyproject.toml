@@ -31,6 +31,7 @@ dev = [
   "types-pyyaml>=6",
   "jsonschema>=4.23",
   "types-jsonschema>=4.26.0.20261006",
+  "hypothesis>=6.120",
 ]
 
 [build-system]
@@ -49,7 +50,8 @@ select = ["E", "F", "W", "I", "B", "UP", "N", "S", "C4", "SIM", "RUF"]
 ignore = ["S101"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S105", "S106"]
+"tests/**" = ["S105", "S106", "N802", "E501"]
+"seetlu/seed/history.py" = ["S311"]  # demo data, not security
 
 [tool.ruff.lint.isort]
 known-first-party = ["seetlu"]

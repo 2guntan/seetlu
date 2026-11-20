@@ -1,5 +1,6 @@
 """Edge ingest API (device token): register, config, events, heartbeat, commands (docs/04, docs/05)."""
 
+import logging
 import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any, Literal
@@ -15,7 +16,10 @@ from seetlu.core.problem import Problem
 from seetlu.core.security import hash_token, new_device_token, verify_token
 from seetlu.db import models as m
 from seetlu.domain.commands import UPLOAD_KINDS, object_key
+from seetlu.reports import service as report_service
 from seetlu.storage.s3 import presigned_put
+
+log = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/v1/edge", tags=["edge"])
 
@@ -270,7 +274,18 @@ def post_events(body: EventsIn, kit: CurrentKit, s: DB) -> EventsOut:
         else:
             duplicates += 1
     s.commit()
+    _recompute_late(s, shop, [ev.started_at for ev in body.events])
     return EventsOut(accepted=accepted, duplicates=duplicates)
+
+
+def _recompute_late(s: Session, shop: m.Shop, starts: list[datetime]) -> None:
+    """Events for a day whose report was already sent: recompute it now (never resent, docs/06)."""
+    try:
+        for d in report_service.late_dates(s, shop, starts):
+            report_service.recompute(s, shop.id, d)
+    except Exception:  # the upload itself succeeded; a failed recompute must not make the edge retry
+        s.rollback()
+        log.exception("late-data recompute failed for shop %s", shop.id)
 
 
 @router.post("/heartbeat", status_code=204, response_class=Response)
