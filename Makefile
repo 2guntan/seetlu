@@ -37,7 +37,7 @@ ps: ## Show service status
 migrate: ## alembic upgrade head
 	$(COMPOSE) run --rm api alembic upgrade head
 
-seed: ## Demo data
+seed: migrate ## Demo data (runs migrations first; idempotent)
 	$(COMPOSE) run --rm api python -m seetlu.seed
 
 lint: ## ruff + mypy --strict, eslint + tsc
