@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 
 from seetlu import __version__
-from seetlu.api import auth, shops
+from seetlu.api import auth, edge, shops
 from seetlu.core.problem import install_problem_handlers
 
 
@@ -18,6 +18,7 @@ def create_app() -> FastAPI:
     install_problem_handlers(app)
     app.include_router(auth.router)
     app.include_router(shops.router)
+    app.include_router(edge.router)
 
     @app.get("/healthz", tags=["ops"])
     def healthz() -> dict[str, str]:
