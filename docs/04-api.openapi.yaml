@@ -1,0 +1,288 @@
+openapi: 3.1.0
+info:
+  title: Seetlu API
+  version: 1.0.0
+  description: |
+    Public contract between cloud, edge agent, shop phone app and web app.
+    Auth schemes: `userJwt` (web app), `deviceToken` (edge kit or shop phone), `metaSignature` (WhatsApp webhook).
+    Errors use RFC 9457 problem+json. Money in integer XOF. Times ISO 8601 with offset.
+servers:
+  - url: https://api.seetlu.sn
+  - url: http://localhost:8000
+
+components:
+  securitySchemes:
+    userJwt: { type: http, scheme: bearer, bearerFormat: JWT }
+    deviceToken: { type: http, scheme: bearer, description: "Opaque token issued at kit activation or phone pairing" }
+    metaSignature: { type: apiKey, in: header, name: X-Hub-Signature-256 }
+
+  schemas:
+    Problem:
+      type: object
+      properties: { type: {type: string}, title: {type: string}, status: {type: integer}, detail: {type: string} }
+    Uuid: { type: string, format: uuid }
+    Verdict:
+      type: string
+      enum: [learning, normal, worth_a_look, large_gap, not_enough_activity, incomplete_data]
+    EdgeEvent:
+      type: object
+      required: [id, type, started_at, camera]
+      properties:
+        id: { $ref: '#/components/schemas/Uuid' }
+        type: { type: string, enum: [entry, exit, service, wait, unattended, after_hours_motion] }
+        camera: { type: string, description: "camera name as configured" }
+        started_at: { type: string, format: date-time }
+        ended_at: { type: [string, 'null'], format: date-time }
+        is_staff: { type: boolean, default: false }
+        confidence: { type: number, minimum: 0, maximum: 1 }
+        frigate_event_ids: { type: array, items: { type: string } }
+        meta: { type: object, additionalProperties: true }
+    Heartbeat:
+      type: object
+      required: [at, agent_version]
+      properties:
+        at: { type: string, format: date-time }
+        power_source: { type: string, enum: [mains, battery] }
+        battery_pct: { type: integer }
+        storage_pct: { type: integer }
+        cpu_temp_c: { type: number }
+        fps: { type: object, additionalProperties: { type: number } }
+        network: { type: string, enum: [wifi, 4g, ethernet] }
+        agent_version: { type: string }
+        frigate_version: { type: string }
+        queue_depth: { type: integer }
+    EdgeConfig:
+      type: object
+      properties:
+        config_version: { type: integer }
+        shop:
+          type: object
+          properties:
+            timezone: { type: string }
+            opening_hours: { type: object }
+            expected_staff: { type: integer }
+            service_min_s: { type: integer }
+            wait_min_s: { type: integer }
+            unattended_min_s: { type: integer }
+        cameras:
+          type: array
+          items:
+            type: object
+            properties:
+              name: { type: string }
+              role: { type: string, enum: [door, counter, shelf] }
+              rtsp_main_path: { type: string }
+              rtsp_sub_path: { type: string }
+              detect: { type: object, properties: { width: {type: integer}, height: {type: integer}, fps: {type: integer} } }
+              zones:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: { $ref: '#/components/schemas/Uuid' }
+                    type: { type: string, enum: [door_line, customer_side, staff_side, shelf, ignore] }
+                    geometry: { type: array, items: { type: array, items: { type: number }, minItems: 2, maxItems: 2 } }
+                    inward_side: { type: [string, 'null'], enum: [left, right, null] }
+        target_agent_version: { type: string }
+    EdgeCommand:
+      type: object
+      properties:
+        id: { $ref: '#/components/schemas/Uuid' }
+        type: { type: string, enum: [clip, snapshot, count_check_start, count_check_stop, update_agent, reboot] }
+        params: { type: object }
+        upload_url: { type: [string, 'null'], description: "presigned PUT URL for clip/snapshot" }
+        expires_at: { type: string, format: date-time }
+    SaleIn:
+      type: object
+      required: [source, amount_xof, occurred_at]
+      properties:
+        client_id: { $ref: '#/components/schemas/Uuid' }
+        source: { type: string, enum: [wave, orange_money, quick_log, pos, cash_declaration] }
+        amount_xof: { type: integer, minimum: 0 }
+        occurred_at: { type: string, format: date-time }
+        external_ref: { type: [string, 'null'] }
+        raw: { type: [string, 'null'], description: "raw notification text; encrypted at rest" }
+        parser_version: { type: [string, 'null'] }
+    DailyReport:
+      type: object
+      properties:
+        local_date: { type: string, format: date }
+        visitors_in: { type: [integer, 'null'] }
+        served: { type: [integer, 'null'] }
+        waits: { type: [integer, 'null'] }
+        unattended_min: { type: [integer, 'null'] }
+        busiest_hour: { type: [integer, 'null'] }
+        sales_count: { type: integer }
+        sales_xof: { type: integer }
+        sales_by_source: { type: object, additionalProperties: { type: integer } }
+        cash_declared_xof: { type: [integer, 'null'] }
+        rps_xof: { type: [number, 'null'] }
+        verdict: { $ref: '#/components/schemas/Verdict' }
+        confidence: { type: object, additionalProperties: { type: string, enum: [high, medium, low] } }
+        missing_hours: { type: array, items: { type: integer } }
+        moments: { type: array, items: { type: object } }
+        vs_last_week: { type: [object, 'null'] }
+
+paths:
+  # ---------------- auth ----------------
+  /v1/auth/otp/request:
+    post:
+      summary: Send a one-time code over WhatsApp (SMS fallback)
+      requestBody: { content: { application/json: { schema: { type: object, required: [phone_e164], properties: { phone_e164: { type: string } } } } } }
+      responses: { '204': { description: sent (always 204 to avoid phone enumeration) } }
+  /v1/auth/otp/verify:
+    post:
+      summary: Exchange code for JWT access + refresh tokens
+      requestBody: { content: { application/json: { schema: { type: object, required: [phone_e164, code], properties: { phone_e164: {type: string}, code: {type: string} } } } } }
+      responses: { '200': { description: tokens }, '401': { description: invalid code } }
+  /v1/auth/refresh:
+    post: { summary: "Refresh access token", responses: { '200': { description: tokens } } }
+
+  # ---------------- account, shops, users ----------------
+  /v1/me:
+    get: { security: [ { userJwt: [] } ], summary: "Current user, account and shops", responses: { '200': { description: ok } } }
+  /v1/shops:
+    get: { security: [ { userJwt: [] } ], summary: "List shops visible to the user", responses: { '200': { description: ok } } }
+    post: { security: [ { userJwt: [] } ], summary: "Create shop (owner, installer)", responses: { '201': { description: created } } }
+  /v1/shops/{shop_id}:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+    patch: { security: [ { userJwt: [] } ], summary: "Update settings (hours, report time, thresholds)", responses: { '200': { description: ok } } }
+  /v1/shops/{shop_id}/users:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+    post: { security: [ { userJwt: [] } ], summary: "Invite manager or staff by phone", responses: { '201': { description: created } } }
+  /v1/shops/{shop_id}/alert-rules:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+    put: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+
+  # ---------------- data for the owner app ----------------
+  /v1/shops/{shop_id}/reports:
+    parameters:
+      - { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: from, in: query, required: true, schema: { type: string, format: date } }
+      - { name: to, in: query, required: true, schema: { type: string, format: date } }
+    get:
+      security: [ { userJwt: [] } ]
+      responses: { '200': { description: ok, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/DailyReport' } } } } } }
+  /v1/shops/{shop_id}/today:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Live partial-day figures (same shape as DailyReport, verdict omitted)", responses: { '200': { description: ok } } }
+  /v1/shops/{shop_id}/hourly:
+    parameters:
+      - { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: date, in: query, required: true, schema: { type: string, format: date } }
+    get: { security: [ { userJwt: [] } ], summary: "Entries, served, waits, sales per local hour", responses: { '200': { description: ok } } }
+  /v1/shops/{shop_id}/events:
+    parameters:
+      - { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: date, in: query, required: true, schema: { type: string, format: date } }
+      - { name: type, in: query, schema: { type: string } }
+    get: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+  /v1/shops/{shop_id}/sales:
+    parameters:
+      - { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: date, in: query, required: true, schema: { type: string, format: date } }
+    get: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+    post:
+      security: [ { userJwt: [] } ]
+      summary: Quick log or cash declaration from the web app
+      requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/SaleIn' } } } }
+      responses: { '201': { description: created } }
+  /v1/shops/{shop_id}/corrections:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], responses: { '201': { description: created } } }
+  /v1/shops/{shop_id}/snapshot:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], summary: "Request a live snapshot (queues an edge command; poll the clip)", responses: { '202': { description: queued } } }
+  /v1/clips/{clip_id}:
+    parameters: [ { name: clip_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Returns a signed URL valid 15 min; writes audit log", responses: { '200': { description: ok }, '202': { description: still processing }, '410': { description: expired or unavailable } } }
+  /v1/clips/{clip_id}/save:
+    parameters: [ { name: clip_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], responses: { '200': { description: saved }, '409': { description: limit of 30 reached } } }
+  /v1/moments/{report_id}/{rank}/clip:
+    parameters:
+      - { name: report_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: rank, in: path, required: true, schema: { type: integer, minimum: 1, maximum: 3 } }
+    post: { security: [ { userJwt: [] } ], summary: "Request (or return existing) clip for a report moment", responses: { '202': { description: queued }, '200': { description: ready } } }
+  /v1/audit-log:
+    get: { security: [ { userJwt: [] } ], summary: "Owner sees own account; support sees all", responses: { '200': { description: ok } } }
+  /v1/support-grants:
+    post: { security: [ { userJwt: [] } ], summary: "Owner grants support 24 h clip access", responses: { '201': { description: created } } }
+
+  # ---------------- installer ----------------
+  /v1/kits/claim:
+    post:
+      security: [ { userJwt: [] } ]
+      summary: Installer claims a kit by serial + claim token (QR) and attaches it to a shop
+      responses: { '200': { description: claimed } }
+  /v1/kits/{kit_id}/cameras:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    put: { security: [ { userJwt: [] } ], summary: "Set cameras and zones (bumps config_version)", responses: { '200': { description: ok } } }
+  /v1/kits/{kit_id}/count-checks:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], summary: "Start a count check", responses: { '201': { description: started } } }
+  /v1/count-checks/{check_id}/stop:
+    parameters: [ { name: check_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], summary: "Stop with manual_count; returns agent_count, error_pct, passed", responses: { '200': { description: ok } } }
+  /v1/kits/{kit_id}/activate:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], summary: "Requires passed count check (or override) and shop.cdp_declaration_ref", responses: { '200': { description: activated }, '409': { description: preconditions not met } } }
+
+  # ---------------- support ----------------
+  /v1/support/kits:
+    get: { security: [ { userJwt: [] } ], summary: "Kits with health status and filters", responses: { '200': { description: ok } } }
+  /v1/support/kits/{kit_id}/target-version:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    put: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+
+  # ---------------- edge (device token) ----------------
+  /v1/edge/register:
+    post:
+      summary: First boot - exchange serial + claim token for a device token (only after installer claim)
+      responses: { '200': { description: device token }, '403': { description: not claimed } }
+  /v1/edge/config:
+    get:
+      security: [ { deviceToken: [] } ]
+      parameters: [ { name: If-None-Match, in: header, schema: { type: string } } ]
+      responses:
+        '200': { description: config, content: { application/json: { schema: { $ref: '#/components/schemas/EdgeConfig' } } } }
+        '304': { description: unchanged }
+  /v1/edge/events:
+    post:
+      security: [ { deviceToken: [] } ]
+      requestBody: { content: { application/json: { schema: { type: object, properties: { events: { type: array, maxItems: 500, items: { $ref: '#/components/schemas/EdgeEvent' } } } } } } }
+      responses: { '200': { description: "{accepted: n, duplicates: n}" } }
+  /v1/edge/heartbeat:
+    post:
+      security: [ { deviceToken: [] } ]
+      requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/Heartbeat' } } } }
+      responses: { '204': { description: ok } }
+  /v1/edge/commands:
+    get:
+      security: [ { deviceToken: [] } ]
+      responses: { '200': { description: pending commands, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/EdgeCommand' } } } } } }
+  /v1/edge/commands/{command_id}/result:
+    parameters: [ { name: command_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post:
+      security: [ { deviceToken: [] } ]
+      summary: "status done|failed|unavailable, result payload (e.g. agent_count, object_key, duration_s)"
+      responses: { '204': { description: ok } }
+
+  # ---------------- shop phone (device token) ----------------
+  /v1/phone/pair:
+    post: { summary: "Pair phone with a 6-digit code shown in the owner app; returns device token", responses: { '200': { description: token } } }
+  /v1/phone/parsers:
+    get: { security: [ { deviceToken: [] } ], summary: "Current notification parser rules (versioned JSON)", responses: { '200': { description: ok } } }
+  /v1/sales/batch:
+    post:
+      security: [ { deviceToken: [] } ]
+      requestBody: { content: { application/json: { schema: { type: object, properties: { sales: { type: array, maxItems: 200, items: { $ref: '#/components/schemas/SaleIn' } }, unparsed: { type: array, items: { type: object } } } } } } }
+      responses: { '200': { description: "{accepted, duplicates}" } }
+
+  # ---------------- webhooks ----------------
+  /v1/webhooks/whatsapp:
+    get: { summary: "Meta verification challenge", responses: { '200': { description: challenge echoed } } }
+    post: { security: [ { metaSignature: [] } ], summary: "Inbound messages and delivery statuses", responses: { '200': { description: ok } } }
