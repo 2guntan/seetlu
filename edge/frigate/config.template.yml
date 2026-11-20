@@ -1,0 +1,54 @@
+# Frigate configuration template. The seetlu-agent renders `cameras` from the cloud EdgeConfig
+# (docs/05) and writes the result to /data/frigate/config/config.yml. Do not edit the rendered file.
+#
+# Privacy (CLAUDE.md rule 1, docs/09): face recognition, LPR, semantic search, GenAI, audio and
+# birdseye are disabled here and the agent refuses to write a config where any of them is enabled.
+mqtt:
+  enabled: true
+  host: 127.0.0.1
+  port: 1883
+  topic_prefix: frigate
+  stats_interval: 60
+
+detectors:
+  rknn:
+    type: rknn
+    num_cores: 3
+
+model:  # default RKNN model shipped with the -rk image
+  path: deci-fp16-yolonas_s
+  model_type: yolonas
+  width: 320
+  height: 320
+  input_pixel_format: bgr
+  input_tensor: nchw
+
+objects:
+  track: [person]
+
+snapshots:
+  enabled: false
+
+record:
+  enabled: true
+  retain:
+    days: 7
+    mode: motion
+
+face_recognition:
+  enabled: false
+lpr:
+  enabled: false
+semantic_search:
+  enabled: false
+genai:
+  enabled: false
+audio:
+  enabled: false
+birdseye:
+  enabled: false
+
+ui:
+  timezone: "{{timezone}}"
+
+cameras: {}

@@ -1,0 +1,49 @@
+# Production stack on the edge box (Orange Pi 5 / RK3588), docs/05. Started on boot by the systemd unit
+# that edge/os/provision.sh installs (M10). Video stays on the box: only events, heartbeats and
+# requested clips/snapshots leave it (CLAUDE.md rule 2).
+#
+# Host network for all three: MQTT and the Frigate API stay on 127.0.0.1; the agent's setup page
+# listens on the LAN (port 8080, PIN-protected, private client addresses only).
+name: seetlu-edge
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    network_mode: host
+    restart: unless-stopped
+    volumes: ["./mosquitto/mosquitto.edge.conf:/mosquitto/config/mosquitto.conf:ro"]
+
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable-rk
+    network_mode: host
+    restart: unless-stopped
+    shm_size: 256mb
+    devices:
+      - /dev/dri
+      - /dev/mpp_service
+      - /dev/rga
+      - /dev/dma_heap
+    volumes:
+      - /data/frigate/config:/config          # config.yml rendered by seetlu-agent
+      - /data/frigate/media:/media/frigate    # 7-day motion recordings, never uploaded
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs: {size: 1000000000}
+    depends_on: [mosquitto]
+
+  seetlu-agent:
+    image: ghcr.io/${SEETLU_IMAGE_OWNER:-seetlu}/seetlu-agent:${SEETLU_AGENT_VERSION:-latest}
+    network_mode: host
+    restart: unless-stopped
+    env_file: [/data/agent/agent.env]  # SEETLU_API_URL, KIT_SERIAL, KIT_CLAIM_TOKEN (written at provisioning)
+    environment:
+      MQTT_HOST: 127.0.0.1
+      FRIGATE_URL: http://127.0.0.1:5000
+      AGENT_DATA_DIR: /data/agent
+      FRIGATE_CONFIG_PATH: /data/frigate/config/config.yml
+      EDGE_COMPOSE_FILE: /data/agent/docker-compose.edge.yml
+    volumes:
+      - /data/agent:/data/agent                    # outbox.db, state.json, secrets.json (chmod 600)
+      - /data/frigate/config:/data/frigate/config
+      - /var/run/docker.sock:/var/run/docker.sock  # self-update (docs/05 update_agent)
+    depends_on: [mosquitto, frigate]

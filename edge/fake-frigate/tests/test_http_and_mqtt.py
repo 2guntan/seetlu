@@ -95,6 +95,15 @@ def test_m4_scenario_round_trips_through_mosquitto(broker: tuple[str, int]) -> N
         sub.loop_stop()
         sub.disconnect()
     got = [(m.topic, m.payload) for m in received if m.topic != "seetlu-sim/done"]
-    want = [(m.topic, m.encoded().decode()) for m in expected_msgs]
+    want = [(m.topic, m.encoded().decode()) for m in publisher.with_clock(expected_msgs)]
     assert n == len(want)
     assert got == want  # same messages, same order (QoS 1, single publisher)
+
+
+def test_m5_with_clock_precedes_each_message_with_its_time() -> None:
+    msgs, _ = generator.generate(scenario.load("after-hours-motion"))
+    ticked = publisher.with_clock(msgs)
+    for i, m in enumerate(ticked):
+        if m.topic != "seetlu-sim/clock" and i and ticked[i - 1].topic == "seetlu-sim/clock":
+            assert float(ticked[i - 1].payload) == m.ts
+    assert [m for m in ticked if not str(m.payload).endswith(".000") or m.topic != "seetlu-sim/clock"]

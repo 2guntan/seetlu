@@ -15,7 +15,8 @@ milestone by milestone (M0–M10).
 | M2 Auth + core API | done: OTP login over (mock) WhatsApp, JWT access/refresh, `authorize()` matrix, shops/users/alert-rules, problem+json |
 | M3 Edge ingest API | done: register, config (ETag), idempotent events, heartbeat, command queue + results, presigned uploads |
 | M4 fake-frigate | done: 7 deterministic scenarios with `expected.json` ground truth, Frigate-shaped MQTT + HTTP |
-| M5–M10 | to do |
+| M5 seetlu-agent | done: door/staff/counter/after-hours logic, Frigate config renderer (no biometrics), SQLite WAL outbox + uploader, ETag config, commands (clip, snapshot, count check, update, reboot), heartbeats, LAN setup page, `make sim-day` |
+| M6–M10 | to do |
 
 ## Quick start (dev)
 
@@ -66,13 +67,29 @@ curl -X POST "localhost:5050/sim/scenarios/normal-day/run?speed=600" # 1 simulat
 cd edge/fake-frigate && uv run fake-frigate expect normal-day       # ground truth for a scenario
 ```
 
+### One simulated day through the real agent
+
+```bash
+make sim-day SHOP=DEV-KIT-0001 DATE=2026-11-20                          # shop id or kit serial
+make sim-day SHOP=<shop id> DATE=2026-11-20 SCENARIO=power-cut-14-16    # any scenario name
+```
+
+`sim-day` stops the dev agent, runs `seetlu-agent replay` for the shop's kit on the simulator clock,
+plays the scenario at full speed (~30 s), uploads events + heartbeats, then restarts the dev agent.
+Event ids are deterministic UUIDv7, so re-running the same day changes nothing on the server.
+
+The agent's LAN setup page is on http://localhost:8080 (user: any, PIN: last 6 characters of
+`KIT_CLAIM_TOKEN`); it only answers private/loopback client addresses.
+
 ## Repo layout
 
 ```
 backend/            FastAPI api, Celery worker/beat, report engine, messaging (incl. mock inbox)
 edge/agent/         seetlu-agent (runs next to Frigate on the kit, arm64)
 edge/fake-frigate/  Frigate simulator for dev and tests
-edge/mosquitto/     dev MQTT broker config
+edge/frigate/       Frigate config template (rendered by the agent)
+edge/mosquitto/     MQTT broker configs (dev, and 127.0.0.1-only for the kit)
+edge/docker-compose.edge.yml  production stack on the kit (mosquitto, frigate -rk, seetlu-agent)
 web/                React PWA (owner, installer, support)
 ops/                dev and production scripts
 docs/               specs + decisions.md
