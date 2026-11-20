@@ -1,0 +1,43 @@
+{
+  "scenario": "after-hours-motion",
+  "date": "2026-11-20",
+  "timezone": "Africa/Dakar",
+  "opening": [
+    "08:00",
+    "21:00"
+  ],
+  "expected_staff": 1,
+  "truth": {
+    "door_entries": 61,
+    "door_exits": 61,
+    "customer_entries": 60,
+    "staff_entries": 1,
+    "hourly_entries": {
+      "07": 1,
+      "08": 4,
+      "09": 4,
+      "10": 4,
+      "11": 7,
+      "12": 5,
+      "13": 6,
+      "14": 1,
+      "15": 2,
+      "16": 10,
+      "17": 4,
+      "18": 3,
+      "19": 7,
+      "20": 3
+    },
+    "service": 49,
+    "wait": 0,
+    "unattended": 0,
+    "unattended_minutes": 0,
+    "after_hours_motion": 2,
+    "missing_hours": [],
+    "visitors_in": 60
+  },
+  "messages": {
+    "count": 4412,
+    "sha256": "5e779309a5db262bdff86ac574329b4c47df31b8b12176a115af8533853b8514"
+  }
+}

@@ -1,0 +1,11 @@
+# Groups of 3 entering together: each person is a separate track and must be counted.
+name: crowded-door
+shop_timezone: Africa/Dakar
+date: 2026-11-20
+opening: ["08:00", "21:00"]
+expected_staff: 1
+seed: 6
+actors:
+  - {kind: staff, id: s1, arrive: "07:55", leave: "21:05", breaks: [["13:00", "13:40"]]}
+  - {kind: customers, count: 90, group_size: 3, window: ["08:00", "21:00"], peak: ["18:00", "20:00"],
+     served_ratio: 0.5, service_s: [20, 90]}

@@ -1,0 +1,43 @@
+{
+  "scenario": "re-entry-flicker",
+  "date": "2026-11-20",
+  "timezone": "Africa/Dakar",
+  "opening": [
+    "08:00",
+    "21:00"
+  ],
+  "expected_staff": 1,
+  "truth": {
+    "door_entries": 113,
+    "door_exits": 113,
+    "customer_entries": 112,
+    "staff_entries": 1,
+    "hourly_entries": {
+      "07": 1,
+      "08": 3,
+      "09": 8,
+      "10": 7,
+      "11": 11,
+      "12": 12,
+      "13": 6,
+      "14": 11,
+      "15": 4,
+      "16": 13,
+      "17": 13,
+      "18": 5,
+      "19": 12,
+      "20": 7
+    },
+    "service": 81,
+    "wait": 3,
+    "unattended": 1,
+    "unattended_minutes": 40,
+    "after_hours_motion": 0,
+    "missing_hours": [],
+    "visitors_in": 112
+  },
+  "messages": {
+    "count": 4997,
+    "sha256": "50329175932abe0c5ec99971320a5901ce2081aaeba030d4ba86adbed141ddd2"
+  }
+}

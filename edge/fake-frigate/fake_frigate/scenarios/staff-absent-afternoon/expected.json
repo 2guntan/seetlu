@@ -1,0 +1,43 @@
+{
+  "scenario": "staff-absent-afternoon",
+  "date": "2026-11-20",
+  "timezone": "Africa/Dakar",
+  "opening": [
+    "08:00",
+    "21:00"
+  ],
+  "expected_staff": 1,
+  "truth": {
+    "door_entries": 141,
+    "door_exits": 141,
+    "customer_entries": 140,
+    "staff_entries": 1,
+    "hourly_entries": {
+      "07": 1,
+      "08": 2,
+      "09": 3,
+      "10": 4,
+      "11": 5,
+      "12": 9,
+      "13": 6,
+      "14": 6,
+      "15": 7,
+      "16": 5,
+      "17": 5,
+      "18": 38,
+      "19": 45,
+      "20": 5
+    },
+    "service": 100,
+    "wait": 16,
+    "unattended": 1,
+    "unattended_minutes": 240,
+    "after_hours_motion": 0,
+    "missing_hours": [],
+    "visitors_in": 140
+  },
+  "messages": {
+    "count": 5145,
+    "sha256": "56ce57cf75d9e06c708df63f1861360597d6dcf99bd978b8ca9d7d30a597a9ea"
+  }
+}

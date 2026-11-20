@@ -1,0 +1,11 @@
+# Seller away from the counter 14:00-18:00: customers wait then leave unserved; one long unattended period.
+name: staff-absent-afternoon
+shop_timezone: Africa/Dakar
+date: 2026-11-20
+opening: ["08:00", "21:00"]
+expected_staff: 1
+seed: 3
+actors:
+  - {kind: staff, id: s1, arrive: "07:55", leave: "21:05", breaks: [["14:00", "18:00"]]}
+  - {kind: customers, count: 140, window: ["08:00", "21:00"], peak: ["18:00", "20:00"],
+     served_ratio: 0.8, service_s: [20, 120], wait_ratio: 0.0}
