@@ -1,0 +1,5351 @@
+{
+ "scenario": "normal-day",
+ "source": "edge/agent replay (tests/scenario_replay.py)",
+ "events": [
+  {
+   "id": "01a1f7f3-9c20-796b-848f-c6eae1ac5fd2",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T07:55:00.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795161299.000000-8435ee"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f7fb-8f48-7e6e-be5a-91cd36c2cd6d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T08:03:41.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795161820.000000-c3963b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f7fc-a694-72b8-adf0-75bc3eb7052c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T08:04:52.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795161891.500000-45cc3e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f7fe-db08-74f1-8f15-056392536a5a",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T08:07:17.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795162036.000000-e26559"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f7ff-cb44-7288-875d-70f058206867",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T08:08:18.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795162097.500000-f4779b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f818-e700-7a93-b43d-36656bea9f75",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T08:35:44.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795163743.000000-c71788"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f819-d160-74ba-aa6a-5ae46f8125db",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T08:36:44.000Z",
+   "ended_at": "2026-11-20T08:41:06.000Z",
+   "is_staff": false,
+   "confidence": 0.797,
+   "frigate_event_ids": [
+    "1795161360.000000-f1aba9",
+    "1795163804.000000-c5bb2b",
+    "1795164066.000000-cbbc0b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f81b-11b0-74a1-9a22-09f5015834e1",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T08:38:06.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795163885.000000-baed4c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f81d-d0d0-7a49-b925-eea7f4f766d5",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T08:41:06.000Z",
+   "ended_at": "2026-11-20T08:42:49.000Z",
+   "is_staff": false,
+   "confidence": 0.755,
+   "frigate_event_ids": [
+    "1795163804.000000-c5bb2b",
+    "1795164066.000000-cbbc0b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f81f-8268-7a03-8100-6c8979083c98",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T08:42:57.000Z",
+   "ended_at": "2026-11-20T08:43:24.000Z",
+   "is_staff": false,
+   "confidence": 0.855,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795164177.000000-f31d86"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f820-209c-7ffd-8ffd-1e9c7ffa13f0",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T08:43:37.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795164216.500000-b65817"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f820-c0c4-7c0b-921e-b6a2e5776356",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T08:44:18.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795164257.500000-c2fe12"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f826-0a48-7d8d-9afc-affbf66b67ba",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T08:50:05.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795164604.000000-7a49cd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f827-3af8-7d03-ad2f-34eee94b1ecd",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T08:51:23.000Z",
+   "ended_at": "2026-11-20T08:51:52.000Z",
+   "is_staff": false,
+   "confidence": 0.63,
+   "frigate_event_ids": [
+    "1795164683.000000-7bd4b1"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f828-6d9c-71fe-b53d-12fddf84c21b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T08:52:41.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795164760.500000-f1ed6a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f833-1238-73d9-b075-e21054c7d5c2",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T09:04:19.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795165458.000000-b7ac30"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f834-3348-7510-99f3-be9aa9558b03",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T09:05:33.000Z",
+   "ended_at": "2026-11-20T09:06:28.000Z",
+   "is_staff": false,
+   "confidence": 0.865,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795165533.000000-9b992f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f835-a46c-7a13-a002-e7b5d30e5738",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T09:07:07.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795165626.500000-5a9529"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f846-28f0-70f1-9870-73b8d4eee22e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T09:25:10.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795166709.000000-94922a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f846-ec40-7bb9-9282-db5b6c8a46a8",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T09:26:00.000Z",
+   "ended_at": "2026-11-20T09:26:26.000Z",
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795166760.000000-4bca38"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f848-326c-7777-8e23-c72583b0cd96",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T09:27:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795166842.500000-05d7b0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f84d-4158-7822-ad55-f1c9161ab0ff",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T09:32:55.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795167174.000000-0fe09f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f84e-0890-74d4-bb8c-c25f1de07f9d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T09:33:46.000Z",
+   "ended_at": "2026-11-20T09:35:06.000Z",
+   "is_staff": false,
+   "confidence": 0.785,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795167226.000000-8c30fb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f850-120c-7919-80c3-e975639a5643",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T09:35:59.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795167358.500000-3cb56a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f851-d150-74bf-adcc-8304f1abab80",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T09:37:54.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795167473.000000-10e7b5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f855-c314-733e-9438-8d4972ade12b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T09:42:12.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795167731.500000-0ab375"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f868-a510-7999-a7cf-57244c364c36",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T10:02:50.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795168969.000000-49f2fb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f869-b298-7164-b5de-f611c9e150e5",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T10:03:59.000Z",
+   "ended_at": "2026-11-20T10:05:56.000Z",
+   "is_staff": false,
+   "confidence": 0.815,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795169039.000000-56e479"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f86b-e70c-7da7-9d61-a7054d1720e7",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T10:06:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795169182.500000-0218bb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f87b-8518-773e-9619-4b142ee33e35",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T10:23:27.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795170206.000000-8e4258"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f87d-cd14-7756-a6be-29e65170dc3f",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T10:25:56.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795170355.500000-00542a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f891-9588-7ad3-8e2b-9c9a069d6b07",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T10:47:33.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795171652.000000-589c29"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f891-ff00-7779-b1a3-5621e0b4cd47",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T10:48:00.000Z",
+   "ended_at": "2026-11-20T10:48:55.000Z",
+   "is_staff": false,
+   "confidence": 0.795,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795171680.000000-a3ca90"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f893-0a94-7f24-9115-2378f087b5fb",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T10:49:08.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795171747.500000-52be26"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f896-f0a0-7145-a021-e38ad35f411c",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T10:53:24.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795172003.000000-66c2f5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f897-b7d8-702f-8a3f-113e8671d970",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T10:54:15.000Z",
+   "ended_at": "2026-11-20T10:55:37.000Z",
+   "is_staff": false,
+   "confidence": 0.765,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795172055.000000-7c867f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f899-30cc-7893-8e4f-c8b8503f1a17",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T10:55:51.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795172150.500000-1c3bc6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f89e-37e8-7927-8825-7059909c8798",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T11:01:21.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795172480.000000-e4104a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f89e-eb98-7dcc-9217-7dfd78014bad",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T11:02:07.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795172526.000000-01461e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f89f-3f94-7468-aa37-8af7536b1b5c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T11:02:28.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795172547.500000-5b674d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f89f-6c80-799a-884d-95be6fbf4976",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T11:02:40.000Z",
+   "ended_at": "2026-11-20T11:04:06.000Z",
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795172560.000000-510f39"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8a1-81b4-7923-bddb-69e0a171659b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T11:04:56.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795172695.500000-77d35e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8b3-42a0-775d-a043-e684e3547455",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T11:24:20.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795173859.000000-8229a3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8b3-90c0-7cfd-90d0-0fe045c895f7",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T11:24:40.000Z",
+   "ended_at": "2026-11-20T11:25:02.000Z",
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795173880.000000-329060"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8b4-a03c-74e1-91cf-13add7a06317",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T11:25:49.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795173948.500000-83b19a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8bb-8fa0-70cc-be52-ac31b27f12bb",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T11:33:24.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795174403.000000-664c62"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8bc-cc08-7433-a10f-f5cacdbaae45",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T11:34:45.000Z",
+   "ended_at": "2026-11-20T11:38:20.000Z",
+   "is_staff": false,
+   "confidence": 0.847,
+   "frigate_event_ids": [
+    "1795164066.000000-cbbc0b",
+    "1795174485.000000-402256",
+    "1795174700.000000-a75b59"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8c0-13e0-7ab0-9b36-1da22b83a0b3",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T11:38:20.000Z",
+   "ended_at": "2026-11-20T11:39:32.000Z",
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795174485.000000-402256",
+    "1795174700.000000-a75b59"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8c1-b7cc-768e-8f0c-303366d78da0",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T11:40:07.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795174806.500000-70b576"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8c9-04f0-7e8d-a85d-93dc2ebd575d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T11:48:06.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795175285.000000-d08a2a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8cd-6be4-703e-aded-8e8575822901",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T11:52:54.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795175573.500000-406492"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8cd-a488-7bcf-b8f1-8791707e3ee6",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T11:53:09.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795175588.000000-95b8b6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8ce-0e00-7204-9eaf-b1d13bf022f2",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T11:53:36.000Z",
+   "ended_at": "2026-11-20T11:54:12.000Z",
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795175616.000000-5fd829"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8cf-1d7c-7d36-a876-d70419e2697a",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T11:54:45.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795175684.500000-04211a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8da-fe80-7047-92bd-95c222900977",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:07:44.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795176463.000000-2e9bb1"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8df-7ce4-763f-b415-4788df98a4be",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T12:12:38.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795176757.500000-0f5e6e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8ed-0b98-7d9e-9936-cc5bf689e066",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:27:27.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795177646.000000-ecf679"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8ed-6188-7bc4-b5cd-65d6a48bb75f",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T12:27:49.000Z",
+   "ended_at": "2026-11-20T12:29:41.000Z",
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795174700.000000-a75b59",
+    "1795177669.000000-1e5f84"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8ef-d094-732d-aba7-9ff6bd5010ea",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T12:30:28.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795177827.500000-4dc924"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8f3-02f0-7e89-bfad-ee91cb5f3f31",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:33:58.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795178037.000000-457036"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8f3-fcf0-7664-aea6-972fa8a2777d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T12:35:02.000Z",
+   "ended_at": "2026-11-20T12:36:51.000Z",
+   "is_staff": false,
+   "confidence": 0.875,
+   "frigate_event_ids": [
+    "1795174700.000000-a75b59",
+    "1795178102.000000-81e0ab"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8f5-4128-7c63-988f-116d9bc4eeed",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:36:25.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795178184.000000-83ab32"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8f6-3934-7c88-ba39-e1506e3ebc19",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T12:37:28.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795178247.500000-ec124e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8f6-75c0-727c-8630-b41be4f1a802",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T12:37:44.000Z",
+   "ended_at": "2026-11-20T12:39:07.000Z",
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795174700.000000-a75b59",
+    "1795178264.000000-0d35ad"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8f8-11dc-7c0c-9b1f-ff064b59798a",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T12:39:29.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795178368.500000-6f7af3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8fa-d6d8-76b0-b373-06fb9fed3356",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:42:31.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795178550.000000-a5e3f6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8fb-4438-7d15-abc2-948531916b8d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T12:42:59.000Z",
+   "ended_at": "2026-11-20T12:44:04.000Z",
+   "is_staff": false,
+   "confidence": 0.865,
+   "frigate_event_ids": [
+    "1795174700.000000-a75b59",
+    "1795178579.000000-6cff11"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f8fc-fbac-79d2-bd69-99050e37b50c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T12:44:51.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795178690.500000-f5c3c4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f903-7db0-77ef-8079-4cec4a6b069a",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:51:58.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795179117.000000-35dd7a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f906-0fe4-703c-8320-66b9e558681c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T12:54:46.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795179285.500000-fb1610"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f90a-a9a0-7699-b66c-e542a7c6232d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T12:59:48.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795179587.000000-6c6f28"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f90a-d880-7d7f-aabf-3d4c95b75956",
+   "type": "unattended",
+   "camera": "counter",
+   "started_at": "2026-11-20T13:00:00.000Z",
+   "ended_at": "2026-11-20T13:40:00.000Z",
+   "is_staff": false,
+   "confidence": 0.848,
+   "frigate_event_ids": [
+    "1795174700.000000-a75b59",
+    "1795179623.000000-22454e",
+    "1795179871.000000-67637e",
+    "1795182000.000000-038ae3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f90b-3258-71bb-80cd-6b50e41a9bd7",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T13:00:23.000Z",
+   "ended_at": "2026-11-20T13:04:23.000Z",
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795179623.000000-22454e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f90c-d838-7341-a91b-1619229502e6",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T13:02:11.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795179730.000000-53cdd7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f90e-fb18-7682-ad13-de92ac1e5ced",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T13:04:31.000Z",
+   "ended_at": "2026-11-20T13:08:31.000Z",
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795179871.000000-67637e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f90f-2fd4-7212-9501-fe449e7d5fb0",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T13:04:44.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795179883.500000-bfe6c7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f913-814c-7248-ba5c-a506cb6f5329",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T13:09:27.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795180166.500000-56823c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f91f-5698-723a-baaa-45d5b1a22d02",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T13:22:23.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795180942.000000-47570a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f921-063c-797b-b66a-5a2a1e5d2696",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T13:24:13.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795181052.500000-5f8185"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f933-4428-7e99-a5e6-507975f2cdf1",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T13:44:09.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795182248.000000-334a3e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f933-dc80-7d48-bfeb-6beed3bece64",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T13:44:48.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795182287.000000-8f97d0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f933-ffa8-7943-b754-6e5d1b6b49c3",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T13:44:57.000Z",
+   "ended_at": "2026-11-20T13:46:28.000Z",
+   "is_staff": false,
+   "confidence": 0.815,
+   "frigate_event_ids": [
+    "1795182000.000000-038ae3",
+    "1795182297.000000-2d5043"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f935-8260-79cf-81c1-3282403dbebe",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T13:46:36.000Z",
+   "ended_at": "2026-11-20T13:48:00.000Z",
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795182000.000000-038ae3",
+    "1795182396.000000-41ad81"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f935-bb04-76fd-9a1d-9d291121b4e0",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T13:46:50.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795182409.500000-6c8f2c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f937-840c-7eee-b0e0-40fdfdd9cb1c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T13:48:47.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795182526.500000-a0cb19"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f946-2048-76d9-82f8-ff65180230a5",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T14:04:45.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795183484.000000-97a580"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f947-0aa8-746c-8e27-2c1ac2244ca3",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T14:05:45.000Z",
+   "ended_at": "2026-11-20T14:06:10.000Z",
+   "is_staff": false,
+   "confidence": 0.755,
+   "frigate_event_ids": [
+    "1795182000.000000-038ae3",
+    "1795183545.000000-b36209"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f948-0a84-7d32-b7a3-415851196801",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T14:06:50.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795183609.500000-8f0772"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f956-9ef0-7dcb-a0e0-7dd237983361",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T14:22:46.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795184565.000000-530258"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f959-19b4-7189-a5d1-9ae6d724757a",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T14:25:28.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795184727.500000-0f5f11"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f961-35e0-7d96-bab3-4fe5b371ef54",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T14:34:20.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795185259.000000-0f5d29"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f962-04e8-79b8-97e0-35c100947ce2",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T14:35:13.000Z",
+   "ended_at": "2026-11-20T14:36:29.000Z",
+   "is_staff": false,
+   "confidence": 0.815,
+   "frigate_event_ids": [
+    "1795182000.000000-038ae3",
+    "1795185313.000000-66cca7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f963-bc5c-74dd-a91a-1dc8202855e2",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T14:37:05.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795185424.500000-5013b2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f972-5898-7e3c-ae07-dbab645a2b3b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T14:53:03.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795186382.000000-e1d7b4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f976-522c-712f-a4b1-b5d5abf6137c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T14:57:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795186642.500000-2fe1e1"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f977-6590-7ec0-92bb-e25a638ceef6",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T14:58:34.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795186713.000000-6e403c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f979-72f4-7980-9421-12aea099102f",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:00:48.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795186847.500000-94e094"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f97c-a550-7d06-af9d-80b83229c493",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:04:18.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795187057.000000-f07f8d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f97d-b2d8-783d-8495-ba78775a123c",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:05:27.000Z",
+   "ended_at": "2026-11-20T15:10:04.000Z",
+   "is_staff": false,
+   "confidence": 0.857,
+   "frigate_event_ids": [
+    "1795182000.000000-038ae3",
+    "1795187127.000000-37f51a",
+    "1795187404.000000-f497e4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f981-ece0-7e5b-b380-912938798f53",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:10:04.000Z",
+   "ended_at": "2026-11-20T15:10:28.000Z",
+   "is_staff": false,
+   "confidence": 0.845,
+   "frigate_event_ids": [
+    "1795187127.000000-37f51a",
+    "1795187404.000000-f497e4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f983-0bfc-70d6-a8dc-ae743fbbfb9f",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:11:17.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795187476.500000-699127"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f983-92c0-7985-b50d-cf82443ae836",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:11:52.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795187511.000000-1431a9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f984-7d20-7c03-8f3d-2b4968705ff2",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:12:52.000Z",
+   "ended_at": "2026-11-20T15:14:28.000Z",
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795187404.000000-f497e4",
+    "1795187572.000000-5545fe"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f986-3c64-759a-9e3c-15f4a0fe4b4b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:14:46.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795187685.500000-116d73"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f98d-ef18-7242-9825-35560eb6bdd4",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:23:11.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795188190.000000-1462e1"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f98f-40fc-73fc-b72f-c5972465f08e",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:24:37.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795188276.500000-bfbd71"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f994-9250-7687-ba13-8a411d5ba8d0",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:30:26.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795188625.000000-0a8a15"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f995-da70-74bb-b496-64e9ab779b3b",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:31:50.000Z",
+   "ended_at": "2026-11-20T15:32:19.000Z",
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795187404.000000-f497e4",
+    "1795188710.000000-97b5f1"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f996-f1bc-7d21-9fdc-080e12778d97",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:33:01.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795188780.500000-98c1af"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f998-dfe0-7ed8-a047-b2911261d670",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:35:08.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795188907.000000-e976c9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f999-aee8-787b-94e7-e230ad9968c1",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:36:01.000Z",
+   "ended_at": "2026-11-20T15:40:13.000Z",
+   "is_staff": false,
+   "confidence": 0.793,
+   "frigate_event_ids": [
+    "1795187404.000000-f497e4",
+    "1795188961.000000-5844b1",
+    "1795189213.000000-35213e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f99d-8748-7e58-8f5b-fc9bbeb77255",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:40:13.000Z",
+   "ended_at": "2026-11-20T15:42:08.000Z",
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795188961.000000-5844b1",
+    "1795189213.000000-35213e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f99d-c1e0-7e28-8975-a0e646cd9678",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:40:28.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795189227.000000-28ae25"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f99f-1d88-73d2-ba20-373c91af6076",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:41:57.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795189316.000000-c5fd80"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f99f-67c0-7cb2-98df-8beb8200abb8",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:42:16.000Z",
+   "ended_at": "2026-11-20T15:42:45.000Z",
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795189336.000000-b7185a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9a0-197c-7e0d-ae4b-87f697472d1d",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:43:01.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795189380.500000-1d5cb8"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9a0-38bc-7739-bcd2-8faa74d1af8a",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:43:09.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795189388.500000-ba45bb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9a0-4a50-7f63-863c-d204a1708333",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T15:43:14.000Z",
+   "ended_at": "2026-11-20T15:44:10.000Z",
+   "is_staff": false,
+   "confidence": 0.765,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795189394.000000-adb42d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9a1-790c-7f4f-99ba-ea8aedfed3de",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T15:44:31.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795189470.500000-6cdf10"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9ad-c770-7884-874d-b51917b9f590",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T15:57:58.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795190277.000000-a4a0c9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9b0-3294-7180-8781-723643e1b063",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T16:00:36.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795190435.500000-9fe04e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9b8-e330-7b54-a91e-aa4cb9bc6440",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T16:10:06.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795191005.000000-2de688"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9b9-cd90-7aae-bb5f-0b06a739a8b9",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T16:11:06.000Z",
+   "ended_at": "2026-11-20T16:11:36.000Z",
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795191066.000000-a212a9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9ba-69d0-7cf7-bc47-1dbf593eae2d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T16:11:46.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795191105.000000-4ba487"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9ba-777c-7818-a187-8737bf017018",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T16:11:49.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795191108.500000-239d51"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9bb-b1f0-74a7-938c-20d8ff3bed44",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T16:13:10.000Z",
+   "ended_at": "2026-11-20T16:13:46.000Z",
+   "is_staff": false,
+   "confidence": 0.805,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795191190.000000-1de213"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9bc-d8dc-793a-94dc-22b43dacfe2e",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T16:14:25.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795191264.500000-ebd742"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9c8-19b8-728e-8fa6-69142c3b7cd4",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T16:26:43.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795192002.000000-f98d6e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9c9-0418-7461-83e3-cfc1daf80971",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T16:27:43.000Z",
+   "ended_at": "2026-11-20T16:28:21.000Z",
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795192063.000000-f378bd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9ca-0bc4-7c15-9905-3408a1b93930",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T16:28:50.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795192129.500000-c037b5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9dc-3df8-79d3-9c26-6508bff99e88",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T16:48:43.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795193322.000000-101fbf"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1f9de-050c-77ee-8093-f149d566f341",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T16:50:39.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795193438.500000-698c04"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa12-f1e0-7c43-97ae-642b2fca8a5b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T17:48:28.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795196907.000000-ee3e71"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa13-a590-7782-885b-c8ba35a17685",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T17:49:14.000Z",
+   "ended_at": "2026-11-20T17:49:34.000Z",
+   "is_staff": false,
+   "confidence": 0.845,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795196954.000000-6eb0cd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa14-2484-793f-87f1-fd7d2e01388d",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T17:49:46.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795196985.500000-c274e3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1b-2388-7ffa-b4fe-1f767680812b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T17:57:25.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795197444.000000-942f8b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1b-90e8-7807-b6cb-13a888515c8d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T17:57:53.000Z",
+   "ended_at": "2026-11-20T17:59:08.000Z",
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795197473.000000-6144ae"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1d-773c-721a-ab97-6b0c273a833d",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T17:59:57.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795197596.500000-a7fdd0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1d-b7b0-715a-ae72-df3889a40f35",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:00:14.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795197613.000000-5f2b1a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1d-d6f0-75ab-a58a-8f57c3ee6414",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:00:22.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795197621.000000-840881"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1e-a9e0-7242-a57b-6c0e2885edb4",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:01:16.000Z",
+   "ended_at": "2026-11-20T18:02:42.000Z",
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795197676.000000-a992dc"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1f-2ac8-7b64-a4c2-682a78337bc0",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:01:49.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795197708.000000-c24f94"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa1f-abb0-7d9e-b84b-78e405636c09",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:02:22.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795197741.000000-33374a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa20-1910-7296-817f-db31eca66b73",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:02:50.000Z",
+   "ended_at": "2026-11-20T18:04:42.000Z",
+   "is_staff": false,
+   "confidence": 0.765,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795197770.000000-f08814"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa20-3a44-7ea7-aadd-6cc480cc9ec1",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:02:58.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795197777.500000-1f8cd7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa21-edd0-7521-bb28-96186a1df4b8",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:04:50.000Z",
+   "ended_at": "2026-11-20T18:05:41.000Z",
+   "is_staff": false,
+   "confidence": 0.795,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795197890.000000-609c79"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa22-ab44-7b02-91e1-c8d86edd4f86",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:05:38.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795197937.500000-afbaa2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa22-d448-7d35-8d13-34aaccfa1e17",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:05:49.000Z",
+   "ended_at": "2026-11-20T18:07:14.000Z",
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795197949.000000-62c1d3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa22-fd4c-77df-b4b2-98c540ece817",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:05:59.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795197958.500000-c881df"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa23-16b0-708e-a176-d91f6ed1eff8",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:06:06.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795197965.000000-bcb5c8"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa23-16b0-726b-b125-08e6cb50857d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:06:06.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795197965.000000-d9d5fb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa23-3208-7df1-91cd-de0758bde8cd",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:06:13.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795197972.000000-789a72"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa23-ed88-7413-b5ee-3a7684d2ef97",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:07:01.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795198020.000000-9e61b7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa24-3f90-704e-b9d7-9e47be1b5960",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:07:22.000Z",
+   "ended_at": "2026-11-20T18:08:51.000Z",
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198042.000000-af7717"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa24-938c-7170-a51c-303994dda557",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:07:43.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795198062.500000-792993"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa25-ba78-714b-972b-a41862e17e4f",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:08:59.000Z",
+   "ended_at": "2026-11-20T18:10:42.000Z",
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198139.000000-51158b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa26-319c-7f06-b3ec-71a970dc5cc9",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:09:29.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795198168.500000-2c5174"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa26-6270-79d2-9a06-af4cffa9cd1e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:09:42.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795198181.000000-630540"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa27-25c0-7bdb-8919-56bf77816f54",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:10:32.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795198231.000000-179ac6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa27-6c10-7ad3-a06e-803b8bfa3d6c",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:10:50.000Z",
+   "ended_at": "2026-11-20T18:11:23.000Z",
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198250.000000-330119"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa28-0274-7afe-be28-fc19f216ff17",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:11:28.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795198287.500000-f975cb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa28-0c38-7754-9d09-a435ba7d6fba",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:11:31.000Z",
+   "ended_at": "2026-11-20T18:12:34.000Z",
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198291.000000-431fcd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa28-b23c-778a-b32e-088aa1a2bf13",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:12:13.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795198332.500000-62544f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa29-2190-7493-bf2f-6cbc9e1f90de",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:12:42.000Z",
+   "ended_at": "2026-11-20T18:14:05.000Z",
+   "is_staff": false,
+   "confidence": 0.745,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198362.000000-7be492"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa29-852c-75c8-a253-2b0777eac3f7",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:13:07.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795198386.500000-120036"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa29-8ef0-7199-a3e2-7c7a4a623e3a",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:13:10.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795198389.000000-fe491e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa29-b600-7643-a2b8-eb44056f1d51",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:13:20.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795198399.000000-899760"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa29-e8c8-7e68-9dd0-79fc5db6efcf",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:13:33.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795198412.000000-5ead09"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2a-8508-7e72-951c-9aaacf84eeff",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:14:13.000Z",
+   "ended_at": "2026-11-20T18:15:51.000Z",
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198453.000000-fd3234"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2a-f45c-77c8-b929-8d56204d9125",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:14:41.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795198480.500000-954208"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2b-5fc8-72ed-b922-4e94406a5194",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:15:09.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795198508.000000-eef7c9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2c-2318-7efc-8438-caafdc8e31b7",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:15:59.000Z",
+   "ended_at": "2026-11-20T18:17:10.000Z",
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198559.000000-1cdd7e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2c-4e10-7d9c-a973-cac59f9bc344",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:16:10.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795198569.000000-f73140"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2c-7714-74db-ad48-0d3080110713",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:16:20.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795198579.500000-dfc5e0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2c-82cc-754a-ae29-fcea5b90970d",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:16:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795198582.500000-b84b87"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2d-57b0-71b9-9c22-c0b53fc42df4",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:17:18.000Z",
+   "ended_at": "2026-11-20T18:19:07.000Z",
+   "is_staff": false,
+   "confidence": 0.835,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198638.000000-ef998f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2d-d0c8-7d0b-bfd1-87af10859f4a",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:17:49.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795198668.000000-870d83"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2e-0584-70b7-bd6d-c21cfe43f8c3",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:18:02.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795198681.500000-f4214b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2f-20b8-75ef-971a-79d08d1f583d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:19:15.000Z",
+   "ended_at": "2026-11-20T18:21:00.000Z",
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198755.000000-35d75e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2f-45d4-7230-8828-9fbbb1cb08a4",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:19:24.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795198763.500000-1a712e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa2f-6514-783d-ac4b-7e6e845b690b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:19:32.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795198771.500000-147626"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa30-da20-7fda-a8da-1ee1c5e8e0e5",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:21:08.000Z",
+   "ended_at": "2026-11-20T18:21:43.000Z",
+   "is_staff": false,
+   "confidence": 0.865,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795198868.000000-4336d7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa31-8024-782a-ab54-b29da9710605",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:21:50.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795198909.500000-ddc7a3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa31-c28c-7747-9a83-cb7f593beb23",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:22:07.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795198926.500000-ec6014"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa33-7de8-74da-9c9b-50aaa23d9273",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:24:01.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795199040.000000-aa93cd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa33-d3d8-729e-9d91-fca57df68c66",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:24:23.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795199062.000000-453e1d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa33-f318-71bd-9bfe-c6716af2d0ab",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:24:31.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795199070.000000-285b39"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa34-1e10-77ac-9079-c58bda502144",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:24:42.000Z",
+   "ended_at": "2026-11-20T18:26:16.000Z",
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199082.000000-95f4c9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa34-a2e0-7b0a-b1ec-dea75341b122",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:25:16.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795199115.000000-f53cdf"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa35-50b4-7c5b-b985-5882b3878c24",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:26:00.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795199159.500000-44ba6f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa35-ac80-786c-90d6-18a56744ae22",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:26:24.000Z",
+   "ended_at": "2026-11-20T18:28:10.000Z",
+   "is_staff": false,
+   "confidence": 0.805,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199184.000000-633750"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa36-0c34-79a7-b92f-cfd4d744147d",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:26:48.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795199207.500000-e367bf"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa36-2980-7627-80f0-dd23eb68fcbb",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:26:56.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795199215.000000-f3d32c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa36-3538-7846-9b0c-1549f490b92e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:26:59.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795199218.000000-f1e394"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa36-e500-776d-a23f-982981d49e9d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:27:44.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795199263.000000-202379"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa37-69d0-7f98-aad5-0b5fe3ec2323",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:28:18.000Z",
+   "ended_at": "2026-11-20T18:29:16.000Z",
+   "is_staff": false,
+   "confidence": 0.865,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199298.000000-bd7d1b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa38-2b2c-7c3c-a67a-9110df821b32",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:29:07.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795199346.500000-26b9d0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa38-4c60-7d13-bd77-f2135fe103a4",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:29:16.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795199355.000000-deee96"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa38-6ba0-7f49-9ad6-68035e35a553",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:29:24.000Z",
+   "ended_at": "2026-11-20T18:29:57.000Z",
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795199364.000000-c933eb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa38-8cd4-794f-a2bd-fad7a1efabf8",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:29:32.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795199371.500000-dc50ea"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa38-f070-7826-9947-8c93b9b1f821",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:29:58.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795199397.000000-36d358"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa39-0bc8-75b4-b03f-5a0c26d9ae54",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:30:05.000Z",
+   "ended_at": "2026-11-20T18:31:41.000Z",
+   "is_staff": false,
+   "confidence": 0.815,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199405.000000-c3fe4c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa39-30e4-7e22-aa13-ff26d728b7bf",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:30:14.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795199413.500000-1e2e82"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa39-3aa8-7bf9-b9db-6fb383ff49d9",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:30:17.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795199416.000000-07a2df"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa39-7f04-7912-90bc-ca13a616a5e0",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:30:34.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795199433.500000-4a0ee5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa39-c748-7a39-abfd-51e69a3003fa",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:30:53.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795199452.000000-96122b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3a-a208-763b-94f1-79f713701145",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:31:49.000Z",
+   "ended_at": "2026-11-20T18:32:51.000Z",
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199509.000000-e8428b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3b-6b34-7565-a268-2576255fcb55",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:32:40.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795199559.500000-786104"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3b-af90-78a8-b8b6-578182bd9176",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:32:58.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795199577.000000-f82c9c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3b-b378-7832-89bf-5d1784b180ef",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:32:59.000Z",
+   "ended_at": "2026-11-20T18:34:54.000Z",
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199579.000000-6d1d6c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3c-038c-76fe-98fe-2f705c6495df",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:33:19.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795199598.500000-241a6a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3c-6ef8-72bc-9954-e8ac43ac402e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:33:47.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795199626.000000-922418"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3d-2690-7a9c-af70-785c8ee06c59",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:34:34.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795199673.000000-30d830"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3d-8644-7fcb-9b21-398815890066",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:34:58.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795199697.500000-d6403d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3d-93f0-7e87-a1f6-93af30d6aeeb",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:35:02.000Z",
+   "ended_at": "2026-11-20T18:35:31.000Z",
+   "is_staff": false,
+   "confidence": 0.785,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199702.000000-c081ed"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3d-ebd4-7523-95c0-ca1537fd7225",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:35:24.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795199723.500000-6ca5a2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3e-2478-77b7-8e80-ccbd366544bd",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:35:39.000Z",
+   "ended_at": "2026-11-20T18:36:51.000Z",
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199739.000000-e765a5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3e-5358-7dda-ad74-7954e1aed507",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:35:51.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795199750.000000-89f588"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3e-e1ec-7fdd-a3fe-b32276caa9cf",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:36:27.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795199786.500000-34d2f3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3f-5cf8-73b2-8a54-05cc30935ef1",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:36:59.000Z",
+   "ended_at": "2026-11-20T18:37:35.000Z",
+   "is_staff": false,
+   "confidence": 0.785,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199819.000000-69d9d9"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3f-9d6c-7367-a1fe-1d3597ee6462",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:37:15.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795199834.500000-3d1a92"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa3f-af00-702a-a43f-a9a51af323a6",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:37:20.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795199839.000000-82bc16"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa40-08d8-7b7a-a8f0-b44c12d5b7a7",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:37:43.000Z",
+   "ended_at": "2026-11-20T18:38:34.000Z",
+   "is_staff": false,
+   "confidence": 0.875,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199863.000000-f09764"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa40-223c-7488-af62-5e98cb45c447",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:37:49.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795199868.500000-ecd683"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa40-ef50-7995-bab9-454e62ccb5a9",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:38:42.000Z",
+   "ended_at": "2026-11-20T18:40:19.000Z",
+   "is_staff": false,
+   "confidence": 0.745,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795199922.000000-088589"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa41-81cc-7a8d-9b97-2edcd36e5a4e",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:39:19.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795199958.500000-45f2e3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa42-8978-78df-b81a-e205d6acab01",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:40:27.000Z",
+   "ended_at": "2026-11-20T18:41:50.000Z",
+   "is_staff": false,
+   "confidence": 0.775,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200027.000000-f6615a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa43-1bf4-7e76-9ec7-d8a51b0c3f46",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:41:04.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795200063.500000-437b49"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa44-0460-72c8-a378-e28cbbfe421e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:42:04.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795200123.000000-b65408"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa44-873c-7d67-bfb2-967fc5408ede",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:42:37.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795200156.500000-3fee1b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa44-bbf8-7fe2-b521-610853d01b29",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:42:51.000Z",
+   "ended_at": "2026-11-20T18:43:45.000Z",
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200171.000000-78cda2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa44-cf80-7d9a-8546-1c413f63d126",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:42:56.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795200175.000000-7ebb90"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa44-fe60-7b57-b4ff-3959790e395e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:43:08.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795200187.000000-5efe4b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa45-ae28-77b8-8faa-7bf273aa529b",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:43:53.000Z",
+   "ended_at": "2026-11-20T18:45:34.000Z",
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200233.000000-a91152"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa45-cd68-7c83-b453-ef4d35f99b2d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:44:01.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795200240.000000-d73113"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa46-736c-7bfa-8cb9-7dfad4738992",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:44:43.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795200282.500000-7e85b4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa46-9c70-79c9-bda0-9ab3ec8ed96a",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:44:54.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795200293.000000-4391cc"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa46-e0cc-775b-82a3-0b6cb6b52a9b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:45:11.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795200310.500000-c5f29d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa47-57f0-7b37-937e-2b7c8bea142a",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:45:42.000Z",
+   "ended_at": "2026-11-20T18:46:20.000Z",
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200342.000000-ba2593"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa47-7d0c-7369-aeb9-848101336a8a",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:45:51.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795200350.500000-e1e930"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa48-0ba0-74da-9312-da4e9e53939e",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:46:28.000Z",
+   "ended_at": "2026-11-20T18:48:10.000Z",
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200388.000000-619844"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa48-b58c-7a77-a039-2bb370629962",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:47:11.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795200430.500000-e0a455"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa48-c338-75a6-8c94-660b9fab4a45",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:47:15.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795200434.000000-a527b5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa49-bd38-7516-bb08-5f3f0beb87c4",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:48:19.000Z",
+   "ended_at": "2026-11-20T18:48:45.000Z",
+   "is_staff": false,
+   "confidence": 0.64,
+   "frigate_event_ids": [
+    "1795200499.000000-f79784"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4a-1ee0-73e2-86f4-e57e1c8c4714",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:48:44.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795200523.000000-7bb204"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4a-5784-72b9-b93d-99481c97401c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:48:58.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795200537.500000-8eaaf0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4a-b544-73bf-845f-0853313f8409",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:49:22.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795200561.500000-f3733d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4b-20b0-7971-8369-c9d2f9a4704e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:49:50.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795200589.000000-c1373e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4b-362c-72a9-8447-5e1d69d83c45",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:49:55.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795200594.500000-94d68a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4b-8e10-7e49-8f92-9c7db9b82b72",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:50:18.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795200617.000000-8ff3f7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4c-2280-7387-8827-2035666e6441",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:50:56.000Z",
+   "ended_at": "2026-11-20T18:52:00.000Z",
+   "is_staff": false,
+   "confidence": 0.805,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200656.000000-7ff9d7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4d-0ce0-7322-bfde-a65a66b85e4f",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:51:56.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795200715.000000-b37747"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4d-3bc0-7635-a9af-82f0ae1b6d09",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:52:08.000Z",
+   "ended_at": "2026-11-20T18:52:42.000Z",
+   "is_staff": false,
+   "confidence": 0.805,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200728.000000-6c5cc3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4d-93a4-7158-88f2-9cfc677309c6",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:52:30.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795200749.500000-19a96d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4d-dfd0-7af6-a996-8978b7e5997d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:52:50.000Z",
+   "ended_at": "2026-11-20T18:54:08.000Z",
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200770.000000-9ecdf0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4e-8da4-7851-a62e-5502720ef830",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:53:34.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795200813.500000-3d9ae6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4f-7bec-73c5-9af4-8d55a27e1f11",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:54:35.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795200874.500000-5d20eb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa4f-df88-7ef4-8daa-957a47cfa19b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:55:01.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795200900.000000-ed2bc4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa50-d1b8-72f6-ae93-1beaa7e0413e",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:56:03.000Z",
+   "ended_at": "2026-11-20T18:56:52.000Z",
+   "is_staff": false,
+   "confidence": 0.885,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795200963.000000-4b089e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa51-e904-7726-b1fc-55adac277ce6",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:57:14.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795201033.500000-c13075"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa51-eee0-7be9-8107-0ad5d1d3a925",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:57:16.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795201035.000000-9d67b7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa52-b618-7469-a52b-95a82c9dc40a",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T18:58:07.000Z",
+   "ended_at": "2026-11-20T18:59:02.000Z",
+   "is_staff": false,
+   "confidence": 0.835,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795201087.000000-be1287"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa53-0ff0-7c76-93e4-155e72198cf4",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:58:30.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795201109.000000-5a4070"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa53-cd64-7200-8388-a6c465a58bb4",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T18:59:18.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795201157.500000-c4331a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa54-4488-7481-8a78-cddde112af5f",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T18:59:49.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795201188.000000-577ceb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa55-0bc0-7a72-8ce4-5acdbc26a314",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:00:40.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795201239.000000-e819eb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa55-8ca8-757a-96bf-d82d7ce21ef9",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:01:13.000Z",
+   "ended_at": "2026-11-20T19:03:10.000Z",
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795201273.000000-c4e954"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa56-9a30-7092-85db-f3daf04068fc",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:02:22.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795201341.000000-ff11b6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa56-afac-7065-a963-fed1a1e44969",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:02:27.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795201346.500000-ed6b48"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa57-4228-72b0-abc0-4a21ec9492ba",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:03:05.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795201384.000000-4a62f5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa57-74f0-7365-9608-338699e48d9c",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:03:18.000Z",
+   "ended_at": "2026-11-20T19:03:46.000Z",
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795201398.000000-7f3e29"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa57-ec14-71d6-a17e-51a5f656ffeb",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:03:48.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795201427.500000-2a9ee4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa58-0190-74c9-abbb-1f174e07b1fd",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:03:54.000Z",
+   "ended_at": "2026-11-20T19:04:31.000Z",
+   "is_staff": false,
+   "confidence": 0.785,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795201434.000000-30ee0d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa58-364c-7820-b68b-31df5eb974c5",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:04:07.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795201446.500000-1c60fc"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa58-e22c-7fa4-9812-fea1eea1d2e4",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:04:51.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.95,
+   "frigate_event_ids": [
+    "1795201490.500000-4d659a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa58-f5b4-7b0f-8ede-ff2f0c0c91d4",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:04:56.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795201495.500000-161582"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa58-f7a8-7ccf-a0c0-13dbd3e7cc8c",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:04:57.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795201496.000000-4c7ce4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa59-97d0-7f00-9a19-a6db3a494d5b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:05:38.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795201537.000000-317f0a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5a-37f8-7d15-9e88-63a0df03fce9",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:06:19.000Z",
+   "ended_at": "2026-11-20T19:08:09.000Z",
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795201579.000000-57cc55"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5b-2258-7b00-a61d-30ec983dd055",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:07:19.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795201638.000000-b3fe8d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5c-04e8-7c88-984f-d42f55571cc4",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:08:17.000Z",
+   "ended_at": "2026-11-20T19:10:09.000Z",
+   "is_staff": false,
+   "confidence": 0.855,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795201697.000000-c75e13"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5c-261c-74ca-9a97-8ca2a04b3503",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:08:25.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795201704.500000-4a8804"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5c-9d40-7eaa-8750-d7eff9407ccd",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:08:56.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795201735.000000-65c4f4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5d-d9a8-71f4-8b61-3f7938f7bacd",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:10:17.000Z",
+   "ended_at": "2026-11-20T19:10:47.000Z",
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795201817.000000-b7fd85"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5e-0694-75fc-b550-311b798ed32f",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:10:28.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.93,
+   "frigate_event_ids": [
+    "1795201827.500000-e9479a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5e-6e18-7bbc-9c56-3bccd5f32db9",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:10:55.000Z",
+   "ended_at": "2026-11-20T19:15:09.000Z",
+   "is_staff": false,
+   "confidence": 0.803,
+   "frigate_event_ids": [
+    "1795189213.000000-35213e",
+    "1795201855.000000-0e68dc",
+    "1795202109.000000-e50328"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5e-9b04-7201-b300-4671f6030918",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:11:06.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795201865.500000-3ad706"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa5e-a0e0-7ebc-8add-11f6e30fd388",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:11:08.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795201867.000000-5eb4a2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa60-17e0-76bd-8d94-f4db0e7b7ab6",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:12:44.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795201963.000000-640549"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa61-cb6c-71b3-ab19-a3e64107d11e",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:14:35.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795202074.500000-2548f1"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa62-0be0-797f-b805-2386aa460a23",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:14:52.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795202091.000000-067901"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa62-4e48-7df7-befe-c31bc719a8bd",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:15:09.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795202108.000000-9bf0bd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa62-4e48-7f1a-9c24-c3359490474a",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:15:09.000Z",
+   "ended_at": "2026-11-20T19:15:50.000Z",
+   "is_staff": false,
+   "confidence": 0.765,
+   "frigate_event_ids": [
+    "1795201855.000000-0e68dc",
+    "1795202109.000000-e50328"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa62-b7c0-76e1-8a87-a6e69f64714a",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:15:36.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795202135.000000-cf65fd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa63-0db0-708b-8bf3-cae61261b2d5",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:15:58.000Z",
+   "ended_at": "2026-11-20T19:20:23.000Z",
+   "is_staff": false,
+   "confidence": 0.857,
+   "frigate_event_ids": [
+    "1795202109.000000-e50328",
+    "1795202158.000000-6b78bd",
+    "1795202423.000000-40a204"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa63-3a9c-7203-8862-86d383bcd49b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:16:09.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795202168.500000-da16c2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa65-6740-76e7-9269-6d915743ee1e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:18:32.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795202311.000000-bf961b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa67-18d8-7c02-824f-90ffb9121feb",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:20:23.000Z",
+   "ended_at": "2026-11-20T19:22:03.000Z",
+   "is_staff": false,
+   "confidence": 0.845,
+   "frigate_event_ids": [
+    "1795202158.000000-6b78bd",
+    "1795202423.000000-40a204"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa67-8250-79d3-8327-dedc59728e16",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:20:50.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795202449.000000-44ad6e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa68-beb8-7d00-9e10-5d0f35a0a43a",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:22:11.000Z",
+   "ended_at": "2026-11-20T19:22:45.000Z",
+   "is_staff": false,
+   "confidence": 0.815,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202531.000000-c22eb4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa69-1890-7ed0-b44e-09dacf1b99fa",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:22:34.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795202553.000000-395a92"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa69-2e0c-796d-8768-c7000e96f94b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:22:39.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795202558.500000-e77010"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa69-5904-76da-a4c1-bc49c9c4ab59",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:22:50.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795202569.500000-76220c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa69-62c8-7cd8-ba0c-8dd48584eaff",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:22:53.000Z",
+   "ended_at": "2026-11-20T19:23:43.000Z",
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202573.000000-0ff467"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa69-83fc-7cb0-b180-e8e8b7ae64e1",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:23:01.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795202580.500000-46dfb0"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6a-4558-75ad-8f0f-65774c2d286d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:23:51.000Z",
+   "ended_at": "2026-11-20T19:24:52.000Z",
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202631.000000-af1b8f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6a-6498-7055-bf7e-0261234240c3",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:23:59.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795202638.000000-d2a8db"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6a-ce10-7e4b-b820-c11d4970a80f",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:24:26.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795202665.000000-c63de8"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6b-0a9c-7236-896c-77e2435fe616",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:24:41.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795202680.500000-e9f776"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6b-52e0-74df-a93e-bcbe04ab1f51",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:25:00.000Z",
+   "ended_at": "2026-11-20T19:26:29.000Z",
+   "is_staff": false,
+   "confidence": 0.835,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202700.000000-f5331c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6c-1ff4-7a68-ad0d-14552935033f",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:25:52.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.94,
+   "frigate_event_ids": [
+    "1795202751.500000-fb7e20"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6c-21e8-7147-99da-3d44e160ce81",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:25:53.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795202752.000000-eca3e3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6c-21e8-79cd-b118-7f63710bf296",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:25:53.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795202752.000000-c6c838"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6c-cdc8-721e-b50d-37a318b85b93",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:26:37.000Z",
+   "ended_at": "2026-11-20T19:27:56.000Z",
+   "is_staff": false,
+   "confidence": 0.835,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202797.000000-cf439b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6d-4104-738a-b5cc-993664b4007e",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:27:06.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795202825.500000-5da3a2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6d-4ac8-7682-a1b3-c0a7d70300ea",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:27:09.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795202828.000000-22635e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6e-21a0-7c11-b106-b2ac2d656d80",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:28:04.000Z",
+   "ended_at": "2026-11-20T19:29:46.000Z",
+   "is_staff": false,
+   "confidence": 0.795,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202884.000000-e1fde3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6e-40e0-7c44-a853-00bf6ec759bf",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:28:12.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795202891.000000-220611"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6e-6214-7f4c-ba11-bddfa89410a5",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:28:20.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795202899.500000-ae76ed"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6e-9ab8-7fe8-aa6a-32e1efe958e8",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:28:35.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795202914.000000-59bbf6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6f-2758-7dc3-91ce-0946ecf5b96f",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:29:11.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795202950.000000-bacf52"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6f-3ae0-7287-813d-62c246643f86",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:29:16.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795202955.000000-20e12b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa6f-cf50-7b4f-93e8-d954455bee3c",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:29:54.000Z",
+   "ended_at": "2026-11-20T19:31:30.000Z",
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795202994.000000-6cd79a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa70-987c-73d5-9e5a-5d0e1098a849",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:30:45.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.73,
+   "frigate_event_ids": [
+    "1795203044.500000-9b0653"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa71-6590-7ded-8ad1-07117ec0af5d",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:31:38.000Z",
+   "ended_at": "2026-11-20T19:32:39.000Z",
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203098.000000-2e0d1b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa71-f424-7181-95f2-f66f1f471270",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:32:14.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795203133.500000-3fad85"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa72-7318-79a7-82db-913f86035eda",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:32:47.000Z",
+   "ended_at": "2026-11-20T19:34:02.000Z",
+   "is_staff": false,
+   "confidence": 0.79,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203167.000000-2af371"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa72-7cdc-771e-a097-90deb25ddfb2",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:32:49.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795203168.500000-68b127"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa72-9834-79c1-b195-c6c4d5bc9a5e",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:32:56.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795203175.500000-0aecd5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa73-2e98-74de-9543-8beee716b34e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:33:35.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795203214.000000-22d996"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa73-7100-7879-8153-00bca6d36ab4",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:33:52.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795203231.000000-46e360"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa73-b750-70b4-a6b9-10b01463c5ed",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:34:10.000Z",
+   "ended_at": "2026-11-20T19:35:06.000Z",
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203250.000000-bc80f5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa74-1ce0-7d56-8ff2-e06f1731076d",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:34:36.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795203275.000000-4c74b5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa74-45e4-76d6-9765-01e07974eeee",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:34:46.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795203285.500000-36b6f5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa74-b150-7973-bf19-e1eacf07b8a3",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:35:14.000Z",
+   "ended_at": "2026-11-20T19:36:54.000Z",
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203314.000000-4bca41"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa74-f3b8-70ed-8ad6-6a2e731240c5",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:35:31.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795203330.000000-97f6ac"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa75-2298-7cc1-8f5c-7f4d3ea58529",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:35:43.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.71,
+   "frigate_event_ids": [
+    "1795203342.000000-e44ab5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa75-3044-742f-8dfc-f2547b00d52a",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:35:46.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795203345.500000-ac71fd"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa76-5730-7a92-875d-f24e59bcf4f9",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:37:02.000Z",
+   "ended_at": "2026-11-20T19:38:08.000Z",
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203422.000000-d7c825"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa76-e3d0-7062-9f73-a90d42f632d6",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:37:38.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795203457.000000-ce7521"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa77-011c-7ea0-8e41-24338e55df96",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:37:45.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795203464.500000-9a0816"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa77-7840-7281-8a61-b17b09ba70a6",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:38:16.000Z",
+   "ended_at": "2026-11-20T19:39:54.000Z",
+   "is_staff": false,
+   "confidence": 0.865,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203496.000000-afd551"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa78-2de4-7d0e-9b46-fbcbf837132c",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:39:02.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795203541.500000-4060f6"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa78-9180-7b2b-87e2-e8ea7d94b146",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:39:28.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795203567.000000-52f44e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa78-c448-77b6-8f87-e9712c3796fa",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:39:41.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795203580.000000-b10636"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa79-1650-7f9c-9dbc-ab762741dec7",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:40:02.000Z",
+   "ended_at": "2026-11-20T19:41:11.000Z",
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203602.000000-b4767d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa79-79ec-792b-b9ce-17454a81aaa6",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:40:27.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795203626.500000-dde110"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa79-83b0-7135-aeab-bb1edf7724dd",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:40:30.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795203629.000000-8356fb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7a-4318-7cc2-91e5-94914b7449dd",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:41:19.000Z",
+   "ended_at": "2026-11-20T19:41:49.000Z",
+   "is_staff": false,
+   "confidence": 0.795,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203679.000000-df979f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7a-c20c-7708-99fe-8799fa891ab1",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:41:51.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795203710.500000-fd3b58"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7a-d788-7e3f-97b7-61dcbd550f47",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:41:57.000Z",
+   "ended_at": "2026-11-20T19:42:48.000Z",
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203717.000000-bfad0e"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7a-df58-778e-bad3-ac278e506bbb",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:41:59.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795203718.000000-b61c3c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7b-a0b4-74ab-8523-f616dcdb1184",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:42:48.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795203767.500000-e7d38a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7b-be00-7be3-bdcd-4f20afa2ffaa",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:42:56.000Z",
+   "ended_at": "2026-11-20T19:43:24.000Z",
+   "is_staff": false,
+   "confidence": 0.825,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203776.000000-1176b8"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7c-3b00-7f80-b581-ecd8f10fcf84",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:43:28.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.91,
+   "frigate_event_ids": [
+    "1795203807.000000-16facc"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7c-46b8-70c4-ad1e-8b6100e1852f",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:43:31.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795203810.000000-dd65f7"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7c-4aa0-7e74-88dc-d1f7b31905fc",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:43:32.000Z",
+   "ended_at": "2026-11-20T19:44:56.000Z",
+   "is_staff": false,
+   "confidence": 0.785,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203812.000000-1ef207"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7c-73a4-7d39-80d5-e1a4480fb8ac",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:43:42.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795203821.500000-1353ae"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7c-778c-735f-bd2e-18d39ec4ecd7",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:43:43.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795203822.500000-74011f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7d-b200-70f6-bf5c-9cd8f0edd3e8",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:45:04.000Z",
+   "ended_at": "2026-11-20T19:45:44.000Z",
+   "is_staff": false,
+   "confidence": 0.825,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203904.000000-5e1e17"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7d-c394-77cb-88f4-8159d86cdd47",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:45:08.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795203907.500000-5a7abb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7e-1f60-74ef-9935-c371bc03252e",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:45:32.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795203931.000000-efbf8f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7e-4094-734b-8efa-260f4ea787eb",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:45:40.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795203939.500000-1cbab8"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7e-6d80-71f9-a72e-a19018f0f978",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:45:52.000Z",
+   "ended_at": "2026-11-20T19:46:16.000Z",
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795203952.000000-e38ade"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7e-adf4-74e2-9d1c-a1fa10e37c71",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:46:08.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795203967.500000-e12439"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7e-ea80-7616-9580-47b787ff3ad6",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:46:24.000Z",
+   "ended_at": "2026-11-20T19:47:04.000Z",
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795203984.000000-21828d"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7f-2ce8-7e70-838d-63360cdacc1b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:46:41.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795204000.000000-9d2d36"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7f-57e0-763a-a1df-dbbedf6c1470",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:46:52.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.72,
+   "frigate_event_ids": [
+    "1795204011.000000-f2aa47"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7f-a024-7da1-a435-b23023e75387",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:47:10.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795204029.500000-6b3733"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7f-a600-7d16-912c-6b66aa4a2441",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:47:12.000Z",
+   "ended_at": "2026-11-20T19:49:02.000Z",
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795204032.000000-b44d1b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7f-bb7c-7d6c-ae93-beb6aa3cfdab",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:47:17.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795204036.500000-dfb794"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa7f-f038-7767-9faa-c665d94d5458",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:47:31.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795204050.000000-1866cb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa80-3a70-7ed7-924d-9611e79682e0",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:47:50.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795204069.000000-6cc53f"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa81-53b0-76c5-a1a8-7de99f74ddf1",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T19:49:02.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795204141.000000-647296"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa81-72f0-7115-8f9b-0008a2aba646",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:49:10.000Z",
+   "ended_at": "2026-11-20T19:50:14.000Z",
+   "is_staff": false,
+   "confidence": 0.77,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795204150.000000-a8bc51"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa81-903c-7ed0-ada4-2feb9c5e3a41",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:49:17.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795204156.500000-7f2f0a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa82-6afc-78bf-b801-8109fb4a86d8",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:50:13.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.87,
+   "frigate_event_ids": [
+    "1795204212.500000-e3c292"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa82-8c30-7d29-9338-b14bb1fdd9c8",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:50:22.000Z",
+   "ended_at": "2026-11-20T19:51:36.000Z",
+   "is_staff": false,
+   "confidence": 0.845,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795204222.000000-22a9a5"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa82-ad64-7fa3-9619-03bd208945c8",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:50:30.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.9,
+   "frigate_event_ids": [
+    "1795204229.500000-11b923"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa83-cc80-7af6-a727-d34bda48d89a",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:51:44.000Z",
+   "ended_at": "2026-11-20T19:52:29.000Z",
+   "is_staff": false,
+   "confidence": 0.755,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795204304.000000-a41006"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa84-860c-77a5-b37f-978264cee70b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:52:31.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795204350.500000-d55e06"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa84-9b88-7430-9464-e718e25e3bb9",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:52:37.000Z",
+   "ended_at": "2026-11-20T19:55:50.000Z",
+   "is_staff": false,
+   "confidence": 0.803,
+   "frigate_event_ids": [
+    "1795202423.000000-40a204",
+    "1795204357.000000-6f6b2c",
+    "1795204550.000000-b5d0fb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa85-3da4-7176-90a2-1182365d3869",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:53:18.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.88,
+   "frigate_event_ids": [
+    "1795204397.500000-916a99"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa87-8d70-7d72-b1e2-090f79781434",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:55:50.000Z",
+   "ended_at": "2026-11-20T19:57:01.000Z",
+   "is_staff": false,
+   "confidence": 0.765,
+   "frigate_event_ids": [
+    "1795204357.000000-6f6b2c",
+    "1795204550.000000-b5d0fb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa88-c208-7330-93d0-30bf2e6a8e90",
+   "type": "wait",
+   "camera": "counter",
+   "started_at": "2026-11-20T19:57:09.000Z",
+   "ended_at": "2026-11-20T20:01:32.000Z",
+   "is_staff": false,
+   "confidence": 0.833,
+   "frigate_event_ids": [
+    "1795204550.000000-b5d0fb",
+    "1795204629.000000-59faa3",
+    "1795204892.000000-e7ce6a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa88-d784-77fb-9e26-aea47df7bcc0",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T19:57:14.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.76,
+   "frigate_event_ids": [
+    "1795204633.500000-bef102"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa8c-1598-78c0-b6e8-a96ea9ed9b8b",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T20:00:47.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795204846.000000-1b740c"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa8c-c560-75fe-9cc1-4b3b6457fc22",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T20:01:32.000Z",
+   "ended_at": "2026-11-20T20:02:42.000Z",
+   "is_staff": false,
+   "confidence": 0.81,
+   "frigate_event_ids": [
+    "1795204629.000000-59faa3",
+    "1795204892.000000-e7ce6a"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa8d-f610-77a3-9775-4ce233d6e056",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T20:02:50.000Z",
+   "ended_at": "2026-11-20T20:04:49.000Z",
+   "is_staff": false,
+   "confidence": 0.86,
+   "frigate_event_ids": [
+    "1795204892.000000-e7ce6a",
+    "1795204970.000000-606d62"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa8e-78ec-74a1-9aec-8671cb77362b",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T20:03:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.92,
+   "frigate_event_ids": [
+    "1795205002.500000-dce5f2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa8f-e628-7fd9-87c9-7d8fe938deb4",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T20:04:57.000Z",
+   "ended_at": "2026-11-20T20:06:38.000Z",
+   "is_staff": false,
+   "confidence": 0.75,
+   "frigate_event_ids": [
+    "1795204892.000000-e7ce6a",
+    "1795205097.000000-8edf23"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa90-4dac-7cc2-b726-5a272555aa60",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T20:05:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.85,
+   "frigate_event_ids": [
+    "1795205122.500000-f6a6f2"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa91-8ff0-7058-ae00-9142bc69ac0c",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T20:06:46.000Z",
+   "ended_at": "2026-11-20T20:08:32.000Z",
+   "is_staff": false,
+   "confidence": 0.805,
+   "frigate_event_ids": [
+    "1795204892.000000-e7ce6a",
+    "1795205206.000000-2c7300"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa92-226c-7054-b475-c604ea91bb85",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T20:07:23.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.83,
+   "frigate_event_ids": [
+    "1795205242.500000-717318"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa93-c464-797e-be09-9e2260437693",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T20:09:10.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795205349.500000-333aeb"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa9b-1188-76b3-9665-522a89ec3087",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T20:17:09.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.89,
+   "frigate_event_ids": [
+    "1795205828.000000-5fffb4"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa9b-c538-79dc-b1d6-c261eb7c20ad",
+   "type": "service",
+   "camera": "counter",
+   "started_at": "2026-11-20T20:17:55.000Z",
+   "ended_at": "2026-11-20T20:19:37.000Z",
+   "is_staff": false,
+   "confidence": 0.84,
+   "frigate_event_ids": [
+    "1795204892.000000-e7ce6a",
+    "1795205875.000000-21517b"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fa9d-9fd4-79c5-a1ed-530b211944af",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T20:19:56.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.78,
+   "frigate_event_ids": [
+    "1795205995.500000-d89531"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1faa9-ea50-703d-80d3-068340231bf8",
+   "type": "entry",
+   "camera": "door",
+   "started_at": "2026-11-20T20:33:22.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.8,
+   "frigate_event_ids": [
+    "1795206801.000000-1f6c06"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1faad-3804-73a2-a286-c1930950b030",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T20:36:58.500Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.74,
+   "frigate_event_ids": [
+    "1795207017.500000-9908a3"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fac6-e060-7e74-bc84-d899e58b8d84",
+   "type": "exit",
+   "camera": "door",
+   "started_at": "2026-11-20T21:05:00.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.7,
+   "frigate_event_ids": [
+    "1795208699.000000-a27360"
+   ],
+   "meta": {}
+  },
+  {
+   "id": "01a1fb3c-fac0-7da8-a962-2562f8ca3ee7",
+   "type": "after_hours_motion",
+   "camera": "door",
+   "started_at": "2026-11-20T23:14:00.000Z",
+   "ended_at": null,
+   "is_staff": false,
+   "confidence": 0.82,
+   "frigate_event_ids": [
+    "1795216440.000000-2faae7"
+   ],
+   "meta": {}
+  }
+ ]
+}

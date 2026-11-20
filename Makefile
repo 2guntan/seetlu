@@ -69,9 +69,16 @@ sim-day: ## make sim-day SHOP=<shop id|kit serial> DATE=YYYY-MM-DD [SCENARIO=nor
 	$(COMPOSE) start agent >/dev/null 2>&1; \
 	test "$$code" = 0 && echo "sim-day: done (events and heartbeats uploaded)" || { echo "sim-day: agent exited with $$code"; exit 1; }
 
-report: ## make report SHOP=<id> DATE=YYYY-MM-DD (lands in M6)
+report: ## make report SHOP=<shop id|kit serial> DATE=YYYY-MM-DD (compute + send to the mock inbox)
 	@test -n "$(SHOP)" -a -n "$(DATE)" || { echo "usage: make report SHOP=<id> DATE=YYYY-MM-DD"; exit 2; }
-	@echo "report: report engine lands in M6"; exit 1
+	@$(COMPOSE) run --rm -T api python -m seetlu.reports "$(SHOP)" "$(DATE)"
 
-e2e: ## End-to-end normal-day scenario (lands in M7)
-	@echo "e2e: lands with M6/M7"; exit 1
+E2E_DATE := 2026-11-20
+E2E_KIT := DEV-KIT-0001
+e2e: up ## End-to-end: seed → normal-day through the real agent → report → mock WhatsApp == golden file
+	$(COMPOSE) run --rm -T api alembic upgrade head
+	$(COMPOSE) run --rm -T -e SEED_ANCHOR_DATE=$(E2E_DATE) api python -m seetlu.seed
+	$(COMPOSE) run --rm -T api python -m seetlu.reports.e2e prepare $(E2E_KIT) $(E2E_DATE)
+	$(MAKE) --no-print-directory sim-day SHOP=$(E2E_KIT) DATE=$(E2E_DATE) SCENARIO=normal-day
+	$(COMPOSE) run --rm -T api python -m seetlu.reports.e2e check $(E2E_KIT) $(E2E_DATE) tests/golden/normal-day-report.fr.txt
+	@echo "e2e: see the message at http://localhost:8025/messages"

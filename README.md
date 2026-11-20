@@ -16,7 +16,8 @@ milestone by milestone (M0–M10).
 | M3 Edge ingest API | done: register, config (ETag), idempotent events, heartbeat, command queue + results, presigned uploads |
 | M4 fake-frigate | done: 7 deterministic scenarios with `expected.json` ground truth, Frigate-shaped MQTT + HTTP |
 | M5 seetlu-agent | done: door/staff/counter/after-hours logic, Frigate config renderer (no biometrics), SQLite WAL outbox + uploader, ETag config, commands (clip, snapshot, count check, update, reboot), heartbeats, LAN setup page, `make sim-day` |
-| M6–M10 | to do |
+| M6 | done: report engine (metrics, baseline, verdict, confidence, moments, vs last week), beat scheduling, late-data recompute, 30-day seed history, `make report`, `make e2e` golden |
+| M7–M10 | to do |
 
 ## Quick start (dev)
 
@@ -80,6 +81,17 @@ Event ids are deterministic UUIDv7, so re-running the same day changes nothing o
 
 The agent's LAN setup page is on http://localhost:8080 (user: any, PIN: last 6 characters of
 `KIT_CLAIM_TOKEN`); it only answers private/loopback client addresses.
+
+### Daily report
+
+```bash
+make seed                                   # also 30 days of history before 2026-11-20 (SEED_ANCHOR_DATE)
+make report SHOP=DEV-KIT-0001 DATE=2026-11-19   # compute, send to the mock inbox, print the message
+make e2e                                    # normal-day through the real agent → report == golden file
+```
+
+The message lands in the mock WhatsApp inbox: http://localhost:8025/messages. The worker's beat sends each
+shop's report at its local `report_time` (default 21:00).
 
 ## Repo layout
 

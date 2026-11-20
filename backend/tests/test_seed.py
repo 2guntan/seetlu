@@ -37,3 +37,40 @@ def test_m5_kit_serial_lookup_for_sim_day(migrated_engine: Engine) -> None:
         assert kit_serial(s, str(result.shop_ids[1])) == result.kit_serials[1]
         assert kit_serial(s, "DEV-KIT-0001") == "DEV-KIT-0001"
         assert kit_serial(s, "00000000-0000-7000-8000-000000000000") is None
+
+
+def test_m6_seed_history_has_the_demo_verdicts_and_is_idempotent(
+    migrated_engine: Engine, db: Session
+) -> None:
+    from datetime import date
+
+    from seetlu.seed.history import seed_history
+
+    anchor = date(2026, 11, 20)
+    with Session(migrated_engine) as s:
+        result = seed_demo(s, claim_token="tok")
+        assert seed_history(s, result.shop_ids, anchor) == 60
+        counts = (
+            s.scalar(select(func.count()).select_from(m.Event)),
+            s.scalar(select(func.count()).select_from(m.Sale)),
+        )
+        seed_history(s, result.shop_ids, anchor)
+        assert (
+            s.scalar(select(func.count()).select_from(m.Event)),
+            s.scalar(select(func.count()).select_from(m.Sale)),
+        ) == counts
+        awa = s.scalars(select(m.DailyReport).where(m.DailyReport.shop_id == result.shop_ids[0])).all()
+        verdicts = [r.verdict.value for r in sorted(awa, key=lambda r: r.local_date)]
+        assert verdicts.count("worth_a_look") == 2 and verdicts.count("large_gap") == 1
+        assert verdicts[:14] == ["learning"] * 14
+        assert [r.missing_hours for r in awa if r.missing_hours] == [[14, 15, 16]]
+        other = s.scalars(select(m.DailyReport).where(m.DailyReport.shop_id == result.shop_ids[1])).all()
+        assert {r.verdict.value for r in other} <= {"learning", "normal"}
+        assert all(r.sent_at is not None for r in [*awa, *other])
+        assert s.scalar(select(func.count()).select_from(m.MockMessage)) == 0
+        anchor_money = s.scalar(
+            select(func.sum(m.Sale.amount_xof)).where(
+                m.Sale.shop_id == result.shop_ids[0], m.Sale.local_date == anchor
+            )
+        )
+        assert anchor_money == 262_500
