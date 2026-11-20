@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://seetlu:seetlu@localhost:5432/seetlu"
     redis_url: str = "redis://localhost:6379/0"
-    jwt_secret: str = "change-me"  # noqa: S105 - dev default, overridden by env
+    jwt_secret: str = "dev-only-jwt-secret-change-me-0123456789"  # noqa: S105 - dev default; env overrides
     s3_endpoint: str = "http://localhost:9000"
     s3_access_key: str = "minio"
     s3_secret_key: str = "minio123"  # noqa: S105 - dev default, overridden by env

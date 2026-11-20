@@ -199,13 +199,28 @@ class User(Base):
 
 class OtpCode(Base):
     __tablename__ = "otp_codes"
-    __table_args__ = (Index("otp_codes_phone_e164_expires_at_idx", "phone_e164", "expires_at"),)
+    __table_args__ = (
+        Index("otp_codes_phone_e164_expires_at_idx", "phone_e164", "expires_at"),
+        Index("otp_codes_request_ip_idx", "request_ip"),
+    )
     id: Mapped[uuid.UUID] = pk()
     phone_e164: Mapped[str]
     code_hash: Mapped[str]
     expires_at: Mapped[datetime]
     attempts: Mapped[int] = mapped_column(server_default=text("0"))
     consumed_at: Mapped[datetime | None]
+    request_ip: Mapped[str | None]  # 0002
+
+
+class RefreshToken(Base):  # 0002
+    __tablename__ = "refresh_tokens"
+    __table_args__ = (Index("refresh_tokens_user_id_idx", "user_id"),)
+    id: Mapped[uuid.UUID] = pk()  # = JWT jti
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
+    expires_at: Mapped[datetime]
+    revoked_at: Mapped[datetime | None]
+    replaced_by: Mapped[uuid.UUID | None]
+    created_at: Mapped[datetime] = created()
 
 
 # ---------- shops ----------
@@ -566,3 +581,25 @@ class Payment(Base):
     external_ref: Mapped[str | None]
     paid_at: Mapped[datetime]
     recorded_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
+
+
+# ---------- dev messaging (0002) ----------
+class MockMessage(Base):
+    __tablename__ = "mock_messages"
+    __table_args__ = (
+        CheckConstraint(
+            "kind = ANY (ARRAY['template'::text, 'text'::text, 'media'::text])",
+            name="mock_messages_kind_check",
+        ),
+        Index("mock_messages_to_phone_created_at_idx", "to_phone", text("created_at DESC")),
+    )
+    id: Mapped[uuid.UUID] = pk()
+    to_phone: Mapped[str]
+    kind: Mapped[str]
+    template: Mapped[str | None]
+    lang: Mapped[str | None]
+    params: Mapped[list[Any]] = mapped_column(server_default=text("'[]'"))
+    buttons: Mapped[list[Any]] = mapped_column(server_default=text("'[]'"))
+    body: Mapped[str | None]
+    url: Mapped[str | None]
+    created_at: Mapped[datetime] = created()

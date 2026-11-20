@@ -66,7 +66,7 @@ services:
     command: celery -A seetlu.workers.celery_app beat --loglevel=INFO --schedule=/tmp/celerybeat-schedule
 
   mock-whatsapp:
-    build: ./backend
+    <<: *backend
     command: uvicorn seetlu.messaging.mock_inbox:app --host 0.0.0.0 --port 8025
     ports: ["8025:8025"]
 

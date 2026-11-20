@@ -12,7 +12,8 @@ milestone by milestone (M0–M10).
 | --- | --- |
 | M0 Repo scaffold | done: monorepo layout, Makefile, dev compose, CI |
 | M1 Database | done: Alembic migration (03-data-model.sql), SQLAlchemy models, UUIDv7, seed skeleton |
-| M2–M10 | to do |
+| M2 Auth + core API | done: OTP login over (mock) WhatsApp, JWT access/refresh, `authorize()` matrix, shops/users/alert-rules, problem+json |
+| M3–M10 | to do |
 
 ## Quick start (dev)
 
@@ -31,15 +32,22 @@ make down
 | --- | --- |
 | API (OpenAPI UI) | http://localhost:8000/docs (health: `/healthz`) |
 | Web app (PWA) | http://localhost:5173 |
-| Mock WhatsApp inbox | http://localhost:8025/messages |
+| Mock WhatsApp inbox | http://localhost:8025/messages (`?to=+221770000001`) |
 | MinIO console | http://localhost:9001 (minio / minio123) |
 | fake-frigate | http://localhost:5050/api/version |
 | MQTT (mosquitto) | localhost:1883 |
 
-Demo logins (OTP `000000` in dev, from M2): owner `+221770000001`, manager `…02`, staff `…03`,
+Demo logins (OTP `000000` in dev): owner `+221770000001`, manager `…02`, staff `…03`,
 installer `…04`, support `…05`. Backend tests start a TimescaleDB container (Docker required).
 
 Secrets come from `.env` (copied from `.env.example` on first `make up`); never commit real values.
+
+### Try the API
+
+```bash
+curl -X POST localhost:8000/v1/auth/otp/request -H 'content-type: application/json' -d '{"phone_e164":"+221770000001"}'
+curl -X POST localhost:8000/v1/auth/otp/verify  -H 'content-type: application/json' -d '{"phone_e164":"+221770000001","code":"000000"}'
+```
 
 ## Repo layout
 
