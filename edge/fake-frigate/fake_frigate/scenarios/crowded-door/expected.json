@@ -1,0 +1,39 @@
+{
+  "scenario": "crowded-door",
+  "date": "2026-11-20",
+  "timezone": "Africa/Dakar",
+  "opening": [
+    "08:00",
+    "21:00"
+  ],
+  "expected_staff": 1,
+  "truth": {
+    "door_entries": 91,
+    "door_exits": 91,
+    "customer_entries": 90,
+    "staff_entries": 1,
+    "hourly_entries": {
+      "07": 1,
+      "08": 9,
+      "11": 3,
+      "12": 3,
+      "13": 6,
+      "14": 3,
+      "15": 3,
+      "18": 27,
+      "19": 27,
+      "20": 9
+    },
+    "service": 39,
+    "wait": 2,
+    "unattended": 1,
+    "unattended_minutes": 40,
+    "after_hours_motion": 0,
+    "missing_hours": [],
+    "visitors_in": 90
+  },
+  "messages": {
+    "count": 4570,
+    "sha256": "45c153e0974c28a318851e569fadc1bc2ee2183c1f32fb31dfe58ebbf01ee2c7"
+  }
+}

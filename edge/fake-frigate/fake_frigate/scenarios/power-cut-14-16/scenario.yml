@@ -1,0 +1,12 @@
+# Power cut 14:00-16:00: the box is off, no MQTT messages and no heartbeats (missing hours 14, 15).
+name: power-cut-14-16
+shop_timezone: Africa/Dakar
+date: 2026-11-20
+opening: ["08:00", "21:00"]
+expected_staff: 1
+seed: 4
+outages: [["14:00", "16:00"]]
+actors:
+  - {kind: staff, id: s1, arrive: "07:55", leave: "21:05", breaks: [["13:00", "13:40"]]}
+  - {kind: customers, count: 140, window: ["08:00", "21:00"], peak: ["18:00", "20:00"],
+     served_ratio: 0.8, service_s: [20, 120], wait_ratio: 0.05}

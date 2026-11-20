@@ -1,0 +1,12 @@
+# Quiet day plus two people seen at night (after closing and before opening).
+name: after-hours-motion
+shop_timezone: Africa/Dakar
+date: 2026-11-20
+opening: ["08:00", "21:00"]
+expected_staff: 1
+seed: 5
+actors:
+  - {kind: staff, id: s1, arrive: "07:55", leave: "21:05"}
+  - {kind: customers, count: 60, window: ["08:00", "21:00"], served_ratio: 0.8, service_s: [20, 120]}
+  - {kind: after_hours, at: "02:47"}
+  - {kind: after_hours, at: "23:14"}

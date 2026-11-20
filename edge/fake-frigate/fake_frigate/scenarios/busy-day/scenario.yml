@@ -1,0 +1,11 @@
+# Saturday-like rush: more than twice the usual traffic, more waits.
+name: busy-day
+shop_timezone: Africa/Dakar
+date: 2026-11-21
+opening: ["08:00", "21:00"]
+expected_staff: 1
+seed: 2
+actors:
+  - {kind: staff, id: s1, arrive: "07:50", leave: "21:10", breaks: [["13:30", "13:50"]]}
+  - {kind: customers, count: 320, window: ["08:00", "21:00"], peak: ["17:00", "20:30"],
+     served_ratio: 0.75, service_s: [15, 90], wait_ratio: 0.08}

@@ -1,0 +1,44 @@
+{
+  "scenario": "power-cut-14-16",
+  "date": "2026-11-20",
+  "timezone": "Africa/Dakar",
+  "opening": [
+    "08:00",
+    "21:00"
+  ],
+  "expected_staff": 1,
+  "truth": {
+    "door_entries": 130,
+    "door_exits": 130,
+    "customer_entries": 129,
+    "staff_entries": 1,
+    "hourly_entries": {
+      "07": 1,
+      "08": 6,
+      "09": 7,
+      "10": 3,
+      "11": 4,
+      "12": 8,
+      "13": 4,
+      "16": 3,
+      "17": 4,
+      "18": 43,
+      "19": 40,
+      "20": 7
+    },
+    "service": 113,
+    "wait": 5,
+    "unattended": 1,
+    "unattended_minutes": 40,
+    "after_hours_motion": 0,
+    "missing_hours": [
+      14,
+      15
+    ],
+    "visitors_in": 129
+  },
+  "messages": {
+    "count": 4893,
+    "sha256": "f4f7a6c5cd9d7c1bc38acbc6ac753dbd673631637e7d9bea4098d49def10c8e4"
+  }
+}

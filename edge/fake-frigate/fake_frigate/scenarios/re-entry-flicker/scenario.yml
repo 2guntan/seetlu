@@ -1,0 +1,11 @@
+# People hesitating on the door line: tracks oscillate door_out/door_in within 10 s and count once (AC-F1-2).
+name: re-entry-flicker
+shop_timezone: Africa/Dakar
+date: 2026-11-20
+opening: ["08:00", "21:00"]
+expected_staff: 1
+seed: 7
+actors:
+  - {kind: staff, id: s1, arrive: "07:55", leave: "21:05", breaks: [["13:00", "13:40"]]}
+  - {kind: customers, count: 100, window: ["08:00", "21:00"], served_ratio: 0.8, service_s: [20, 120]}
+  - {kind: flicker, count: 12, window: ["09:00", "20:00"]}

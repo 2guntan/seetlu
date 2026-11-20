@@ -14,7 +14,8 @@ milestone by milestone (M0–M10).
 | M1 Database | done: Alembic migration (03-data-model.sql), SQLAlchemy models, UUIDv7, seed skeleton |
 | M2 Auth + core API | done: OTP login over (mock) WhatsApp, JWT access/refresh, `authorize()` matrix, shops/users/alert-rules, problem+json |
 | M3 Edge ingest API | done: register, config (ETag), idempotent events, heartbeat, command queue + results, presigned uploads |
-| M4–M10 | to do |
+| M4 fake-frigate | done: 7 deterministic scenarios with `expected.json` ground truth, Frigate-shaped MQTT + HTTP |
+| M5–M10 | to do |
 
 ## Quick start (dev)
 
@@ -55,6 +56,14 @@ Edge endpoints (as the agent will call them):
 ```bash
 curl -X POST localhost:8000/v1/edge/register -H 'content-type: application/json' -d '{"serial":"DEV-KIT-0001","claim_token":"dev-claim-token"}'
 curl localhost:8000/v1/edge/config -H "Authorization: Bearer <device_token>"
+```
+
+### Simulator
+
+```bash
+curl localhost:5050/sim/scenarios                                   # list scenarios
+curl -X POST "localhost:5050/sim/scenarios/normal-day/run?speed=600" # 1 simulated day in ~2.5 min
+cd edge/fake-frigate && uv run fake-frigate expect normal-day       # ground truth for a scenario
 ```
 
 ## Repo layout
