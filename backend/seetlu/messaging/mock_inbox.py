@@ -1,48 +1,63 @@
-"""Dev-only mock WhatsApp inbox.
+"""Dev-only mock WhatsApp inbox: lists what MockProvider stored in `mock_messages`.
 
-Stands in for the WhatsApp Cloud API in dev and tests: stores every outbound message in memory
-and lists them. The full MessagingProvider interface arrives in M7.
+Run as the `mock-whatsapp` compose service (http://localhost:8025/messages). The HTML inbox page
+arrives with the rest of the WhatsApp work in M7.
 """
 
-from datetime import UTC, datetime
-from typing import Any
+import uuid
+from collections.abc import Iterator
+from datetime import datetime
+from typing import Annotated, Any
 
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import Depends, FastAPI
+from pydantic import BaseModel, ConfigDict
+from sqlalchemy import delete, select
+from sqlalchemy.orm import Session
+
+from seetlu.db.models import MockMessage
+from seetlu.db.session import session_factory
 
 
-class OutboundMessage(BaseModel):
-    to: str
-    template: str | None = None
-    params: dict[str, Any] = {}
-    text: str | None = None
+class MessageOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: uuid.UUID
+    to_phone: str
+    kind: str
+    template: str | None
+    lang: str | None
+    params: list[Any]
+    buttons: list[Any]
+    body: str | None
+    url: str | None
+    created_at: datetime
 
 
-class StoredMessage(OutboundMessage):
-    received_at: datetime
+def get_db() -> Iterator[Session]:
+    with session_factory()() as s:
+        yield s
+
+
+DB = Annotated[Session, Depends(get_db)]
 
 
 def create_app() -> FastAPI:
     app = FastAPI(title="Seetlu mock WhatsApp")
-    inbox: list[StoredMessage] = []
 
     @app.get("/healthz")
     def healthz() -> dict[str, str]:
         return {"status": "ok"}
 
-    @app.post("/messages", status_code=201)
-    def send(msg: OutboundMessage) -> StoredMessage:
-        stored = StoredMessage(**msg.model_dump(), received_at=datetime.now(UTC))
-        inbox.append(stored)
-        return stored
-
     @app.get("/messages")
-    def list_messages() -> list[StoredMessage]:
-        return inbox
+    def list_messages(s: DB, to: str | None = None, limit: int = 100) -> list[MessageOut]:
+        q = select(MockMessage).order_by(MockMessage.created_at.desc()).limit(min(limit, 500))
+        if to:
+            q = q.where(MockMessage.to_phone == to)
+        return [MessageOut.model_validate(r) for r in s.scalars(q)]
 
     @app.delete("/messages", status_code=204)
-    def clear() -> None:
-        inbox.clear()
+    def clear(s: DB) -> None:
+        s.execute(delete(MockMessage))
+        s.commit()
 
     return app
 

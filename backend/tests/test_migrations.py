@@ -36,6 +36,8 @@ EXPECTED_TABLES = {
     "audit_log",
     "subscriptions",
     "payments",
+    "refresh_tokens",
+    "mock_messages",
 }
 
 
