@@ -15,6 +15,7 @@ dependencies = [
   "redis>=5.2,<6",
   "httpx>=0.28,<1",
   "boto3>=1.35,<2",
+  "argon2-cffi>=23.1",
 ]
 
 [dependency-groups]
@@ -24,6 +25,7 @@ dev = [
   "mypy>=1.13",
   "celery-types>=0.22",
   "boto3-stubs[s3]>=1.35",
+  "testcontainers[postgres]>=4.9",
 ]
 
 [build-system]
@@ -40,6 +42,9 @@ target-version = "py312"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "N", "S", "C4", "SIM", "RUF"]
 ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["seetlu"]

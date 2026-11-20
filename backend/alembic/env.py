@@ -4,10 +4,12 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from seetlu.core.config import get_settings
+from seetlu.db.models import Base
 
 config = context.config
-config.set_main_option("sqlalchemy.url", get_settings().database_url)
-target_metadata = None
+if not config.get_main_option("sqlalchemy.url"):
+    config.set_main_option("sqlalchemy.url", get_settings().database_url)
+target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:

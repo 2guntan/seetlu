@@ -11,7 +11,8 @@ milestone by milestone (M0–M10).
 | Milestone | State |
 | --- | --- |
 | M0 Repo scaffold | done: monorepo layout, Makefile, dev compose, CI |
-| M1–M10 | to do |
+| M1 Database | done: Alembic migration (03-data-model.sql), SQLAlchemy models, UUIDv7, seed skeleton |
+| M2–M10 | to do |
 
 ## Quick start (dev)
 
@@ -20,6 +21,7 @@ Requirements: Docker Desktop, `uv` (Python 3.12), Node 22, `make`.
 ```bash
 make install   # local Python + npm deps (for lint/test outside Docker)
 make up        # build + start the dev stack, waits for health
+make seed      # migrate + demo account, 2 shops, 2 kits (idempotent)
 make lint
 make test
 make down
@@ -33,6 +35,9 @@ make down
 | MinIO console | http://localhost:9001 (minio / minio123) |
 | fake-frigate | http://localhost:5050/api/version |
 | MQTT (mosquitto) | localhost:1883 |
+
+Demo logins (OTP `000000` in dev, from M2): owner `+221770000001`, manager `…02`, staff `…03`,
+installer `…04`, support `…05`. Backend tests start a TimescaleDB container (Docker required).
 
 Secrets come from `.env` (copied from `.env.example` on first `make up`); never commit real values.
 
