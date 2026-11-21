@@ -197,7 +197,8 @@ class ParsersOut(BaseModel):
 
 @router.get("/phone/parsers", response_model=ParsersOut, responses={304: {"description": "unchanged"}})
 def parsers(request: Request, device: CurrentPhone, s: DB) -> Response:
-    s.commit()  # last_seen_at
+    device.parser_version = phone_rules.current_version()  # served now, or 304: the phone has it
+    s.commit()
     etag = phone_rules.etag()
     if request.headers.get("if-none-match") == etag:
         return Response(status_code=304, headers={"ETag": etag})

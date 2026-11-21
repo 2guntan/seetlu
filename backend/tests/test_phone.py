@@ -126,6 +126,7 @@ def test_m9_parsers_need_token_and_support_etag(client: TestClient, db: Session,
     assert len(r.json()["rules"]) >= 2
     r2 = client.get("/v1/phone/parsers", headers=h | {"If-None-Match": r.headers["etag"]})
     assert r2.status_code == 304
+    assert db.scalars(select(m.PhoneDevice)).one().parser_version == phone_rules.current_version()
 
 
 def _sale(**kw: Any) -> dict[str, Any]:

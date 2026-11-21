@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- French is the default language (CLAUDE.md). -->
+<resources>
+    <string name="app_name">Seetlu Boutique</string>
+    <string name="pair_title">Relier ce téléphone à la boutique</string>
+    <string name="pair_help">Dans l\'application Seetlu du propriétaire : Réglages → Téléphone de la boutique → Afficher un code.</string>
+    <string name="pair_hint">Code à 6 chiffres</string>
+    <string name="pair_button">Relier</string>
+    <string name="pair_code_format">Le code a 6 chiffres.</string>
+    <string name="pair_bad_code">Code inconnu ou expiré. Demandez un nouveau code.</string>
+    <string name="network_error">Pas de connexion. Réessayez.</string>
+    <string name="save">Enregistrer</string>
+    <string name="day_total" formatted="true">Total du jour : %1$s</string>
+    <string name="recent_title">10 dernières saisies</string>
+    <string name="health">État du téléphone</string>
+    <string name="access_revoked">Seetlu ne lit plus les notifications de paiement. Touchez « État du téléphone » pour réactiver.</string>
+    <string name="health_title">État du téléphone</string>
+    <string name="health_listener" formatted="true">Accès aux notifications : %1$s</string>
+    <string name="health_battery" formatted="true">Sans limite de batterie : %1$s</string>
+    <string name="health_last_upload" formatted="true">Dernier envoi : %1$s</string>
+    <string name="health_never_uploaded">Rien envoyé pour l\'instant</string>
+    <string name="health_parser" formatted="true">Version des règles : %1$s</string>
+    <string name="health_pending" formatted="true">En attente d\'envoi : %1$d</string>
+    <string name="open_listener_settings">Autoriser l\'accès aux notifications</string>
+    <string name="open_battery_settings">Désactiver l\'optimisation de batterie</string>
+    <string name="yes">oui</string>
+    <string name="no">non</string>
+</resources>

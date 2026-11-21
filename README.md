@@ -19,7 +19,8 @@ milestone by milestone (M0–M10).
 | M6 | done: report engine (metrics, baseline, verdict, confidence, moments, vs last week), beat scheduling, late-data recompute, 30-day seed history, `make report`, `make e2e` golden |
 | M7 | done: WhatsApp provider (mock + Cloud API), webhook, inbound grammar (1/2/3, photo, faux, +amount, cash reply, annuler, stop/start, aide), clip links, alerts, cash prompt, mock inbox page |
 | M8 | done: web app (owner screens, installer flow with zone drawing + count check + activation rules, support console), i18n fr/en (wo keys), PWA offline cache, bundle budget, 5 Playwright journeys |
-| M9–M10 | to do |
+| M9 | done: shop phone app (pairing, parser rules from the server, notification listener, sealed raw text, Room queue, WorkManager upload, quick-log pad, health screen) + phone API (pairing codes, parsers, sales batch) |
+| M10 | to do |
 
 ## Quick start (dev)
 
@@ -96,6 +97,34 @@ The message lands in the mock WhatsApp inbox: http://localhost:8025 (reply there
 `1`, `photo`, `+2500`, `faux`, `aide`…). `make e2e` ends with the owner replying `1` and the agent's clip
 link arriving in the inbox. The worker's beat sends each
 shop's report at its local `report_time` (default 21:00).
+
+### Web app
+
+http://localhost:5173 → sign in with a demo phone and code `000000`. Owner: Today, History (calendar
+coloured by verdict), Day detail (hourly bars, moments with video, sales, « Corriger »), Moments, Sales,
+Settings, Journal. Installer (`…04`): claim kit → shop → snapshot + zones per camera → count check →
+activate. Support (`…05`): kits by health, kit page.
+
+```bash
+cd web && npm test && npm run build && npm run check-bundle   # vitest + 300 KB gz budget
+cd web && npx playwright test                                 # the 5 journeys (API mocked)
+```
+
+### Shop phone app (Android)
+
+Requirements: JDK 17 and the Android SDK (`android/local.properties` with `sdk.dir=…`).
+
+```bash
+cd android && ./gradlew :shop-phone:testDebugUnitTest :shop-phone:assembleDebug
+adb install -r shop-phone/build/outputs/apk/debug/shop-phone-debug.apk   # emulator: talks to http://10.0.2.2:8000
+```
+
+Owner web app → Réglages → Téléphone de la boutique → « Afficher un code », type it in the phone app,
+then allow notification access from « État du téléphone ». For sealed raw notifications put a key pair in
+`.env` (`docker compose run --rm api python -m seetlu.phone.crypto`). Parser rules live in
+`backend/seetlu/phone/rules.json` and are **placeholders** until real Wave / Orange Money texts are
+collected (docs/12); both test suites run the fixtures in
+`android/shop-phone/src/test/resources/notifications/`.
 
 ## Repo layout
 
