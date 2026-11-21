@@ -190,11 +190,21 @@ paths:
       summary: Quick log or cash declaration from the web app
       requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/SaleIn' } } } }
       responses: { '201': { description: created } }
+  /v1/shops/{shop_id}/sales/{sale_id}:
+    parameters:
+      - { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: sale_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+    delete: { security: [ { userJwt: [] } ], summary: "Void one's own hand-entered sale of today (sales log)", responses: { '204': { description: voided } } }
+  /v1/shops/{shop_id}/clips:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Moments screen: stored and saved clips (metadata only; playback via /v1/clips/{clip_id})", responses: { '200': { description: ok } } }
   /v1/shops/{shop_id}/corrections:
     parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
     post: { security: [ { userJwt: [] } ], responses: { '201': { description: created } } }
   /v1/shops/{shop_id}/snapshot:
-    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    parameters:
+      - { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: camera, in: query, schema: { type: string, default: counter } }
     post: { security: [ { userJwt: [] } ], summary: "Request a live snapshot (queues an edge command; poll the clip)", responses: { '202': { description: queued } } }
   /v1/clips/{clip_id}:
     parameters: [ { name: clip_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
@@ -202,6 +212,10 @@ paths:
   /v1/clips/{clip_id}/save:
     parameters: [ { name: clip_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
     post: { security: [ { userJwt: [] } ], responses: { '200': { description: saved }, '409': { description: limit of 30 reached } } }
+    delete: { security: [ { userJwt: [] } ], summary: "Unsave: the clip expires again after its 7 days", responses: { '200': { description: ok } } }
+  /v1/commands/{command_id}:
+    parameters: [ { name: command_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Poll a snapshot/clip request; returns status and clip_id when ready", responses: { '200': { description: ok } } }
   /v1/moments/{report_id}/{rank}/clip:
     parameters:
       - { name: report_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
@@ -237,6 +251,12 @@ paths:
   /v1/support/kits/{kit_id}/target-version:
     parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
     put: { security: [ { userJwt: [] } ], responses: { '200': { description: ok } } }
+  /v1/support/kits/{kit_id}:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Kit detail: hourly heartbeat aggregates for 7 days and current config", responses: { '200': { description: ok } } }
+  /v1/support/kits/{kit_id}/commands:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], summary: "reboot, or snapshot (needs an active owner grant); audited", responses: { '202': { description: queued }, '403': { description: grant required } } }
 
   # ---------------- edge (device token) ----------------
   /v1/edge/register:
