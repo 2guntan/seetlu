@@ -186,8 +186,10 @@ function Users({ shop }: { shop: Shop }) {
               <b className="grow">{u.name}</b>
               <span className="badge">{t(`settings.roles.${u.role}`)}</span>
             </div>
-            <span className="muted num-inline">{u.phone_e164}</span>
-            {u.receives_report && <span className="muted"> · {t("settings.receivesReport")}</span>}
+            <span className="muted">
+              <span className="num-inline">{u.phone_e164}</span>
+              {u.receives_report && <> · {t("settings.receivesReport")}</>}
+            </span>
           </li>
         ))}
       </ul>

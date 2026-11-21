@@ -21,8 +21,9 @@ function ClipRow({ clip, shopId, timeZone }: { clip: Clip; shopId: string; timeZ
   return (
     <li data-testid={`clip-${clip.id}`}>
       <div className="row">
-        <span className="grow cap">
-          {dateLabel(clip.created_at.slice(0, 10), i18n.language)} · {hhmm(clip.created_at, timeZone)}
+        <span className="grow stack">
+          <b className="num-inline">{hhmm(clip.created_at, timeZone)}</b>
+          <span className="muted small cap">{dateLabel(clip.created_at.slice(0, 10), i18n.language)}</span>
           {clip.saved && <span className="badge">{t("moments.saved")}</span>}
         </span>
         {!url && (
