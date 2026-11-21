@@ -10,6 +10,11 @@ export function count(n: number | null | undefined): string {
   return n === null || n === undefined ? "—" : nf.format(n);
 }
 
+/** Camera count for a partial day: a zero while hours are missing is unknown, not zero (rule 3). */
+export function seen(n: number | null | undefined, missingHours: number[]): string {
+  return n === 0 && missingHours.length > 0 ? "—" : count(n);
+}
+
 export function hhmm(iso: string, timeZone = "Africa/Dakar"): string {
   return new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone }).format(new Date(iso));
 }
