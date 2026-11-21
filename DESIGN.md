@@ -198,6 +198,8 @@ A stat inside a card uses `md`, which is smaller than the card's `lg`, so a nest
 | **Banner** (`.banner`) | Neutral information (missing hours, offline): `look-bg` with a 1px darker border. It is a notice, not an alarm. |
 | **Tabs** (`nav.tabs`) | Fixed at the bottom, 56px high, active tab in blue with weight 700 and a 3px top bar. |
 | **Input** (`input`, `select`, `textarea`) | At least 48px high, `line` border; focus shows a blue border plus the outline. |
+| **List** (`ul.list.surface`) | One surface with rows split by `line` borders. Used for moments, people and the access log instead of a stack of cards. |
+| **Scrolling table** (`.scroll-x`) | A table scrolls inside its own box; the page never scrolls sideways. |
 | **Calendar** (`.calendar`) | Day cells tinted with the verdict colours. A day without a report has a dashed border and no tint. |
 | **Hourly bars** | Three series using the `chart-*` tokens. A missing hour is hatched in `missing`, never drawn as a zero-height bar. |
 
@@ -233,3 +235,4 @@ Every component has its loading (`role=status`), error (`role=alert`, colour `er
 | 2026-11-21 | Atkinson Hyperlegible Next as the only family | Built for legibility of confusable glyphs; covers Wolof; has `tnum`; 34 KB latin subset, self-hosted for offline use. |
 | 2026-11-21 | No red in verdicts | Rule 4 (never accuse): large_gap uses deep orange; red kept for system errors. |
 | 2026-11-21 | Light by default, dark via prefers-color-scheme | The use scene is daylight at the counter; dark only for evening reading. |
+| 2026-11-21 | Lists instead of stacked cards; tabs capped at five | /design-review: stacked cards and six tabs failed at 375px |
