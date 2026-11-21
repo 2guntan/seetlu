@@ -8,7 +8,7 @@ import { HourlyBars } from "../components/hourly-bars";
 import { MomentPlayer } from "../components/moment-player";
 import { ErrorMessage, Loading } from "../components/states";
 import { useAuth } from "../lib/use-auth";
-import { count, dateLabel, hhmm, hourRanges, money } from "../lib/format";
+import { count, dateLabel, hhmm, hourRanges, money, moneySeen } from "../lib/format";
 import { verdictClass } from "../lib/parse";
 
 function Metric({ label, value, conf, hero }: { label: string; value: string; conf?: string; hero?: boolean }) {
@@ -113,7 +113,7 @@ export function DayPage() {
             </p>
           )}
           <div className="stats">
-            <Metric label={t("day.sales")} value={money(r.sales_xof)} conf={c.sales} hero />
+            <Metric label={t("day.sales")} value={moneySeen(r.sales_xof, r.missing_hours)} conf={c.sales} hero />
             <Metric label={t("day.visitors")} value={count(r.visitors_in)} conf={c.visitors_in} />
             <Metric label={t("day.served")} value={count(r.served)} conf={c.served} />
             <Metric label={t("day.cash")} value={money(r.cash_declared_xof)} />

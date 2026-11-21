@@ -15,6 +15,11 @@ export function seen(n: number | null | undefined, missingHours: number[]): stri
   return n === 0 && missingHours.length > 0 ? "—" : count(n);
 }
 
+/** Money total for a day with missing hours: a zero is unknown, not « 0 F » (rule 3). */
+export function moneySeen(xof: number | null | undefined, missingHours: number[]): string {
+  return xof === 0 && missingHours.length > 0 ? "—" : money(xof);
+}
+
 export function hhmm(iso: string, timeZone = "Africa/Dakar"): string {
   return new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone }).format(new Date(iso));
 }

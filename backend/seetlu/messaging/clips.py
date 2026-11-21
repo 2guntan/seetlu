@@ -97,9 +97,7 @@ def request_moment_clip(
             "end": mo["clip_end"],
             "event_id": mo["event_id"],
         }
-        cmd = commands.enqueue(
-            s, kit, m.CommandType.clip, params, requested_by=user.id if user else None, now=now
-        )
+        cmd = commands.clip_command(s, kit, params, requested_by=user.id if user else None, now=now)
         report.moments = [*moments[: rank - 1], mo | {"clip_command_id": str(cmd.id)}, *moments[rank:]]
     _watch(cmd, user)
     s.flush()

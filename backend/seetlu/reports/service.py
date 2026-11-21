@@ -231,7 +231,7 @@ def queue_clips(s: Session, shop: m.Shop, c: Computed, now: datetime) -> None:
                 "end": mo["clip_end"],
                 "event_id": mo["event_id"],
             }
-            cmd = commands.enqueue(s, kit, m.CommandType.clip, params, now=now)
+            cmd = commands.clip_command(s, kit, params, now=now)
             mo = mo | {"clip_command_id": str(cmd.id)}
         out.append(mo)
     c.row.moments = out

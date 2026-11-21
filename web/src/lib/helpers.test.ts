@@ -1,4 +1,4 @@
-import { addDays, count, hourRanges, money, seen } from "./format";
+import { addDays, count, hourRanges, money, moneySeen, seen } from "./format";
 import { uuid7 } from "./offline-queue";
 import { normalizePhone, parseQr, verdictClass } from "./parse";
 
@@ -12,6 +12,11 @@ describe("format", () => {
     expect(seen(0, [8, 9])).toBe("—");
     expect(seen(12, [8, 9])).toBe("12");
     expect(seen(0, [])).toBe("0");
+  });
+  it("rule 3: no « 0 F » for money while hours are missing", () => {
+    expect(moneySeen(0, [8, 9, 10])).toBe("—");
+    expect(moneySeen(2500, [8])).toBe("2\u202f500 F");
+    expect(moneySeen(0, [])).toBe("0 F");
   });
   it("formats integer XOF with French grouping", () => {
     expect(money(262500)).toBe("262 500 F");
