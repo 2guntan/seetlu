@@ -202,6 +202,15 @@ label.inline { display: flex; align-items: center; gap: var(--sp-2); font-weight
   .hours-row .times { grid-column: auto; }
 }
 
+/* Tables scroll inside their own box on narrow screens, never the page. */
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 calc(-1 * var(--sp-1)); }
+.num-inline { font-variant-numeric: tabular-nums; }
+
+/* Lists: one surface, rows split by lines (instead of a stack of cards). */
+.list > li { padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); }
+.list > li:last-child { border-bottom: 0; }
+ul.list.surface { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 0 var(--sp-4); margin-bottom: var(--sp-3); }
+
 /* Tables */
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 th, td { text-align: left; padding: var(--sp-3) var(--sp-2); border-bottom: 1px solid var(--line); }

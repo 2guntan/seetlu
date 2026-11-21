@@ -150,6 +150,7 @@ export function DayPage() {
       <h2>{t("day.salesList")}</h2>
       {sales.data && sales.data.length === 0 && <p className="muted">{t("sales.empty")}</p>}
       {sales.data && sales.data.length > 0 && (
+        <div className="scroll-x">
         <table>
           <tbody>
             {sales.data.map((s) => (
@@ -161,6 +162,7 @@ export function DayPage() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </main>
   );

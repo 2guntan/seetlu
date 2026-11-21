@@ -34,6 +34,7 @@ export function SupportKitsPage() {
       </label>
       {q.isPending && <Loading />}
       <ErrorMessage error={q.error} />
+      <div className="scroll-x">
       <table>
         <thead>
           <tr>
@@ -63,6 +64,7 @@ export function SupportKitsPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </main>
   );
 }

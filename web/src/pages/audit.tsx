@@ -32,6 +32,7 @@ export function AuditPage() {
       <ErrorMessage error={q.error ?? grant.error} />
       {q.data?.length === 0 && <p className="muted">{t("audit.empty")}</p>}
       {q.data && q.data.length > 0 && (
+        <div className="scroll-x">
         <table>
           <thead>
             <tr>
@@ -55,6 +56,7 @@ export function AuditPage() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </main>
   );

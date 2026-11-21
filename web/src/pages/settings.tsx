@@ -179,18 +179,18 @@ function Users({ shop }: { shop: Shop }) {
   return (
     <section className="card">
       <h2>{t("settings.users")}</h2>
-      <table>
-        <tbody>
-          {q.data?.map((u) => (
-            <tr key={u.id}>
-              <td>{u.name}</td>
-              <td>{u.phone_e164}</td>
-              <td>{t(`settings.roles.${u.role}`)}</td>
-              <td>{u.receives_report ? t("settings.receivesReport") : ""}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ul className="plain list">
+        {q.data?.map((u) => (
+          <li key={u.id}>
+            <div className="row">
+              <b className="grow">{u.name}</b>
+              <span className="badge">{t(`settings.roles.${u.role}`)}</span>
+            </div>
+            <span className="muted num-inline">{u.phone_e164}</span>
+            {u.receives_report && <span className="muted"> · {t("settings.receivesReport")}</span>}
+          </li>
+        ))}
+      </ul>
       {me?.user.role === "owner" && (
         <>
           <form onSubmit={submit} className="mt">

@@ -99,6 +99,7 @@ export function SalesPage() {
       {q.isPending && shop && <Loading />}
       {q.data && rows.length === 0 && <p className="muted">{t("sales.empty")}</p>}
       {rows.length > 0 && (
+        <div className="scroll-x">
         <table>
           <tbody>
             {rows.map((s) => (
@@ -117,6 +118,7 @@ export function SalesPage() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
       <p><b>{t("sales.total", { amount: money(total) })}</b></p>
     </main>
