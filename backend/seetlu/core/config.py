@@ -25,7 +25,8 @@ class Settings(BaseSettings):
     wa_access_token: str = ""
     wa_app_secret: str = ""
     wa_verify_token: str = ""
-    parser_version: str = "1"  # current shop-phone parser rules version (sales confidence, docs/06)
+    raw_public_key_b64: str = ""  # shop phones seal raw notifications with it (docs/09)
+    raw_private_key_b64: str = ""  # worker only; never set on the API
 
 
 @lru_cache

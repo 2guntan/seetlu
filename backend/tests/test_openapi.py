@@ -63,6 +63,12 @@ IMPLEMENTED: set[tuple[str, str]] = {
     ("get", "/v1/support/kits/{kit_id}"),
     ("put", "/v1/support/kits/{kit_id}/target-version"),
     ("post", "/v1/support/kits/{kit_id}/commands"),
+    # M9
+    ("post", "/v1/shops/{shop_id}/phone-pairing-codes"),
+    ("get", "/v1/shops/{shop_id}/phones"),
+    ("post", "/v1/phone/pair"),
+    ("get", "/v1/phone/parsers"),
+    ("post", "/v1/sales/batch"),
 }
 METHODS = {"get", "post", "put", "patch", "delete"}
 

@@ -43,6 +43,7 @@ seed: migrate ## Demo data (runs migrations first; idempotent)
 lint: ## ruff + mypy --strict, eslint + tsc
 	@for p in $(PY_PACKAGES); do echo "== lint $$p"; (cd $$p && uv run ruff check . && uv run ruff format --check . && uv run mypy .) || exit 1; done
 	@echo "== lint web"; cd web && npm run -s lint && npm run -s typecheck
+	@if [ -n "$$ANDROID_HOME$$ANDROID_SDK_ROOT" ] || [ -f android/local.properties ]; then echo "== lint android"; cd android && ./gradlew -q :shop-phone:ktlintCheck; else echo "== lint android: skipped (no Android SDK)"; fi
 
 fmt: ## Auto-format Python
 	@for p in $(PY_PACKAGES); do (cd $$p && uv run ruff check --fix -q . && uv run ruff format -q .); done
@@ -50,6 +51,7 @@ fmt: ## Auto-format Python
 test: ## All test suites
 	@for p in $(PY_PACKAGES); do echo "== test $$p"; (cd $$p && uv run pytest -q) || exit 1; done
 	@echo "== test web"; cd web && npm test -s && npm run -s build && npm run -s check-bundle && npx playwright test
+	@if [ -n "$$ANDROID_HOME$$ANDROID_SDK_ROOT" ] || [ -f android/local.properties ]; then echo "== test android"; cd android && ./gradlew -q :shop-phone:testDebugUnitTest; else echo "== test android: skipped (no Android SDK; runs in CI)"; fi
 
 SCENARIO ?= normal-day
 sim-day: ## make sim-day SHOP=<shop id|kit serial> DATE=YYYY-MM-DD [SCENARIO=normal-day]

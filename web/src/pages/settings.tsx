@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { get, patch, post, put, type AlertRule, type Shop, type User } from "../api/client";
 import { ErrorMessage, Loading } from "../components/states";
 import { useAuth } from "../lib/use-auth";
+import { hhmm } from "../lib/format";
 import { normalizePhone } from "../lib/parse";
 
 const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const;
@@ -225,6 +226,44 @@ function Users({ shop }: { shop: Shop }) {
   );
 }
 
+interface Phone {
+  id: string;
+  model: string | null;
+  app_version: string | null;
+  parser_current: boolean;
+  last_seen_at: string | null;
+}
+
+function PairPhone({ shopId }: { shopId: string }) {
+  const { t } = useTranslation();
+  const phones = useQuery({ queryKey: ["phones", shopId], queryFn: () => get<Phone[]>(`/v1/shops/${shopId}/phones`) });
+  const code = useMutation({ mutationFn: () => post<{ code: string; expires_at: string }>(`/v1/shops/${shopId}/phone-pairing-codes`) });
+  return (
+    <section className="card">
+      <h2>{t("settings.pairPhone")}</h2>
+      <p className="muted">{t("settings.pairHelp")}</p>
+      <button onClick={() => code.mutate()} disabled={code.isPending}>
+        {t("settings.pairNew")}
+      </button>
+      {code.data && (
+        <p>
+          <b data-testid="pair-code" style={{ fontSize: "2rem", letterSpacing: "0.3em" }}>
+            {code.data.code}
+          </b>{" "}
+          <small className="muted">{t("settings.pairExpires", { time: hhmm(code.data.expires_at) })}</small>
+        </p>
+      )}
+      <ErrorMessage error={code.error} />
+      {phones.data?.map((p) => (
+        <p key={p.id} className="muted">
+          {p.model ?? "—"} · {p.app_version ?? "—"} · {p.last_seen_at ? t("settings.phoneSeen", { time: hhmm(p.last_seen_at) }) : "—"}
+          {!p.parser_current && <> · {t("settings.parserOld")}</>}
+        </p>
+      ))}
+    </section>
+  );
+}
+
 export function SettingsPage() {
   const { t } = useTranslation();
   const { shopId } = useParams();
@@ -239,10 +278,7 @@ export function SettingsPage() {
       <ShopForm key={shop.id} shop={shop} />
       <Alerts shopId={shop.id} />
       <Users shop={shop} />
-      <section className="card">
-        <h2>{t("settings.pairPhone")}</h2>
-        <p className="muted">{t("settings.pairHelp")}</p>
-      </section>
+      <PairPhone shopId={shop.id} />
     </main>
   );
 }

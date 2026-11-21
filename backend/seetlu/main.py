@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 
 from seetlu import __version__
-from seetlu.api import auth, clips, data, edge, installer, shops, support, whatsapp
+from seetlu.api import auth, clips, data, edge, installer, phone, shops, support, whatsapp
 from seetlu.core.problem import install_problem_handlers
 
 
@@ -24,6 +24,7 @@ def create_app() -> FastAPI:
     app.include_router(data.router)
     app.include_router(installer.router)
     app.include_router(support.router)
+    app.include_router(phone.router)
 
     @app.get("/healthz", tags=["ops"])
     def healthz() -> dict[str, str]:

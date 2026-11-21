@@ -1,0 +1,50 @@
+[
+  {
+    "name": "wave received, app notification",
+    "package": "com.wave.personal",
+    "text": "Vous avez reçu 5.000F de Awa Diop (77 000 00 00). Réf: T8K2M9QZ",
+    "expect": { "source": "wave", "amount_xof": 5000, "external_ref": "T8K2M9QZ" }
+  },
+  {
+    "name": "wave received, narrow no-break space thousands",
+    "package": "com.wave.personal",
+    "text": "Vous avez reçu 12 500 FCFA de Moussa. ID: WV-99812AB",
+    "expect": { "source": "wave", "amount_xof": 12500, "external_ref": "WV-99812AB" }
+  },
+  {
+    "name": "wave sent (outgoing) is ignored",
+    "package": "com.wave.personal",
+    "text": "Vous avez envoyé 2.000F à Fatou. Frais 20F.",
+    "expect": null
+  },
+  {
+    "name": "wave payment-looking text without reference",
+    "package": "com.wave.personal",
+    "text": "Paiement reçu de 3.000F",
+    "expect": "unparsed"
+  },
+  {
+    "name": "orange money app",
+    "package": "com.orange.orangemoneysn",
+    "text": "Vous avez reçu un transfert de 25.000 FCFA du 771234567. Trans ID: MP241121.1532.A12345. Nouveau solde: 80.000 FCFA",
+    "expect": { "source": "orange_money", "amount_xof": 25000, "external_ref": "MP241121.1532.A12345" }
+  },
+  {
+    "name": "orange money by SMS (Google Messages)",
+    "package": "com.google.android.apps.messaging",
+    "text": "Orange Money: Vous avez reçu un paiement de 7 500 F du 781112233. Ref: CI241121.0901.B77",
+    "expect": { "source": "orange_money", "amount_xof": 7500, "external_ref": "CI241121.0901.B77" }
+  },
+  {
+    "name": "ordinary SMS is ignored",
+    "package": "com.google.android.apps.messaging",
+    "text": "Rendez-vous demain à 10h au marché",
+    "expect": null
+  },
+  {
+    "name": "unknown app is ignored",
+    "package": "com.whatsapp",
+    "text": "Vous avez reçu 5.000F",
+    "expect": null
+  }
+]

@@ -167,7 +167,7 @@
     "receivesReport": "Reçoit le rapport",
     "clipAccess": "Les gérants peuvent voir les vidéos",
     "pairPhone": "Téléphone de la boutique",
-    "pairHelp": "Disponible avec l'application téléphone.",
+    "pairHelp": "Installez l'application Seetlu sur le téléphone de la boutique, puis saisissez ce code.",
     "cdp": "Référence de déclaration CDP",
     "days": {
       "mon": "Lundi",
@@ -184,7 +184,11 @@
       "staff": "Vendeur",
       "installer": "Installateur",
       "support": "Support"
-    }
+    },
+    "pairNew": "Afficher un code",
+    "pairExpires": "valable jusqu'à {{time}}",
+    "phoneSeen": "vu à {{time}}",
+    "parserOld": "règles à mettre à jour"
   },
   "alert": {
     "not_opened": "Boutique pas ouverte",

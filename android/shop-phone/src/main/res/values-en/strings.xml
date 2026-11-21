@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Seetlu Shop</string>
+    <string name="pair_title">Link this phone to the shop</string>
+    <string name="pair_help">In the owner\'s Seetlu app: Settings → Shop phone → Show a code.</string>
+    <string name="pair_hint">6-digit code</string>
+    <string name="pair_button">Link</string>
+    <string name="pair_code_format">The code has 6 digits.</string>
+    <string name="pair_bad_code">Unknown or expired code. Ask for a new one.</string>
+    <string name="network_error">No connection. Try again.</string>
+    <string name="save">Save</string>
+    <string name="day_total" formatted="true">Today\'s total: %1$s</string>
+    <string name="recent_title">Last 10 entries</string>
+    <string name="health">Phone status</string>
+    <string name="access_revoked">Seetlu no longer reads payment notifications. Tap “Phone status” to turn it back on.</string>
+    <string name="health_title">Phone status</string>
+    <string name="health_listener" formatted="true">Notification access: %1$s</string>
+    <string name="health_battery" formatted="true">No battery limit: %1$s</string>
+    <string name="health_last_upload" formatted="true">Last upload: %1$s</string>
+    <string name="health_never_uploaded">Nothing sent yet</string>
+    <string name="health_parser" formatted="true">Rules version: %1$s</string>
+    <string name="health_pending" formatted="true">Waiting to send: %1$d</string>
+    <string name="open_listener_settings">Allow notification access</string>
+    <string name="open_battery_settings">Turn off battery optimisation</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+</resources>

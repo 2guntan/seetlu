@@ -11,7 +11,6 @@ from zoneinfo import ZoneInfo
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from seetlu.core.config import get_settings
 from seetlu.db import models as m
 from seetlu.domain import commands
 from seetlu.domain.report import (
@@ -30,6 +29,7 @@ from seetlu.domain.report import (
 )
 from seetlu.domain.report_text import daily_report_params
 from seetlu.messaging.provider import MessagingProvider, get_provider
+from seetlu.phone import rules as phone_rules
 
 log = logging.getLogger(__name__)
 
@@ -152,7 +152,7 @@ def confidence_input(s: Session, shop: m.Shop, report_at: datetime) -> Confidenc
     return ConfidenceInput(
         count_check_passed_at=passed,
         phone_last_seen_at=phone.last_seen_at if phone else None,
-        phone_parser_current=bool(phone and phone.parser_version == get_settings().parser_version),
+        phone_parser_current=bool(phone and phone.parser_version == phone_rules.current_version()),
         report_at=report_at,
     )
 

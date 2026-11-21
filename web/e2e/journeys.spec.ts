@@ -115,6 +115,8 @@ test("journey 5 — settings: hours, thresholds, alerts, invite (AC-F7-1)", asyn
   await page.getByPlaceholder("+221…").fill("78 000 00 01");
   await page.getByRole("button", { name: "Inviter" }).click();
   await expect.poll(() => api.calls.some((c) => c.method === "POST" && c.path.endsWith("/users"))).toBe(true);
+  await page.getByRole("button", { name: "Afficher un code" }).click();
+  await expect(page.getByTestId("pair-code")).toHaveText("482913");
   const inv = api.calls.find((c) => c.method === "POST" && c.path.endsWith("/users"))?.body;
   expect(inv).toMatchObject({ name: "Fatou", phone_e164: "+221780000001", role: "staff" });
 });

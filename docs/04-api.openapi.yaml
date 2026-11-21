@@ -292,6 +292,12 @@ paths:
       responses: { '204': { description: ok } }
 
   # ---------------- shop phone (device token) ----------------
+  /v1/shops/{shop_id}/phone-pairing-codes:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    post: { security: [ { userJwt: [] } ], summary: "Owner: new 6-digit code (10 min, single use) to pair the shop phone", responses: { '201': { description: created } } }
+  /v1/shops/{shop_id}/phones:
+    parameters: [ { name: shop_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Paired shop phones (model, versions, last seen)", responses: { '200': { description: ok } } }
   /v1/phone/pair:
     post: { summary: "Pair phone with a 6-digit code shown in the owner app; returns device token", responses: { '200': { description: token } } }
   /v1/phone/parsers:

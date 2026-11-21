@@ -1,0 +1,46 @@
+{
+  "version": "1",
+  "note": "PLACEHOLDER rules. Real Wave / Orange Money notification texts must be collected on shop phones (docs/12) and these regexes fixed against them before go-live.",
+  "rules": [
+    {
+      "id": "wave-in-fr",
+      "source": "wave",
+      "package": "com.wave.personal",
+      "direction": "in",
+      "match_regex": "(?i)vous avez re[çc]u\\s+(?<amount>[\\d .\\u00a0\\u202f]+)\\s*F(?:CFA)?\\b.*?(?:r[ée]f(?:[ée]rence)?|id)\\s*[:#]?\\s*(?<ref>[A-Z0-9-]{6,})",
+      "amount_group": "amount",
+      "ref_group": "ref",
+      "hint_regex": "(?i)re[çc]u|received|paiement"
+    },
+    {
+      "id": "orange-money-in-app-fr",
+      "source": "orange_money",
+      "package": "com.orange.orangemoneysn",
+      "direction": "in",
+      "match_regex": "(?i)vous avez re[çc]u (?:un transfert|un paiement) de\\s+(?<amount>[\\d .\\u00a0\\u202f]+)\\s*F(?:CFA)?\\b.*?(?:trans(?:action)?\\s*id|r[ée]f)\\s*[:#]?\\s*(?<ref>[A-Z0-9]+(?:\\.[A-Z0-9]+)+)",
+      "amount_group": "amount",
+      "ref_group": "ref",
+      "hint_regex": "(?i)re[çc]u|transfert|paiement"
+    },
+    {
+      "id": "orange-money-in-sms-fr",
+      "source": "orange_money",
+      "package": "com.google.android.apps.messaging",
+      "direction": "in",
+      "match_regex": "(?i)orange money.*?vous avez re[çc]u (?:un transfert|un paiement) de\\s+(?<amount>[\\d .\\u00a0\\u202f]+)\\s*F(?:CFA)?\\b.*?(?:trans(?:action)?\\s*id|r[ée]f)\\s*[:#]?\\s*(?<ref>[A-Z0-9]+(?:\\.[A-Z0-9]+)+)",
+      "amount_group": "amount",
+      "ref_group": "ref",
+      "hint_regex": "(?i)orange money.*re[çc]u"
+    },
+    {
+      "id": "orange-money-in-sms-samsung-fr",
+      "source": "orange_money",
+      "package": "com.samsung.android.messaging",
+      "direction": "in",
+      "match_regex": "(?i)orange money.*?vous avez re[çc]u (?:un transfert|un paiement) de\\s+(?<amount>[\\d .\\u00a0\\u202f]+)\\s*F(?:CFA)?\\b.*?(?:trans(?:action)?\\s*id|r[ée]f)\\s*[:#]?\\s*(?<ref>[A-Z0-9]+(?:\\.[A-Z0-9]+)+)",
+      "amount_group": "amount",
+      "ref_group": "ref",
+      "hint_regex": "(?i)orange money.*re[çc]u"
+    }
+  ]
+}
