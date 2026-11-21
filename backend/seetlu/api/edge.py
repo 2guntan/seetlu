@@ -16,6 +16,8 @@ from seetlu.core.problem import Problem
 from seetlu.core.security import hash_token, new_device_token, verify_token
 from seetlu.db import models as m
 from seetlu.domain.commands import UPLOAD_KINDS, object_key
+from seetlu.messaging import clips
+from seetlu.messaging.provider import get_provider
 from seetlu.reports import service as report_service
 from seetlu.storage.s3 import presigned_put
 
@@ -362,5 +364,16 @@ def command_result(command_id: uuid.UUID, body: CommandResultIn, kit: CurrentKit
                 expires_at=now + timedelta(days=CLIP_RETENTION_DAYS),
             )
         )
+    s.flush()
+    _notify_requesters(s, cmd, now)
     s.commit()
     return Response(status_code=204)
+
+
+def _notify_requesters(s: Session, cmd: m.EdgeCommand, now: datetime) -> None:
+    """WhatsApp users waiting for this clip/snapshot get the link, the image or « kit injoignable »."""
+    try:
+        with s.begin_nested():
+            clips.notify_command(s, cmd, get_provider(s), now)
+    except Exception:  # the result is stored either way; the stale sweep retries nothing, so log it
+        log.exception("could not notify requesters of command %s", cmd.id)

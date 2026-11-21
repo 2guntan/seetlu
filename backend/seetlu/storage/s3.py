@@ -16,11 +16,11 @@ GET_TTL_S = 900
 
 
 @lru_cache
-def s3_client() -> "S3Client":
+def s3_client(public: bool = False) -> "S3Client":
     s = get_settings()
     return boto3.client(
         "s3",
-        endpoint_url=s.s3_endpoint,
+        endpoint_url=(s.s3_public_endpoint or s.s3_endpoint) if public else s.s3_endpoint,
         aws_access_key_id=s.s3_access_key,
         aws_secret_access_key=s.s3_secret_key,
         region_name="us-east-1",
@@ -37,6 +37,6 @@ def presigned_put(key: str, content_type: str) -> str:
 
 
 def presigned_get(key: str) -> str:
-    return s3_client().generate_presigned_url(
+    return s3_client(public=True).generate_presigned_url(
         "get_object", Params={"Bucket": get_settings().s3_bucket_clips, "Key": key}, ExpiresIn=GET_TTL_S
     )

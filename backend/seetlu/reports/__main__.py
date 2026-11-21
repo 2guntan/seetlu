@@ -25,7 +25,7 @@ def resolve_shop(s: Session, ref: str) -> m.Shop | None:
 def render_last_message(s: Session, shop: m.Shop) -> str:
     to = service.recipients(s, shop)[0].phone_e164
     msg = s.scalars(
-        select(m.MockMessage).where(m.MockMessage.to_phone == to).order_by(m.MockMessage.created_at.desc())
+        select(m.MockMessage).where(m.MockMessage.to_phone == to).order_by(m.MockMessage.id.desc())
     ).first()
     assert msg is not None and msg.template is not None
     return render_template(msg.template.removesuffix(f"_{msg.lang}"), msg.params, msg.lang or "fr")
