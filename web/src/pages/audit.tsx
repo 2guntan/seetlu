@@ -49,9 +49,7 @@ export function AuditPage() {
                   {r.actor_name ?? t("common.none")}
                   {r.actor_role && <small className="muted"> · {t(`settings.roles.${r.actor_role}`)}</small>}
                 </td>
-                <td>
-                  <code>{r.action}</code>
-                </td>
+                <td>{t(`audit.actions.${r.action.replace(/\./g, "__")}`, { defaultValue: r.action })}</td>
               </tr>
             ))}
           </tbody>

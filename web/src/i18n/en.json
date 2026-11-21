@@ -205,7 +205,31 @@
     "what": "Action",
     "empty": "Nothing yet.",
     "grant": "Allow support for 24 h",
-    "granted": "Support allowed until {{time}}"
+    "granted": "Support allowed until {{time}}",
+    "actions": {
+      "admin__create_owner": "Owner account created",
+      "admin__create_staff": "Team account created",
+      "admin__register_kit": "Kit registered",
+      "clip__save": "Video kept",
+      "clip__unsave": "Video no longer kept",
+      "clip__view": "Video watched",
+      "correction__create": "Figure corrected",
+      "kit__activate": "Kit activated",
+      "kit__claim": "Kit linked to the shop",
+      "kit__command": "Command sent to the kit",
+      "kit__target_version": "Kit update requested",
+      "phone__pair": "Shop phone paired",
+      "phone__pair_code": "Pairing code created",
+      "report__view": "Report viewed",
+      "sale__cash_declaration": "Cash declared",
+      "sale__quick_log": "Sale logged",
+      "shop__create": "Shop created",
+      "shop__settings": "Settings changed",
+      "shop__view": "Shop viewed",
+      "support__access": "Support access",
+      "support__grant": "Support allowed",
+      "user__invite": "Person invited"
+    }
   },
   "install": {
     "title": "Installation",

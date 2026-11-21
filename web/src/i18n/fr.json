@@ -205,7 +205,31 @@
     "what": "Action",
     "empty": "Rien pour l'instant.",
     "grant": "Autoriser le support 24 h",
-    "granted": "Support autorisé jusqu'à {{time}}"
+    "granted": "Support autorisé jusqu'à {{time}}",
+    "actions": {
+      "admin__create_owner": "Compte propriétaire créé",
+      "admin__create_staff": "Compte d'équipe créé",
+      "admin__register_kit": "Kit enregistré",
+      "clip__save": "Vidéo gardée",
+      "clip__unsave": "Vidéo plus gardée",
+      "clip__view": "Vidéo regardée",
+      "correction__create": "Chiffre corrigé",
+      "kit__activate": "Kit activé",
+      "kit__claim": "Kit associé à la boutique",
+      "kit__command": "Commande envoyée au kit",
+      "kit__target_version": "Mise à jour du kit demandée",
+      "phone__pair": "Téléphone de la boutique associé",
+      "phone__pair_code": "Code d'association créé",
+      "report__view": "Rapport consulté",
+      "sale__cash_declaration": "Caisse déclarée",
+      "sale__quick_log": "Vente saisie",
+      "shop__create": "Boutique créée",
+      "shop__settings": "Réglages modifiés",
+      "shop__view": "Boutique consultée",
+      "support__access": "Accès du support",
+      "support__grant": "Support autorisé",
+      "user__invite": "Personne invitée"
+    }
   },
   "install": {
     "title": "Installation",
