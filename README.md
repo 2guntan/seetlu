@@ -21,6 +21,7 @@ milestone by milestone (M0–M10).
 | M8 | done: web app (owner screens, installer flow with zone drawing + count check + activation rules, support console), i18n fr/en (wo keys), PWA offline cache, bundle budget, 5 Playwright journeys |
 | M9 | done: shop phone app (pairing, parser rules from the server, notification listener, sealed raw text, Room queue, WorkManager upload, quick-log pad, health screen) + phone API (pairing codes, parsers, sales batch) |
 | M10 | done: production compose (Caddy TLS, one-shot migrations, worker-only private key, dev values refused), Postgres base backup + WAL to MinIO with 30-day retention and a restore drill, Prometheus/Alertmanager/Grafana, journald log retention, VM setup + cloud-init, operator CLI, edge OS provisioning (tested on arm64), OTA release flow, runbooks, field-validation protocol |
+| Design system | done: `DESIGN.md` (tokens, type, verdict colours, components); `web/src/styles.css` carries the tokens as CSS custom properties, light + dark; Atkinson Hyperlegible Next self-hosted and precached |
 
 ## Quick start (dev)
 
@@ -175,6 +176,7 @@ docs/               specs + decisions.md
 | Doc | Content |
 | --- | --- |
 | `CLAUDE.md` | Instructions, locked stack, conventions, rules, definition of done |
+| `DESIGN.md` | Design system: tokens, typography, colours, components, do's and don'ts |
 | `docs/01-product.md` | Features F1–F10 with acceptance criteria |
 | `docs/02-architecture.md` | Components, flows, repo layout |
 | `docs/03-data-model.sql` | PostgreSQL + TimescaleDB schema (first migration) |

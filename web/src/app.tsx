@@ -40,6 +40,7 @@ function Shell() {
         <b>{t("app.name")}</b>
         <div className="row">
           <select
+            className="compact"
             aria-label={t("nav.language")}
             value={i18n.language}
             onChange={(e) => setLanguage(e.target.value as Language)}
@@ -50,12 +51,12 @@ function Shell() {
               </option>
             ))}
           </select>
-          <button className="ghost" onClick={signOut}>
+          <button className="ghost compact" onClick={signOut}>
             {t("nav.logout")}
           </button>
         </div>
       </header>
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 16px" }}>
+      <div className="shell">
         <OfflineBanner />
       </div>
       <Suspense fallback={<Loading />}>

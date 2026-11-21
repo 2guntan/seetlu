@@ -11,10 +11,10 @@ import { useAuth } from "../lib/use-auth";
 import { count, dateLabel, hhmm, hourRanges, money } from "../lib/format";
 import { verdictClass } from "../lib/parse";
 
-function Metric({ label, value, conf }: { label: string; value: string; conf?: string }) {
+function Metric({ label, value, conf, hero }: { label: string; value: string; conf?: string; hero?: boolean }) {
   const { t } = useTranslation();
   return (
-    <div className="stat">
+    <div className={hero ? "stat hero" : "stat"}>
       <small>{label}</small>
       <b>{value}</b>
       {conf && <small data-confidence={conf}>{t(`day.confidence.${conf}`)}</small>}
@@ -95,7 +95,7 @@ export function DayPage() {
   return (
     <main>
       <Link to="/history">‹ {t("common.back")}</Link>
-      <h1 style={{ textTransform: "capitalize" }}>{shop?.name} · {dateLabel(date, i18n.language)}</h1>
+      <h1 className="cap">{shop?.name} · {dateLabel(date, i18n.language)}</h1>
       {report.isPending && <Loading />}
       <ErrorMessage error={report.error} />
       {report.isSuccess && !r && <p className="muted">{t("history.noReport")}</p>}
@@ -113,9 +113,9 @@ export function DayPage() {
             </p>
           )}
           <div className="stats">
+            <Metric label={t("day.sales")} value={money(r.sales_xof)} conf={c.sales} hero />
             <Metric label={t("day.visitors")} value={count(r.visitors_in)} conf={c.visitors_in} />
             <Metric label={t("day.served")} value={count(r.served)} conf={c.served} />
-            <Metric label={t("day.sales")} value={money(r.sales_xof)} conf={c.sales} />
             <Metric label={t("day.cash")} value={money(r.cash_declared_xof)} />
             <Metric label={t("day.waits")} value={count(r.waits)} />
             <Metric label={t("day.unattended")} value={count(r.unattended_min)} />
@@ -128,7 +128,7 @@ export function DayPage() {
             </p>
           ))}
           {canCorrect && !correcting && (
-            <button className="ghost" onClick={() => setCorrecting(true)}>
+            <button className="ghost mt" onClick={() => setCorrecting(true)}>
               {t("day.correct")}
             </button>
           )}
@@ -139,7 +139,7 @@ export function DayPage() {
       {hours.data && <HourlyBars hours={hours.data} />}
       <h2>{t("day.moments")}</h2>
       {r && r.id && r.moments.length > 0 ? (
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul className="plain">
           {r.moments.map((m) => (
             <MomentPlayer key={m.rank} reportId={r.id as string} moment={m} timeZone={tz} />
           ))}
@@ -153,10 +153,10 @@ export function DayPage() {
         <table>
           <tbody>
             {sales.data.map((s) => (
-              <tr key={s.id} style={s.voided_at ? { textDecoration: "line-through", color: "#9ca3af" } : undefined}>
+              <tr key={s.id} className={s.voided_at ? "voided" : undefined}>
                 <td>{hhmm(s.occurred_at, tz)}</td>
                 <td>{t(`sales.src.${s.source}`)}</td>
-                <td style={{ textAlign: "right" }}>{money(s.amount_xof)}</td>
+                <td className="num">{money(s.amount_xof)}</td>
               </tr>
             ))}
           </tbody>

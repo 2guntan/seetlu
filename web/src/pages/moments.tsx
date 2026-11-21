@@ -21,9 +21,9 @@ function ClipRow({ clip, shopId, timeZone }: { clip: Clip; shopId: string; timeZ
   return (
     <li className="card" data-testid={`clip-${clip.id}`}>
       <div className="row">
-        <span className="grow" style={{ textTransform: "capitalize" }}>
+        <span className="grow cap">
           {dateLabel(clip.created_at.slice(0, 10), i18n.language)} · {hhmm(clip.created_at, timeZone)}
-          {clip.saved && <span className="badge" style={{ marginLeft: 8 }}>{t("moments.saved")}</span>}
+          {clip.saved && <span className="badge">{t("moments.saved")}</span>}
         </span>
         {!url && <button onClick={() => void play()}>{t("moment.play")}</button>}
         <button className="ghost" onClick={() => toggle.mutate()} disabled={toggle.isPending}>
@@ -54,7 +54,7 @@ export function MomentsPage() {
       {q.isPending && shop && <Loading />}
       <ErrorMessage error={q.error} />
       {q.data?.length === 0 && <p className="muted">{t("moments.empty")}</p>}
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      <ul className="plain">
         {shop && q.data?.map((c) => <ClipRow key={c.id} clip={c} shopId={shop.id} timeZone={shop.timezone} />)}
       </ul>
     </main>

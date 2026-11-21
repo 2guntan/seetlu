@@ -61,9 +61,9 @@ function ShopForm({ shop }: { shop: Shop }) {
       {DAYS.map((d) => {
         const v = form.hours[d];
         return (
-          <div className="row" key={d} style={{ marginBottom: 6 }}>
-            <span style={{ width: 100 }}>{t(`settings.days.${d}`)}</span>
-            <label className="inline" style={{ margin: 0 }}>
+          <div className="row" key={d}>
+            <span className="grow">{t(`settings.days.${d}`)}</span>
+            <label className="inline m0">
               <input type="checkbox" checked={!v} onChange={(e) => set("hours", { ...form.hours, [d]: e.target.checked ? null : ["08:00", "21:00"] })} />
               {t("settings.closed")}
             </label>
@@ -104,7 +104,7 @@ function ShopForm({ shop }: { shop: Shop }) {
       <button type="submit" disabled={save.isPending}>
         {t("settings.save")}
       </button>
-      {save.isSuccess && <span role="status" style={{ marginLeft: 8 }}>{t("settings.saved")}</span>}
+      {save.isSuccess && <span role="status" className="muted">{t("settings.saved")}</span>}
       <ErrorMessage error={save.error} />
     </form>
   );
@@ -127,15 +127,15 @@ function Alerts({ shopId }: { shopId: string }) {
         if (!r) return null;
         const key = Object.keys(r.params)[0];
         return (
-          <div className="row" key={type} style={{ marginBottom: 8 }}>
-            <label className="inline grow" style={{ margin: 0 }}>
+          <div className="row" key={type}>
+            <label className="inline grow m0">
               <input type="checkbox" name={`alert-${type}`} checked={r.enabled} onChange={(e) => update(type, { enabled: e.target.checked })} />
               {t(`alert.${type}`)}
             </label>
             {key && (
-              <label className="inline" style={{ margin: 0 }}>
+              <label className="inline m0">
                 {t("alert.minutes")}
-                <input type="number" style={{ width: 80 }} value={r.params[key]} onChange={(e) => update(type, { params: { [key]: Number(e.target.value) } })} />
+                <input type="number" className="narrow" value={r.params[key]} onChange={(e) => update(type, { params: { [key]: Number(e.target.value) } })} />
               </label>
             )}
           </div>
@@ -144,7 +144,7 @@ function Alerts({ shopId }: { shopId: string }) {
       <button onClick={() => save.mutate()} disabled={save.isPending || !rules}>
         {t("settings.save")}
       </button>
-      {save.isSuccess && <span role="status" style={{ marginLeft: 8 }}>{t("settings.saved")}</span>}
+      {save.isSuccess && <span role="status" className="muted">{t("settings.saved")}</span>}
       <ErrorMessage error={save.error} />
     </section>
   );
@@ -193,7 +193,7 @@ function Users({ shop }: { shop: Shop }) {
       </table>
       {me?.user.role === "owner" && (
         <>
-          <form onSubmit={submit} style={{ marginTop: 12 }}>
+          <form onSubmit={submit} className="mt">
             <div className="row">
               <input aria-label={t("settings.name")} placeholder={t("settings.name")} value={name} onChange={(e) => setName(e.target.value)} required />
               <input aria-label="phone" type="tel" placeholder="+221…" value={phone} onChange={(e) => setPhone(e.target.value)} required />
@@ -201,7 +201,7 @@ function Users({ shop }: { shop: Shop }) {
                 <option value="manager">{t("settings.roles.manager")}</option>
                 <option value="staff">{t("settings.roles.staff")}</option>
               </select>
-              <label className="inline" style={{ margin: 0 }}>
+              <label className="inline m0">
                 <input type="checkbox" checked={receives} onChange={(e) => setReceives(e.target.checked)} />
                 {t("settings.receivesReport")}
               </label>
@@ -211,7 +211,7 @@ function Users({ shop }: { shop: Shop }) {
             </div>
             <ErrorMessage error={invite.error} />
           </form>
-          <label className="inline" style={{ marginTop: 12 }}>
+          <label className="inline mt">
             <input
               type="checkbox"
               name="clip-access"

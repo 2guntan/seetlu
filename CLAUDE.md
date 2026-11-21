@@ -76,3 +76,9 @@ make report SHOP=<id> DATE=YYYY-MM-DD    # compute + send (to mock) a daily repo
 - `make lint` and `make test` pass in CI.
 - `make up && make seed` gives a working demo for the milestone.
 - `docs/decisions.md` and `README.md` updated.
+
+## Design System
+
+Read `DESIGN.md` before visual or UI work: it defines the fonts, colors, spacing, and
+aesthetic direction. Ask the user before departing from it. When reviewing or QA-ing
+UI, flag code that doesn't match `DESIGN.md`.

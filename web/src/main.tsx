@@ -4,6 +4,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import { App } from "./app";
+import "@fontsource-variable/atkinson-hyperlegible-next";
+
 import "./i18n";
 import { AuthProvider } from "./lib/auth";
 import "./styles.css";

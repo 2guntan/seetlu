@@ -106,8 +106,8 @@ export function SupportKitPage() {
             </div>
             {cmd.isSuccess && <p role="status">{t("support.queued")}</p>}
             {grantMissing && <p className="error">{t("support.grantRequired")}</p>}
-            <div className="row" style={{ marginTop: 12 }}>
-              <label className="inline grow" style={{ margin: 0 }}>
+            <div className="row mt">
+              <label className="inline grow m0">
                 {t("support.targetVersion")}
                 <input name="version" placeholder={k.target_agent_version ?? k.agent_version ?? ""} value={version} onChange={(e) => setVersion(e.target.value)} />
               </label>
@@ -119,7 +119,7 @@ export function SupportKitPage() {
           </section>
           <section className="card">
             <h2>{t("support.config")}</h2>
-            <pre style={{ overflowX: "auto", fontSize: "0.8rem" }}>{JSON.stringify(k.config, null, 2)}</pre>
+            <pre>{JSON.stringify(k.config, null, 2)}</pre>
           </section>
         </>
       )}
