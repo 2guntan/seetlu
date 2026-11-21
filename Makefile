@@ -23,7 +23,7 @@ install: ## Install local dev dependencies (uv + npm)
 up: .env ## Start the dev stack (postgres, redis, minio, api, worker, beat, web, mock-whatsapp, mosquitto, fake-frigate, agent)
 	$(COMPOSE) up -d --build --wait --wait-timeout 300 $(SERVICES)
 	$(COMPOSE) run --rm --build minio-init
-	@echo "api http://localhost:8000/docs | web http://localhost:5173 | mock WhatsApp http://localhost:8025/messages | minio http://localhost:9001"
+	@echo "api http://localhost:8000/docs | web http://localhost:5173 | mock WhatsApp http://localhost:8025 | minio http://localhost:9001"
 
 down: ## Stop the stack
 	$(COMPOSE) down
@@ -81,4 +81,5 @@ e2e: up ## End-to-end: seed → normal-day through the real agent → report →
 	$(COMPOSE) run --rm -T api python -m seetlu.reports.e2e prepare $(E2E_KIT) $(E2E_DATE)
 	$(MAKE) --no-print-directory sim-day SHOP=$(E2E_KIT) DATE=$(E2E_DATE) SCENARIO=normal-day
 	$(COMPOSE) run --rm -T api python -m seetlu.reports.e2e check $(E2E_KIT) $(E2E_DATE) tests/golden/normal-day-report.fr.txt
-	@echo "e2e: see the message at http://localhost:8025/messages"
+	$(COMPOSE) run --rm -T api python -m seetlu.reports.e2e reply $(E2E_KIT) $(E2E_DATE)
+	@echo "e2e: see the conversation at http://localhost:8025"

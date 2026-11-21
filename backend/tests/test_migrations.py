@@ -12,6 +12,9 @@ from tests.conftest import BACKEND, alembic_config
 DOCS_SQL = BACKEND.parent / "docs" / "03-data-model.sql"
 MIGRATION_SQL = BACKEND / "alembic" / "sql" / "0001-initial.sql"
 EXPECTED_TABLES = {
+    "wa_inbound",  # 0003
+    "wa_sessions",  # 0003
+    "scheduled_sends",  # 0003
     "accounts",
     "users",
     "otp_codes",

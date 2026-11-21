@@ -16,6 +16,9 @@ celery_app.conf.update(
     beat_schedule={
         # every minute: send the reports whose shop-local report_time has passed (docs/06 scheduling)
         "reports-due": {"task": "seetlu.reports.schedule_due", "schedule": 60.0},
+        "alerts": {"task": "seetlu.alerts.evaluate", "schedule": 60.0},
+        "cash-prompts": {"task": "seetlu.whatsapp.cash_prompts", "schedule": 60.0},
+        "whatsapp-sweep": {"task": "seetlu.whatsapp.sweep", "schedule": 60.0},
     },
 )
 

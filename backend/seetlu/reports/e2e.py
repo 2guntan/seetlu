@@ -3,10 +3,12 @@ mock inbox and compare the rendered message with the golden file.
 
     python -m seetlu.reports.e2e prepare <shop id | kit serial> YYYY-MM-DD
     python -m seetlu.reports.e2e check <shop id | kit serial> YYYY-MM-DD <golden file>
+    python -m seetlu.reports.e2e reply <shop id | kit serial> YYYY-MM-DD   (owner replies « 1 »)
 """
 
 import difflib
 import sys
+import time
 from datetime import date
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -16,6 +18,7 @@ from sqlalchemy.orm import Session
 
 from seetlu.db import models as m
 from seetlu.db.session import session_factory
+from seetlu.messaging.mock_inbox import receive
 from seetlu.reports import service
 from seetlu.reports.__main__ import render_last_message, resolve_shop
 
@@ -50,8 +53,31 @@ def check(s: Session, shop: m.Shop, d: date, golden: Path) -> bool:
     return False
 
 
+def reply_1(s: Session, shop: m.Shop, timeout_s: float = 120.0) -> bool:
+    """The owner answers « 1 »; the edge agent cuts and uploads the clip; the link arrives (docs/11 M7)."""
+    owner = service.recipients(s, shop)[0]
+    first = receive(s, owner.phone_e164, "1")
+    print(f"e2e: {owner.name} → « 1 »\ne2e: Seetlu → {first}")
+    if first and "/clips/" in first:
+        return True
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        time.sleep(2)
+        s.expire_all()
+        last = s.scalars(
+            select(m.MockMessage)
+            .where(m.MockMessage.to_phone == owner.phone_e164)
+            .order_by(m.MockMessage.id.desc())
+        ).first()
+        if last is not None and last.body and "/clips/" in last.body:
+            print(f"e2e: Seetlu → {last.body}\ne2e: OK, reply 1 returned a clip link")
+            return True
+    print("e2e: no clip link within the timeout (is the dev agent running? `make logs`)")
+    return False
+
+
 def main() -> None:
-    if len(sys.argv) < 4 or sys.argv[1] not in ("prepare", "check"):
+    if len(sys.argv) < 4 or sys.argv[1] not in ("prepare", "check", "reply"):
         raise SystemExit(__doc__)
     with session_factory()() as s:
         shop = resolve_shop(s, sys.argv[2])
@@ -60,6 +86,9 @@ def main() -> None:
         d = date.fromisoformat(sys.argv[3])
         if sys.argv[1] == "prepare":
             prepare(s, shop, d)
+        elif sys.argv[1] == "reply":
+            if not reply_1(s, shop):
+                raise SystemExit(1)
         elif not check(s, shop, d, Path(sys.argv[4])):
             raise SystemExit(1)
 

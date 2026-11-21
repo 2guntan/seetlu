@@ -17,7 +17,8 @@ milestone by milestone (M0–M10).
 | M4 fake-frigate | done: 7 deterministic scenarios with `expected.json` ground truth, Frigate-shaped MQTT + HTTP |
 | M5 seetlu-agent | done: door/staff/counter/after-hours logic, Frigate config renderer (no biometrics), SQLite WAL outbox + uploader, ETag config, commands (clip, snapshot, count check, update, reboot), heartbeats, LAN setup page, `make sim-day` |
 | M6 | done: report engine (metrics, baseline, verdict, confidence, moments, vs last week), beat scheduling, late-data recompute, 30-day seed history, `make report`, `make e2e` golden |
-| M7–M10 | to do |
+| M7 | done: WhatsApp provider (mock + Cloud API), webhook, inbound grammar (1/2/3, photo, faux, +amount, cash reply, annuler, stop/start, aide), clip links, alerts, cash prompt, mock inbox page |
+| M8–M10 | to do |
 
 ## Quick start (dev)
 
@@ -90,7 +91,9 @@ make report SHOP=DEV-KIT-0001 DATE=2026-11-19   # compute, send to the mock inbo
 make e2e                                    # normal-day through the real agent → report == golden file
 ```
 
-The message lands in the mock WhatsApp inbox: http://localhost:8025/messages. The worker's beat sends each
+The message lands in the mock WhatsApp inbox: http://localhost:8025 (reply there as any seeded phone:
+`1`, `photo`, `+2500`, `faux`, `aide`…). `make e2e` ends with the owner replying `1` and the agent's clip
+link arriving in the inbox. The worker's beat sends each
 shop's report at its local `report_time` (default 21:00).
 
 ## Repo layout

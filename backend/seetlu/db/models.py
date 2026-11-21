@@ -194,6 +194,7 @@ class User(Base):
     language: Mapped[LangCode] = mapped_column(pg_enum(LangCode, "lang_code"), server_default=text("'fr'"))
     receives_report: Mapped[bool] = mapped_column(server_default=text("false"))
     active: Mapped[bool] = mapped_column(server_default=text("true"))
+    reports_paused: Mapped[bool] = mapped_column(server_default=text("false"))  # 0003
     created_at: Mapped[datetime] = created()
 
 
@@ -498,6 +499,10 @@ class EdgeCommand(Base):
     created_at: Mapped[datetime] = created()
     expires_at: Mapped[datetime]
     completed_at: Mapped[datetime | None]
+    notify_user_ids: Mapped[list[uuid.UUID]] = mapped_column(
+        ARRAY(UUID(as_uuid=True)), server_default=text("'{}'")
+    )  # 0003: WhatsApp users waiting for this clip/snapshot
+    notified_at: Mapped[datetime | None]  # 0003
 
 
 class Clip(Base):
@@ -603,3 +608,31 @@ class MockMessage(Base):
     body: Mapped[str | None]
     url: Mapped[str | None]
     created_at: Mapped[datetime] = created()
+
+
+# ---------- WhatsApp conversations (0003) ----------
+class WaInbound(Base):
+    __tablename__ = "wa_inbound"
+    id: Mapped[uuid.UUID] = pk()
+    wa_message_id: Mapped[str] = mapped_column(unique=True)
+    from_phone: Mapped[str]
+    body: Mapped[str | None]
+    received_at: Mapped[datetime] = created()
+    processed_at: Mapped[datetime | None]
+
+
+class WaSession(Base):
+    __tablename__ = "wa_sessions"
+    phone_e164: Mapped[str] = mapped_column(primary_key=True)
+    state: Mapped[str]
+    context: Mapped[dict[str, Any]] = mapped_column(server_default=text("'{}'"))
+    expires_at: Mapped[datetime]
+    updated_at: Mapped[datetime] = created()
+
+
+class ScheduledSend(Base):
+    __tablename__ = "scheduled_sends"
+    shop_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("shops.id"), primary_key=True)
+    kind: Mapped[str] = mapped_column(primary_key=True)
+    local_date: Mapped[date] = mapped_column(primary_key=True)
+    sent_at: Mapped[datetime] = created()

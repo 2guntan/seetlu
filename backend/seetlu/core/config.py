@@ -15,10 +15,16 @@ class Settings(BaseSettings):
     s3_access_key: str = "minio"
     s3_secret_key: str = "minio123"  # noqa: S105 - dev default, overridden by env
     s3_bucket_clips: str = "seetlu-clips"
+    s3_public_endpoint: str = ""  # host browsers and Meta use for presigned GET links (default: s3_endpoint)
     app_base_url: str = "http://localhost:5173"
     dev_fixed_otp: str | None = None
     messaging_provider: str = "mock"
     mock_whatsapp_url: str = "http://localhost:8025"
+    wa_graph_url: str = "https://graph.facebook.com/v21.0"
+    wa_phone_number_id: str = ""
+    wa_access_token: str = ""
+    wa_app_secret: str = ""
+    wa_verify_token: str = ""
     parser_version: str = "1"  # current shop-phone parser rules version (sales confidence, docs/06)
 
 

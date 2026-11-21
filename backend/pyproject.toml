@@ -50,8 +50,9 @@ select = ["E", "F", "W", "I", "B", "UP", "N", "S", "C4", "SIM", "RUF"]
 ignore = ["S101"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S105", "S106", "N802", "E501"]
-"seetlu/seed/history.py" = ["S311"]  # demo data, not security
+"tests/**" = ["S105", "S106", "S107", "N802", "E501", "RUF001"]
+"seetlu/seed/history.py" = ["S311"]
+"seetlu/messaging/mock_inbox.py" = ["E501", "RUF001"]  # dev-only HTML page  # demo data, not security
 
 [tool.ruff.lint.isort]
 known-first-party = ["seetlu"]

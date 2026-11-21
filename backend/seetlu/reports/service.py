@@ -242,7 +242,10 @@ def recipients(s: Session, shop: m.Shop) -> list[m.User]:
     """Owners of the account, plus managers of this shop who opted in to the report."""
     owners = s.scalars(
         select(m.User).where(
-            m.User.account_id == shop.account_id, m.User.role == m.UserRole.owner, m.User.active.is_(True)
+            m.User.account_id == shop.account_id,
+            m.User.role == m.UserRole.owner,
+            m.User.active.is_(True),
+            m.User.reports_paused.is_(False),
         )
     ).all()
     managers = s.scalars(
@@ -253,6 +256,7 @@ def recipients(s: Session, shop: m.Shop) -> list[m.User]:
             m.User.role == m.UserRole.manager,
             m.User.receives_report.is_(True),
             m.User.active.is_(True),
+            m.User.reports_paused.is_(False),
         )
     ).all()
     seen: dict[uuid.UUID, m.User] = {u.id: u for u in [*owners, *managers]}
