@@ -1,0 +1,6 @@
+apiVersion: 1
+providers:
+  - name: seetlu
+    folder: Seetlu
+    type: file
+    options: { path: /var/lib/grafana/dashboards }

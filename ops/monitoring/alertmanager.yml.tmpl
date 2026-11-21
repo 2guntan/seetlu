@@ -1,0 +1,13 @@
+# Rendered at start (see docker-compose.prod.yml): __ALERT_WEBHOOK_URL__ ← $ALERT_WEBHOOK_URL.
+# Any receiver that accepts Alertmanager webhooks works (Slack/Discord/ntfy bridge, PagerDuty, …).
+route:
+  receiver: ops
+  group_by: [alertname]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+receivers:
+  - name: ops
+    webhook_configs:
+      - url: "__ALERT_WEBHOOK_URL__"
+        send_resolved: true

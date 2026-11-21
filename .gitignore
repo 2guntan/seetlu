@@ -13,3 +13,5 @@ dev-dist/
 celerybeat-schedule*
 test-results/
 playwright-report/
+.env.prod
+.env.worker
