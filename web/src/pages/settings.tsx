@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { get, patch, post, put, type AlertRule, type Shop, type User } from "../api/client";
 import { ErrorMessage, Loading } from "../components/states";
@@ -279,6 +279,9 @@ export function SettingsPage() {
       <Alerts shopId={shop.id} />
       <Users shop={shop} />
       <PairPhone shopId={shop.id} />
+      <p>
+        <Link to="/audit">{t("audit.title")} ›</Link>
+      </p>
     </main>
   );
 }
