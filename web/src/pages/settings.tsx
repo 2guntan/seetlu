@@ -61,17 +61,17 @@ function ShopForm({ shop }: { shop: Shop }) {
       {DAYS.map((d) => {
         const v = form.hours[d];
         return (
-          <div className="row" key={d}>
-            <span className="grow">{t(`settings.days.${d}`)}</span>
+          <div className="hours-row" key={d}>
+            <span className="day">{t(`settings.days.${d}`)}</span>
             <label className="inline m0">
               <input type="checkbox" checked={!v} onChange={(e) => set("hours", { ...form.hours, [d]: e.target.checked ? null : ["08:00", "21:00"] })} />
               {t("settings.closed")}
             </label>
             {v && (
-              <>
+              <span className="times">
                 <input type="time" aria-label={`${d}-open`} value={v[0]} onChange={(e) => set("hours", { ...form.hours, [d]: [e.target.value, v[1]] })} />
                 <input type="time" aria-label={`${d}-close`} value={v[1]} onChange={(e) => set("hours", { ...form.hours, [d]: [v[0], e.target.value] })} />
-              </>
+              </span>
             )}
           </div>
         );

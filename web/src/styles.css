@@ -193,6 +193,15 @@ label { display: grid; gap: var(--sp-1); margin-bottom: var(--sp-3); font-weight
 label > input, label > select, label > textarea { font-size: var(--fs-body); font-weight: 430; }
 label.inline { display: flex; align-items: center; gap: var(--sp-2); font-weight: 430; font-size: var(--fs-body); }
 
+/* Opening hours: day + closed on one line, open/close times side by side below. */
+.hours-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--sp-2) var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--line); }
+.hours-row .day { font-weight: 600; }
+.hours-row .times { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+@media (min-width: 600px) {
+  .hours-row { grid-template-columns: 7rem auto 1fr; }
+  .hours-row .times { grid-column: auto; }
+}
+
 /* Tables */
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 th, td { text-align: left; padding: var(--sp-3) var(--sp-2); border-bottom: 1px solid var(--line); }
