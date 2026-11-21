@@ -3,7 +3,7 @@
 from datetime import UTC, date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from seetlu.core.ids import uuid7
@@ -163,3 +163,43 @@ def test_celery_beat_schedules_due_reports_every_minute() -> None:
 
     assert celery_app.conf.beat_schedule["reports-due"]["schedule"] == 60.0
     assert tasks.schedule_due_reports.name == "seetlu.reports.schedule_due"
+
+
+def test_rebuilt_report_reuses_clip_command_for_same_event_AC_F5_2(db: Session, world: World) -> None:
+    """A report deleted and rebuilt (late data, `make e2e`) must not ask the kit for the same clip twice."""
+    shop, door, counter = setup_shop(db, world)
+    fill_day(db, world, door, counter)
+    db.add(m.Event(id=uuid7(), started_at=at(23, 10), shop_id=shop.id, kit_id=world.kit_a1.id,
+                   camera_id=door.id, type=m.EventType.after_hours_motion))  # fmt: skip
+    db.commit()
+    now = at(21, 0).astimezone(UTC)
+    service.compute_and_send(db, shop.id, D, now=now, provider=MockProvider(db))
+    first = db.scalars(select(m.EdgeCommand)).one()
+    # the kit delivered the clip
+    first.status = m.CommandStatus.done
+    db.add(m.Clip(shop_id=shop.id, event_id=uuid7(), command_id=first.id, object_key="k", kind="clip",
+                  expires_at=now + timedelta(days=7)))  # fmt: skip
+    db.execute(delete(m.DailyReport))
+    db.commit()
+    service.compute_and_send(db, shop.id, D, now=now + timedelta(hours=1), provider=MockProvider(db))
+    row = db.scalars(select(m.DailyReport)).one()
+    assert len(db.scalars(select(m.EdgeCommand)).all()) == 1
+    assert row.moments[0]["clip_command_id"] == str(first.id)
+
+
+def test_expired_clip_is_cut_again_AC_F5_2(db: Session, world: World) -> None:
+    shop, door, counter = setup_shop(db, world)
+    fill_day(db, world, door, counter)
+    db.add(m.Event(id=uuid7(), started_at=at(23, 10), shop_id=shop.id, kit_id=world.kit_a1.id,
+                   camera_id=door.id, type=m.EventType.after_hours_motion))  # fmt: skip
+    db.commit()
+    now = at(21, 0).astimezone(UTC)
+    service.compute_and_send(db, shop.id, D, now=now, provider=MockProvider(db))
+    first = db.scalars(select(m.EdgeCommand)).one()
+    first.status = m.CommandStatus.done
+    db.add(m.Clip(shop_id=shop.id, command_id=first.id, object_key="k", kind="clip",
+                  expires_at=now + timedelta(minutes=30)))  # fmt: skip
+    db.execute(delete(m.DailyReport))
+    db.commit()
+    service.compute_and_send(db, shop.id, D, now=now + timedelta(hours=1), provider=MockProvider(db))
+    assert len(db.scalars(select(m.EdgeCommand)).all()) == 2
