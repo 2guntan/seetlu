@@ -233,7 +233,7 @@ function CameraZones({ shopId, cam, onChange }: { shopId: string; cam: CameraIn;
         {commandId && !clip ? t("install.snapshotWait") : t("install.snapshot")}
       </button>
       <ZoneEditor imageUrl={clip?.url ?? null} zones={cam.zones} drawing={drawing} onPoint={addPoint} />
-      <div className="row" style={{ marginTop: 8 }}>
+      <div className="row mt">
         {kinds.map((k) => (
           <button key={k} type="button" className={drawing === k ? "" : "ghost"} onClick={() => setDrawing(k)}>
             {k === "door_line" ? t("install.drawDoor") : k === "customer_side" ? t("install.drawCustomer") : t("install.drawStaff")}

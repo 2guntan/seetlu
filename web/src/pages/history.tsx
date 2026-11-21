@@ -47,7 +47,7 @@ export function HistoryPage() {
         <button className="ghost" onClick={() => setYm(shiftMonth(ym, -1))} aria-label={t("history.prev")}>
           ‹
         </button>
-        <b className="grow" style={{ textAlign: "center", textTransform: "capitalize" }}>
+        <b className="grow center cap">
           {title}
         </b>
         <button className="ghost" onClick={() => setYm(shiftMonth(ym, 1))} aria-label={t("history.next")}>
@@ -56,7 +56,7 @@ export function HistoryPage() {
       </div>
       {q.isPending && shop && <Loading />}
       <ErrorMessage error={q.error} />
-      <div className="calendar" style={{ marginTop: 12 }}>
+      <div className="calendar">
         {Array.from({ length: lead }, (_, i) => (
           <span key={`l${i}`} />
         ))}
@@ -83,7 +83,7 @@ export function HistoryPage() {
           );
         })}
       </div>
-      <div className="row muted" style={{ marginTop: 12, fontSize: "0.85rem" }}>
+      <div className="row mt">
         <span className="badge v-normal">{t("verdict.normal")}</span>
         <span className="badge v-worth_a_look">{t("verdict.worth_a_look").split(":")[0]}</span>
         <span className="badge v-large_gap">{t("verdict.large_gap").split(":")[0]}</span>

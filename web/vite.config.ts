@@ -16,10 +16,12 @@ export default defineConfig({
         lang: "fr",
         start_url: "/",
         display: "standalone",
-        theme_color: "#0f766e",
-        background_color: "#ffffff",
+        theme_color: "#1d45a6",
+        background_color: "#f4f2ec",
       },
       workbox: {
+        // Precache the self-hosted font so the design works offline (DESIGN.md).
+        globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/v1\//, /^\/healthz/],
         // AC-F7-3: last 30 days of data readable offline. Network first, cache fallback.

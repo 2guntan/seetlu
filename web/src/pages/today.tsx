@@ -18,7 +18,7 @@ function ShopToday({ shop }: { shop: Shop }) {
   return (
     <section className="card" data-testid={`today-${shop.id}`}>
       <div className="row">
-        <h2 className="grow" style={{ margin: 0 }}>
+        <h2 className="grow m0">
           <Link to={`/day/${shop.id}/${localToday(shop.timezone)}`}>{shop.name}</Link>
         </h2>
         <button className="ghost" onClick={() => void q.refetch()}>
@@ -29,7 +29,11 @@ function ShopToday({ shop }: { shop: Shop }) {
       <ErrorMessage error={q.error} />
       {d && (
         <>
-          <div className="stats" style={{ marginTop: 12 }}>
+          <div className="stats">
+            <div className="stat hero">
+              <small>{t("today.money")}</small>
+              <b>{money(d.sales_xof)}</b>
+            </div>
             <div className="stat">
               <small>{t("today.visitors")}</small>
               <b>{count(d.visitors_in)}</b>
@@ -37,10 +41,6 @@ function ShopToday({ shop }: { shop: Shop }) {
             <div className="stat">
               <small>{t("today.served")}</small>
               <b>{count(d.served)}</b>
-            </div>
-            <div className="stat">
-              <small>{t("today.money")}</small>
-              <b>{money(d.sales_xof)}</b>
             </div>
             <div className="stat">
               <small>{t("today.counter")}</small>
@@ -56,7 +56,7 @@ function ShopToday({ shop }: { shop: Shop }) {
           {d.missing_hours.length > 0 && (
             <p className="banner">{t("today.missingSoFar", { hours: hourRanges(d.missing_hours) })}</p>
           )}
-          <p className="muted">
+          <p className="muted small">
             {d.last_heartbeat_at
               ? t("today.lastHeartbeat", { time: hhmm(d.last_heartbeat_at, shop.timezone) })
               : t("today.noHeartbeat")}
