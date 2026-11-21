@@ -24,6 +24,6 @@ grep -Eq '^events +[1-9][0-9]* ' "$tmp/drill.log" || { echo "FAIL: seeded events
 echo "== retention keeps the newest base and prunes older ones"
 dc run --rm -e BACKUP_RETENTION_DAYS=0 backup backup-now.sh >/dev/null
 # shellcheck disable=SC2016 # expanded inside the container
-n=$(dc run --rm backup bash -c 'source /usr/local/bin/lib.sh; s3 ls "s3://$BUCKET/base/" | grep -c PRE')
+n=$(dc run --rm backup bash -c 'source /usr/local/bin/lib.sh; s3 ls "s3://$BUCKET/base/" | grep -c PRE' 2>/dev/null | tail -1)
 [[ $n == 1 ]] || { echo "FAIL: expected 1 base backup after retention 0, got $n"; exit 1; }
 echo "restore drill test PASSED"

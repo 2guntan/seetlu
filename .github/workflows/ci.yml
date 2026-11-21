@@ -117,7 +117,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: dependencies (lockfiles)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           scan-type: fs
           scan-ref: .
@@ -127,7 +127,7 @@ jobs:
           exit-code: "1"
       - run: docker build -q -t seetlu-backend:scan backend
       - name: backend image
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           image-ref: seetlu-backend:scan
           severity: CRITICAL
