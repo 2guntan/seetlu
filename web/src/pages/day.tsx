@@ -151,17 +151,17 @@ export function DayPage() {
       {sales.data && sales.data.length === 0 && <p className="muted">{t("sales.empty")}</p>}
       {sales.data && sales.data.length > 0 && (
         <div className="scroll-x">
-        <table>
-          <tbody>
-            {sales.data.map((s) => (
-              <tr key={s.id} className={s.voided_at ? "voided" : undefined}>
-                <td>{hhmm(s.occurred_at, tz)}</td>
-                <td>{t(`sales.src.${s.source}`)}</td>
-                <td className="num">{money(s.amount_xof)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <table>
+            <tbody>
+              {sales.data.map((s) => (
+                <tr key={s.id} className={s.voided_at ? "voided" : undefined}>
+                  <td>{hhmm(s.occurred_at, tz)}</td>
+                  <td>{t(`sales.src.${s.source}`)}</td>
+                  <td className="num">{money(s.amount_xof)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </main>

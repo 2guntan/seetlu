@@ -100,24 +100,24 @@ export function SalesPage() {
       {q.data && rows.length === 0 && <p className="muted">{t("sales.empty")}</p>}
       {rows.length > 0 && (
         <div className="scroll-x">
-        <table>
-          <tbody>
-            {rows.map((s) => (
-              <tr key={s.id} data-testid={`sale-${s.id}`} className={s.voided_at ? "voided" : undefined}>
-                <td>{hhmm(s.occurred_at, tz)}</td>
-                <td>{t(`sales.src.${s.source}`)}</td>
-                <td className="num">{money(s.amount_xof)}</td>
-                <td>
-                  {!s.voided_at && s.entered_by === me?.user.id && date === today && (
-                    <button className="ghost" onClick={() => voidSale.mutate(s.id)}>
-                      {t("sales.void")}
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <table>
+            <tbody>
+              {rows.map((s) => (
+                <tr key={s.id} data-testid={`sale-${s.id}`} className={s.voided_at ? "voided" : undefined}>
+                  <td>{hhmm(s.occurred_at, tz)}</td>
+                  <td>{t(`sales.src.${s.source}`)}</td>
+                  <td className="num">{money(s.amount_xof)}</td>
+                  <td>
+                    {!s.voided_at && s.entered_by === me?.user.id && date === today && (
+                      <button className="ghost" onClick={() => voidSale.mutate(s.id)}>
+                        {t("sales.void")}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
       <p><b>{t("sales.total", { amount: money(total) })}</b></p>
