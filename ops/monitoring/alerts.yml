@@ -1,0 +1,44 @@
+groups:
+  - name: seetlu
+    rules:
+      - alert: EndpointDown
+        expr: probe_success == 0
+        for: 3m
+        labels: { severity: page }
+        annotations: { summary: "{{ $labels.instance }} is down (runbook: ops/runbooks/incident.md)" }
+
+      - alert: TlsCertificateExpiresSoon
+        expr: probe_ssl_earliest_cert_expiry - time() < 14 * 86400
+        for: 1h
+        labels: { severity: ticket }
+        annotations: { summary: "TLS certificate for {{ $labels.instance }} expires in < 14 days" }
+
+      - alert: DiskAlmostFull
+        expr: node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes < 0.15
+        for: 10m
+        labels: { severity: page }
+        annotations: { summary: "{{ $labels.mountpoint }} has < 15 % free" }
+
+      - alert: BaseBackupMissing
+        expr: time() - seetlu_backup_last_base_timestamp_seconds > 26 * 3600 or absent(seetlu_backup_last_base_timestamp_seconds)
+        for: 30m
+        labels: { severity: page }
+        annotations: { summary: "No base backup for 26 h (runbook: ops/runbooks/backup-restore.md)" }
+
+      - alert: WalShippingStalled
+        expr: time() - seetlu_backup_last_wal_ship_timestamp_seconds > 15 * 60
+        for: 5m
+        labels: { severity: page }
+        annotations: { summary: "WAL not shipped to MinIO for 15 min" }
+
+      - alert: RestoreDrillOverdue
+        expr: time() - seetlu_restore_drill_last_success_timestamp_seconds > 35 * 86400
+        for: 1h
+        labels: { severity: ticket }
+        annotations: { summary: "Monthly restore drill has not passed for 35 days" }
+
+      - alert: HighMemory
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1
+        for: 10m
+        labels: { severity: ticket }
+        annotations: { summary: "Less than 10 % RAM available" }

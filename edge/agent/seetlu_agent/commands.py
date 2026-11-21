@@ -5,6 +5,7 @@ server keeps returning `sent` commands until it receives their result.
 """
 
 import logging
+import re
 import shutil
 import subprocess
 import tempfile
@@ -56,6 +57,16 @@ def key_from_upload_url(url: str) -> str | None:
     """Presigned path-style URL `/bucket/key...` → key (the server chose it, we only echo it back)."""
     parts = unquote(urlparse(url).path).lstrip("/").split("/", 1)
     return parts[1] if len(parts) == 2 else None
+
+
+VERSION_RE = re.compile(r"[0-9A-Za-z][0-9A-Za-z._-]{0,127}")  # a valid image tag
+
+
+def write_env_var(path: Path, key: str, value: str) -> None:
+    """Set KEY=value in a dotenv file, keeping the other lines."""
+    lines = path.read_text().splitlines() if path.exists() else []
+    lines = [ln for ln in lines if not ln.startswith(f"{key}=")] + [f"{key}={value}"]
+    path.write_text("\n".join(lines) + "\n")
 
 
 class UnavailableError(Exception):
@@ -144,12 +155,27 @@ class CommandRunner:
 
     # ---------- maintenance ----------
     def _update_agent(self, params: dict[str, Any], _url: str | None) -> dict[str, Any]:
+        """Pin the new image tag in the compose project's `.env` (read by `docker compose` and by the
+        boot unit), pull, recreate. A failed pull restores the previous tag (docs/05, AC-F10-3)."""
+        version = str(params.get("version") or "")
+        if not VERSION_RE.fullmatch(version):
+            raise ValueError(f"invalid agent version {version!r}")
         docker = shutil.which("docker") or "docker"
         base = [docker, "compose", "-f", self.compose_file]
-        self.run([*base, "pull", "seetlu-agent"])
+        env_file = Path(self.compose_file).parent / ".env"
+        previous = env_file.read_text() if env_file.exists() else None
+        write_env_var(env_file, "SEETLU_AGENT_VERSION", version)
+        try:
+            self.run([*base, "pull", "seetlu-agent"])
+        except Exception:
+            if previous is None:
+                env_file.unlink(missing_ok=True)
+            else:
+                env_file.write_text(previous)
+            raise
         # `up -d` replaces this container; the new version is reported in the next heartbeat
         self.run([*base, "up", "-d", "--no-deps", "seetlu-agent"])
-        return {"requested_version": params.get("version")}
+        return {"requested_version": version}
 
     def _reboot(self, params: dict[str, Any], _url: str | None) -> dict[str, Any]:
         """The host helper (systemd path unit installed by provision.sh) runs `systemctl reboot`."""

@@ -71,7 +71,7 @@ services:
     ports: ["8025:8025"]
 
   web:
-    build: ./web
+    build: { context: ./web, target: dev }
     environment:
       VITE_API_PROXY: http://api:8000
     ports: ["5173:5173"]

@@ -1,0 +1,246 @@
+# Production stack for one Senegal-hosted VM (docs/02 "Environments", docs/09). Deploy: ops/runbooks/deploy.md.
+#
+#   docker compose -f ops/docker-compose.prod.yml --env-file .env.prod up -d --build --wait
+#
+# Only Caddy (80/443) is reachable from outside. Prometheus, Alertmanager and Grafana listen on
+# 127.0.0.1 (reach them with an SSH tunnel). Logs go to journald (30-day retention set by ops/vm/setup.sh).
+name: seetlu-prod
+
+x-logging: &logging
+  logging:
+    driver: ${LOG_DRIVER:-journald}  # json-file on hosts without journald (ops tests)
+    options: { tag: "seetlu/{{.Name}}" }
+
+x-backend: &backend
+  build: { context: ../backend }
+  image: seetlu-backend:prod
+  pull_policy: build
+  restart: unless-stopped
+  env_file: ["${SEETLU_ENV_FILE:-../.env.prod}"]
+  environment:
+    SEETLU_ENV: ${SEETLU_ENV:-prod}
+    DATABASE_URL: postgresql+psycopg://seetlu:${POSTGRES_PASSWORD}@db:5432/seetlu
+    REDIS_URL: redis://redis:6379/0
+    S3_ENDPOINT: http://minio:9000
+    S3_ACCESS_KEY: ${MINIO_ROOT_USER}
+    S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+    S3_PUBLIC_ENDPOINT: https://files.${SEETLU_DOMAIN}
+    APP_BASE_URL: https://${SEETLU_DOMAIN}
+    DEV_FIXED_OTP: ""
+  <<: *logging
+
+services:
+  db:
+    image: timescale/timescaledb:2.17.2-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: seetlu
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: seetlu
+    # Continuous WAL archiving to the backup volume; the backup service ships it to MinIO (docs/09).
+    # The entrypoint runs as root first: create the archive dir, then hand over to the image's entrypoint.
+    entrypoint: ["sh", "-c", "mkdir -p /backups/wal && chown postgres:postgres /backups/wal && exec docker-entrypoint.sh \"$$@\"", "--"]
+    command:
+      - postgres
+      - -c
+      - wal_level=replica
+      - -c
+      - archive_mode=on
+      - -c
+      - archive_command=test ! -f /backups/wal/%f && cp %p /backups/wal/%f
+      - -c
+      - archive_timeout=300
+      - -c
+      - shared_preload_libraries=timescaledb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - backups:/backups
+      - ./backup/initdb-replication.sh:/docker-entrypoint-initdb.d/000-replication.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U seetlu -d seetlu"]
+      interval: 5s
+      retries: 30
+    <<: *logging
+
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: ["redisdata:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 30
+    <<: *logging
+
+  minio:
+    # Same build as dev (MinIO stopped publishing community images in Oct 2025), pinned by digest.
+    image: cgr.dev/chainguard/minio@sha256:e9cf6b99c226e9539ed0f14b6f00e37b07da153c7ba1f4f8709c807574b471ec
+    restart: unless-stopped
+    command: ["server", "/data"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes: ["miniodata:/data"]
+    <<: *logging
+
+  migrate:
+    <<: *backend
+    restart: "no"
+    command: ["sh", "-c", "alembic upgrade head && python -m seetlu.storage.init_bucket"]
+    depends_on:
+      db: { condition: service_healthy }
+      minio: { condition: service_started }
+
+  api:
+    <<: *backend
+    command: ["uvicorn", "seetlu.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2",
+              "--proxy-headers", "--forwarded-allow-ips", "*"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]
+      interval: 10s
+      retries: 30
+
+  worker:
+    <<: *backend
+    # The raw-notification private key lives only here (docs/09): .env.worker is not given to the API.
+    env_file: ["${SEETLU_ENV_FILE:-../.env.prod}", "${SEETLU_WORKER_ENV_FILE:-../.env.worker}"]
+    command: ["celery", "-A", "seetlu.workers.celery_app", "worker", "--loglevel=INFO", "--concurrency=2"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  beat:
+    <<: *backend
+    command: ["celery", "-A", "seetlu.workers.celery_app", "beat", "--loglevel=INFO",
+              "--schedule=/tmp/celerybeat-schedule"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  caddy:
+    # Static PWA + reverse proxy. Automatic Let's Encrypt certificates; TLS 1.2+ (docs/09).
+    build: { context: ../web, target: prod }
+    image: seetlu-web:prod
+    pull_policy: build
+    restart: unless-stopped
+    environment:
+      SEETLU_DOMAIN: ${SEETLU_DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+      CADDY_TLS: ${CADDY_TLS:-}
+    ports: ["${HTTP_PORT:-80}:80", "${HTTPS_PORT:-443}:443", "${HTTPS_PORT:-443}:443/udp"]
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+    depends_on:
+      api: { condition: service_healthy }
+    <<: *logging
+
+  backup:
+    # Daily base backup + WAL shipping to MinIO, 30-day retention (docs/09). Restore: ops/backup/restore-drill.sh
+    build: { context: ./backup }
+    image: seetlu-backup:prod
+    pull_policy: build
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGUSER: seetlu
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      BACKUP_S3_ENDPOINT: http://minio:9000
+      BACKUP_S3_BUCKET: ${BACKUP_S3_BUCKET:-seetlu-backups}
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD}
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-30}
+      BACKUP_OFFSITE_S3_ENDPOINT: ${BACKUP_OFFSITE_S3_ENDPOINT:-}
+      BACKUP_OFFSITE_S3_BUCKET: ${BACKUP_OFFSITE_S3_BUCKET:-}
+      BACKUP_OFFSITE_ACCESS_KEY_ID: ${BACKUP_OFFSITE_ACCESS_KEY_ID:-}
+      BACKUP_OFFSITE_SECRET_ACCESS_KEY: ${BACKUP_OFFSITE_SECRET_ACCESS_KEY:-}
+    volumes:
+      - backups:/backups
+      - metrics:/metrics
+    depends_on:
+      db: { condition: service_healthy }
+      minio: { condition: service_started }
+    <<: *logging
+
+  # ---------- monitoring (docs/11 M10) ----------
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - sed "s|__SEETLU_DOMAIN__|$$SEETLU_DOMAIN|g" /etc/prometheus/prometheus.yml.tmpl > /tmp/prometheus.yml
+        && exec /bin/prometheus --config.file=/tmp/prometheus.yml --storage.tsdb.path=/prometheus
+        --storage.tsdb.retention.time=30d
+    environment:
+      SEETLU_DOMAIN: ${SEETLU_DOMAIN}
+    ports: ["127.0.0.1:9090:9090"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml.tmpl:ro
+      - ./monitoring/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - promdata:/prometheus
+    <<: *logging
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    # Alertmanager does not expand env vars; render the receiver URL at start.
+    command:
+      - sed "s|__ALERT_WEBHOOK_URL__|$$ALERT_WEBHOOK_URL|" /etc/alertmanager/alertmanager.yml.tmpl
+        > /tmp/alertmanager.yml && exec /bin/alertmanager --config.file=/tmp/alertmanager.yml
+        --storage.path=/alertmanager
+    environment:
+      ALERT_WEBHOOK_URL: ${ALERT_WEBHOOK_URL}
+    ports: ["127.0.0.1:9093:9093"]
+    volumes: ["./monitoring/alertmanager.yml.tmpl:/etc/alertmanager/alertmanager.yml.tmpl:ro"]
+    <<: *logging
+
+  blackbox:
+    image: prom/blackbox-exporter:v0.25.0
+    restart: unless-stopped
+    volumes: ["./monitoring/blackbox.yml:/etc/blackbox_exporter/config.yml:ro"]
+    # reach the public names on this VM without depending on NAT hairpinning
+    extra_hosts:
+      - "${SEETLU_DOMAIN}:host-gateway"
+      - "files.${SEETLU_DOMAIN}:host-gateway"
+    <<: *logging
+
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    restart: unless-stopped
+    command: ["--path.rootfs=/host", "--collector.textfile.directory=/metrics"]
+    pid: host
+    volumes:
+      - /:/host:ro
+      - metrics:/metrics:ro
+    <<: *logging
+
+  grafana:
+    image: grafana/grafana-oss:11.3.1
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+    ports: ["127.0.0.1:3000:3000"]
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafanadata:/var/lib/grafana
+    <<: *logging
+
+volumes:
+  pgdata:
+  redisdata:
+  miniodata:
+  backups:
+  metrics:
+  caddydata:
+  caddyconfig:
+  promdata:
+  grafanadata:

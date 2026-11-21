@@ -1,0 +1,16 @@
+#cloud-config
+# Fresh Ubuntu 24.04 VM → Seetlu prerequisites. Paste as user-data at VM creation (any provider).
+# Replace the SSH key. After boot: ssh in, run gen-secrets.sh, start the stack (ops/runbooks/deploy.md).
+users:
+  - name: seetlu
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAA...replace-with-the-ops-public-key ops@seetlu
+package_update: true
+packages: [git]
+runcmd:
+  - git clone https://github.com/2guntan/seetlu.git /opt/seetlu
+  - chown -R seetlu:seetlu /opt/seetlu
+  - /opt/seetlu/ops/vm/setup.sh

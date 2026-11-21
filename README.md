@@ -20,7 +20,7 @@ milestone by milestone (M0–M10).
 | M7 | done: WhatsApp provider (mock + Cloud API), webhook, inbound grammar (1/2/3, photo, faux, +amount, cash reply, annuler, stop/start, aide), clip links, alerts, cash prompt, mock inbox page |
 | M8 | done: web app (owner screens, installer flow with zone drawing + count check + activation rules, support console), i18n fr/en (wo keys), PWA offline cache, bundle budget, 5 Playwright journeys |
 | M9 | done: shop phone app (pairing, parser rules from the server, notification listener, sealed raw text, Room queue, WorkManager upload, quick-log pad, health screen) + phone API (pairing codes, parsers, sales batch) |
-| M10 | to do |
+| M10 | done: production compose (Caddy TLS, one-shot migrations, worker-only private key, dev values refused), Postgres base backup + WAL to MinIO with 30-day retention and a restore drill, Prometheus/Alertmanager/Grafana, journald log retention, VM setup + cloud-init, operator CLI, edge OS provisioning (tested on arm64), OTA release flow, runbooks, field-validation protocol |
 
 ## Quick start (dev)
 
@@ -126,6 +126,35 @@ then allow notification access from « État du téléphone ». For sealed raw n
 collected (docs/12); both test suites run the fixtures in
 `android/shop-phone/src/test/resources/notifications/`.
 
+## Production (M10)
+
+Fresh Senegal-hosted Ubuntu 24.04 VM → running stack in under an hour: **`ops/runbooks/deploy.md`**.
+
+```bash
+sudo ops/vm/setup.sh                                      # docker, firewall, ssh, journald, systemd units
+sudo make prod-secrets DOMAIN=app.example.sn EMAIL=ops@example.sn
+sudo systemctl start seetlu                               # = make prod-up (builds, migrates, waits for health)
+sudo make backup-now && sudo make restore-drill           # must print "restore drill PASSED"
+```
+
+- `ops/docker-compose.prod.yml`: Caddy (Let's Encrypt, TLS 1.2+, PWA + `/v1` + `files.<domain>` for
+  presigned clip links), api, worker (the only service with `RAW_PRIVATE_KEY_B64`), beat, Postgres +
+  TimescaleDB with WAL archiving, Redis (AOF), MinIO, backup, Prometheus, Alertmanager, blackbox and node
+  exporters, Grafana. Only 80/443 are public; monitoring listens on 127.0.0.1 (SSH tunnel).
+- Backups: daily `pg_basebackup` + continuous WAL to MinIO, 30 days, optional second copy in Senegal;
+  monthly restore drill by a systemd timer (`ops/runbooks/backup-restore.md`).
+- Logs: journald, 30 days on the VM, 14 days on kits.
+- First accounts and kits: `python -m seetlu.admin create-owner | create-staff | register-kit`.
+- Kits: `sudo edge/os/provision.sh --serial … --claim-token … --api-url https://…` (`docs/05`);
+  OTA = tag `agent-v<version>`, then set the target version in the support console (`ops/runbooks/ota.md`).
+- Runbooks: `ops/runbooks/` (deploy, backup-restore, ota, kit-offline, incident).
+  Pilot checks: `docs/field-validation.md`.
+
+```bash
+make ops-test          # throwaway copy of the prod stack: restore drill (PITR) + TLS/monitoring smoke test
+make provision-test    # edge/os/provision.sh twice in an arm64 Ubuntu 24.04 container
+```
+
 ## Repo layout
 
 ```
@@ -135,8 +164,9 @@ edge/fake-frigate/  Frigate simulator for dev and tests
 edge/frigate/       Frigate config template (rendered by the agent)
 edge/mosquitto/     MQTT broker configs (dev, and 127.0.0.1-only for the kit)
 edge/docker-compose.edge.yml  production stack on the kit (mosquitto, frigate -rk, seetlu-agent)
+edge/os/            provision.sh for the kit OS (+ arm64 test)
 web/                React PWA (owner, installer, support)
-ops/                dev and production scripts
+ops/                production compose, Caddy, backups, monitoring, VM setup, runbooks, ops tests
 docs/               specs + decisions.md
 ```
 
@@ -157,6 +187,7 @@ docs/               specs + decisions.md
 | `docs/10-testing.md` | Simulator, scenarios, test layers |
 | `docs/11-milestones.md` | Build order M0–M10 |
 | `docs/12-human-tasks.md` | What a human must do in parallel |
+| `docs/field-validation.md` | Pilot protocol: install tally, weekly audits, labelled clips |
 | `docs/decisions.md` | Decision log (Claude Code appends to it) |
 
 Product spec for humans: "Seetlu — Small-Shop Vision Kit: Product & Build Spec v1" (Claude doc).

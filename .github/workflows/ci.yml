@@ -87,3 +87,49 @@ jobs:
       - uses: actions/checkout@v4
       - run: cp .env.example .env
       - run: docker compose build
+
+  ops:
+    # docs/11 M10: restore drill passes; the production stack comes up behind TLS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck -x ops/backup/*.sh ops/vm/*.sh ops/tests/*.sh edge/os/*.sh edge/os/tests/*.sh
+      - name: compose files are valid
+        run: |
+          cp .env.prod.example .env.prod && printf 'RAW_PRIVATE_KEY_B64=x\n' > .env.worker
+          docker compose -f ops/docker-compose.prod.yml --env-file .env.prod config --quiet
+      - name: restore drill
+        run: ops/tests/restore-drill-test.sh
+      - name: production smoke test
+        run: ops/tests/prod-smoke.sh
+
+  edge-os:
+    # docs/11 M10: provision script tested on arm64
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - run: edge/os/tests/provision-test.sh
+
+  security:
+    # docs/09: dependency and container image scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: dependencies (lockfiles)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: "1"
+      - run: docker build -q -t seetlu-backend:scan backend
+      - name: backend image
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: seetlu-backend:scan
+          severity: CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"

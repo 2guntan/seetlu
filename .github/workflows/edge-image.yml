@@ -5,7 +5,9 @@ on:
     paths: ["edge/agent/**", "edge/frigate/**", ".github/workflows/edge-image.yml"]
   push:
     branches: [main]
-    paths: ["edge/agent/**", "edge/frigate/**", ".github/workflows/edge-image.yml"]
+    # OTA release: the image tag is the version the support console targets. No path filter here:
+    # GitHub applies it to tag pushes too, which would skip releases.
+    tags: ["agent-v*"]
 
 jobs:
   build:
@@ -15,6 +17,14 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+      - name: release tag must match the agent version
+        id: ver
+        run: |
+          v=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' edge/agent/seetlu_agent/__init__.py)
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          if [[ "$GITHUB_REF" == refs/tags/agent-v* && "${GITHUB_REF#refs/tags/agent-v}" != "$v" ]]; then
+            echo "tag ${GITHUB_REF#refs/tags/} does not match __version__ $v"; exit 1
+          fi
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
       - uses: docker/login-action@v3
@@ -29,6 +39,8 @@ jobs:
           file: edge/agent/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name == 'push' }}
-          tags: ghcr.io/${{ github.repository_owner }}/seetlu-agent:${{ github.sha }}
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/seetlu-agent:${{ github.sha }}
+            ${{ startsWith(github.ref, 'refs/tags/agent-v') && format('ghcr.io/{0}/seetlu-agent:{1}', github.repository_owner, steps.ver.outputs.version) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

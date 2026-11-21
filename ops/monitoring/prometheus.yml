@@ -1,0 +1,48 @@
+# Uptime + host + backup freshness (docs/11 M10). Kit health is in the support console (AC-F10-2).
+# Rendered at start (docker-compose.prod.yml): __SEETLU_DOMAIN__ ← $SEETLU_DOMAIN.
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+rule_files: [/etc/prometheus/alerts.yml]
+
+alerting:
+  alertmanagers:
+    - static_configs: [{ targets: ["alertmanager:9093"] }]
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs: [{ targets: ["localhost:9090"] }]
+
+  - job_name: node  # CPU, RAM, disk, plus backup textfile metrics written by the backup service
+    static_configs: [{ targets: ["node-exporter:9100"] }]
+
+  - job_name: uptime-public  # the public URLs, through Caddy, with the real certificate checked
+    metrics_path: /probe
+    params: { module: [http_2xx] }
+    static_configs:
+      - targets:
+          - https://__SEETLU_DOMAIN__/healthz
+          - https://__SEETLU_DOMAIN__/
+          - https://files.__SEETLU_DOMAIN__/minio/health/live
+    relabel_configs: &probe
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: uptime-internal
+    metrics_path: /probe
+    params: { module: [http_2xx] }
+    static_configs:
+      - targets: ["http://api:8000/healthz", "http://minio:9000/minio/health/live"]
+    relabel_configs: *probe
+
+  - job_name: tcp
+    metrics_path: /probe
+    params: { module: [tcp_connect] }
+    static_configs:
+      - targets: ["db:5432", "redis:6379"]
+    relabel_configs: *probe

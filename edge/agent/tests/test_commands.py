@@ -21,7 +21,7 @@ def runner(tmp_path: Path, calls: list[list[str]]) -> tuple[CommandRunner, FakeC
     engine = Engine(EdgeConfig(), "K")
     engine.last_ts = 1_800_000_000.0
     r = CommandRunner(engine, Outbox(":memory:"), fake_frigate(), uploads=cloud.client(),
-                      run=copy_runner(calls), compose_file="/c.yml", host_dir=tmp_path / "host")  # fmt: skip
+                      run=copy_runner(calls), compose_file=str(tmp_path / "c.yml"), host_dir=tmp_path / "host")  # fmt: skip
     return r, cloud, engine
 
 
@@ -78,13 +78,40 @@ def test_count_check_counts_door_entries_AC_F8_3(tmp_path: Path) -> None:
     assert r.execute({"id": "e", "type": "count_check_stop", "params": {}}) == ("done", {"agent_count": 3})
 
 
-def test_update_agent_pulls_and_recreates_the_container_AC_F10_3(tmp_path: Path) -> None:
+def test_update_agent_pins_the_tag_pulls_and_recreates_AC_F10_3(tmp_path: Path) -> None:
     calls: list[list[str]] = []
     r, _, _ = runner(tmp_path, calls)
+    (tmp_path / ".env").write_text("SEETLU_IMAGE_OWNER=seetlu\nSEETLU_AGENT_VERSION=0.1.0\n")
     assert r.execute({"id": "u", "type": "update_agent", "params": {"version": "0.2.0"}}) == (
         "done", {"requested_version": "0.2.0"})  # fmt: skip
-    assert calls[0][-3:] == ["/c.yml", "pull", "seetlu-agent"]
+    assert calls[0][-3:] == [str(tmp_path / "c.yml"), "pull", "seetlu-agent"]
     assert calls[1][-4:] == ["up", "-d", "--no-deps", "seetlu-agent"]
+    assert (tmp_path / ".env").read_text() == "SEETLU_IMAGE_OWNER=seetlu\nSEETLU_AGENT_VERSION=0.2.0\n"
+
+
+def test_update_agent_failed_pull_restores_the_previous_tag_AC_F10_3(tmp_path: Path) -> None:
+    def failing(argv: list[str]) -> None:
+        raise subprocess.CalledProcessError(1, argv)
+
+    r, _, _ = runner(tmp_path, [])
+    r.run = failing
+    (tmp_path / ".env").write_text("SEETLU_AGENT_VERSION=0.1.0\n")
+    status, result = r.execute({"id": "u", "type": "update_agent", "params": {"version": "0.2.0"}}) or (
+        "",
+        {},
+    )
+    assert status == "failed" and result["error"] == "CalledProcessError"
+    assert (tmp_path / ".env").read_text() == "SEETLU_AGENT_VERSION=0.1.0\n"
+
+
+def test_update_agent_refuses_a_bad_tag(tmp_path: Path) -> None:
+    calls: list[list[str]] = []
+    r, _, _ = runner(tmp_path, calls)
+    status, _ = r.execute({"id": "u", "type": "update_agent", "params": {"version": "1.0; rm -rf /"}}) or (
+        "",
+        {},
+    )
+    assert status == "failed" and calls == []
 
 
 def test_reboot_asks_the_host_helper(tmp_path: Path) -> None:

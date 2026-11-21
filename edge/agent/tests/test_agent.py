@@ -22,7 +22,7 @@ def env(tmp_path: Path, **kw: Any) -> AgentEnv:
     base = AgentEnv(
         api_url="http://api.test", kit_serial="TEST-KIT", claim_token="dev-claim-token",
         frigate_url="http://frigate.test", mqtt_host="localhost", mqtt_port=1883, data_dir=tmp_path / "agent",
-        frigate_config_path=tmp_path / "frigate" / "config.yml", compose_file="/c.yml", setup_port=0,
+        frigate_config_path=tmp_path / "frigate" / "config.yml", compose_file=str(tmp_path / "c.yml"), setup_port=0,
         sim_clock=True,
     )  # fmt: skip
     return replace(base, **kw)

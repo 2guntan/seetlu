@@ -1,0 +1,47 @@
+# Seetlu public entry point (docs/09: TLS 1.2+ everywhere). Certificates: Let's Encrypt via ACME_EMAIL.
+# CADDY_TLS=internal uses Caddy's local CA (local smoke test, ops/tests/prod-smoke.sh).
+{
+	email {$ACME_EMAIL}
+	servers {
+		protocols h1 h2 h3
+	}
+}
+
+(common) {
+	tls {$CADDY_TLS} {
+		protocols tls1.2 tls1.3
+	}
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		-Server
+	}
+}
+
+{$SEETLU_DOMAIN} {
+	import common
+	@api path /v1/* /healthz
+	handle @api {
+		reverse_proxy api:8000
+	}
+	handle {
+		root * /srv/web
+		@immutable path /assets/*
+		header @immutable Cache-Control "public, max-age=31536000, immutable"
+		header /sw.js Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+# Presigned clip links (owner app, WhatsApp) and edge clip uploads. The Host header is kept so
+# MinIO validates signatures made for files.<domain>.
+files.{$SEETLU_DOMAIN} {
+	import common
+	request_body {
+		max_size 50MB
+	}
+	reverse_proxy minio:9000
+}
