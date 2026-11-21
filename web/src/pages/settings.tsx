@@ -247,7 +247,7 @@ function PairPhone({ shopId }: { shopId: string }) {
       </button>
       {code.data && (
         <p>
-          <b data-testid="pair-code" style={{ fontSize: "2rem", letterSpacing: "0.3em" }}>
+          <b data-testid="pair-code" className="code-big">
             {code.data.code}
           </b>{" "}
           <small className="muted">{t("settings.pairExpires", { time: hhmm(code.data.expires_at) })}</small>

@@ -84,7 +84,7 @@ export function SalesPage() {
         </select>
       </div>
       {date === today && (
-        <form className="card row" onSubmit={submit}>
+        <form className="card row bottom" onSubmit={submit}>
           <label className="grow m0">
             {t("sales.amount")}
             <input name="amount" inputMode="numeric" value={amount} onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))} />
@@ -103,7 +103,7 @@ export function SalesPage() {
         <table>
           <tbody>
             {rows.map((s) => (
-              <tr key={s.id} data-testid={`sale-${s.id}`} style={s.voided_at ? { textDecoration: "line-through", color: "#9ca3af" } : undefined}>
+              <tr key={s.id} data-testid={`sale-${s.id}`} className={s.voided_at ? "voided" : undefined}>
                 <td>{hhmm(s.occurred_at, tz)}</td>
                 <td>{t(`sales.src.${s.source}`)}</td>
                 <td className="num">{money(s.amount_xof)}</td>

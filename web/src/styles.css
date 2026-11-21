@@ -191,7 +191,12 @@ input[type="checkbox"], input[type="radio"] { min-height: 0; width: 22px; height
 input[type="number"].narrow { width: 88px; }
 label { display: grid; gap: var(--sp-1); margin-bottom: var(--sp-3); font-weight: 600; font-size: var(--fs-label); }
 label > input, label > select, label > textarea { font-size: var(--fs-body); font-weight: 430; }
-label.inline { display: flex; align-items: center; gap: var(--sp-2); font-weight: 430; font-size: var(--fs-body); }
+label.inline { display: flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: 430; font-size: var(--fs-body); }
+label small { font-weight: 430; }
+.card > button, .card > form > button, .card > div.row:has(> button) { margin-top: var(--sp-2); }
+.card > button + label, .card > form > button + label { margin-top: var(--sp-3); }
+.row.bottom { align-items: flex-end; }
+.code-big { font-size: 2rem; letter-spacing: 0.3em; font-variant-numeric: tabular-nums; }
 
 /* Opening hours: day + closed on one line, open/close times side by side below. */
 .hours-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--sp-2) var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--line); }

@@ -101,7 +101,7 @@ export function SupportKitPage() {
           <section className="card">
             <h2>{t("support.commands")}</h2>
             <div className="row">
-              <button onClick={() => cmd.mutate("reboot")}>{t("support.reboot")}</button>
+              <button className="ghost" onClick={() => cmd.mutate("reboot")}>{t("support.reboot")}</button>
               <button className="ghost" onClick={() => cmd.mutate("snapshot")}>
                 {t("support.snapshot")}
               </button>
