@@ -11,3 +11,5 @@ dev-dist/
 *.egg-info/
 .DS_Store
 celerybeat-schedule*
+test-results/
+playwright-report/

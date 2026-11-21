@@ -201,6 +201,13 @@ def stop_count_check(check_id: uuid.UUID, body: StopIn, user: CurrentUser, s: DB
         raise Problem(404, "not-found", "Count check not found")
     kit, shop = _kit_for(s, check.kit_id, user, Action.kit_command)
     if check.ended_at is not None:
+        # a failed check can still be overridden afterwards, once, with a reason (AC-F8-3)
+        if body.override_reason and not check.passed and not check.override_reason:
+            check.override_reason = body.override_reason
+            audit(s, user, "count_check.override", account_id=shop.account_id, target_type="count_check",
+                  target_id=check.id, detail={"reason": body.override_reason, "manual": check.manual_count,
+                  "agent": check.agent_count})  # fmt: skip
+            s.commit()
         return CountCheckOut.model_validate(check)
     now = datetime.now(UTC)
     agent = (

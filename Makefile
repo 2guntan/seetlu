@@ -49,7 +49,7 @@ fmt: ## Auto-format Python
 
 test: ## All test suites
 	@for p in $(PY_PACKAGES); do echo "== test $$p"; (cd $$p && uv run pytest -q) || exit 1; done
-	@echo "== test web"; cd web && npm test -s
+	@echo "== test web"; cd web && npm test -s && npm run -s build && npm run -s check-bundle && npx playwright test
 
 SCENARIO ?= normal-day
 sim-day: ## make sim-day SHOP=<shop id|kit serial> DATE=YYYY-MM-DD [SCENARIO=normal-day]

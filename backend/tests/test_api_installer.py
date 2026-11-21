@@ -157,11 +157,14 @@ def test_ac_f8_3_failed_check_blocks_activation_unless_override(
     assert r.json()["passed"] is False
     r = client.post(f"/v1/kits/{kit_id}/activate", headers=h)
     assert r.status_code == 409 and r.json()["type"].endswith("count-check-required")
-    check = client.post(f"/v1/kits/{kit_id}/count-checks", headers=h).json()
     body = {"manual_count": 25, "override_reason": "porte double, comptage manuel incertain"}
-    r = client.post(f"/v1/count-checks/{check['id']}/stop", headers=h, json=body)
-    assert r.json()["passed"] is False and r.json()["override_reason"]
+    r = client.post(f"/v1/count-checks/{check['id']}/stop", headers=h, json=body)  # override after the result
+    assert r.json()["passed"] is False and r.json()["override_reason"] and r.json()["manual_count"] == 25
     assert len(_actions(db, "count_check.override")) == 1
+    r = client.post(
+        f"/v1/count-checks/{check['id']}/stop", headers=h, json=body | {"override_reason": "again"}
+    )
+    assert r.json()["override_reason"] != "again" and len(_actions(db, "count_check.override")) == 1
     assert client.post(f"/v1/kits/{kit_id}/activate", headers=h).status_code == 200
 
 
