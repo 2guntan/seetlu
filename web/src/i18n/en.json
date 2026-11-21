@@ -167,7 +167,7 @@
     "receivesReport": "Gets the report",
     "clipAccess": "Managers can watch videos",
     "pairPhone": "Shop phone",
-    "pairHelp": "Available with the phone app.",
+    "pairHelp": "Install the Seetlu app on the shop phone, then type this code.",
     "cdp": "CDP declaration reference",
     "days": {
       "mon": "Monday",
@@ -184,7 +184,11 @@
       "staff": "Staff",
       "installer": "Installer",
       "support": "Support"
-    }
+    },
+    "pairNew": "Show a code",
+    "pairExpires": "valid until {{time}}",
+    "phoneSeen": "seen at {{time}}",
+    "parserOld": "rules out of date"
   },
   "alert": {
     "not_opened": "Shop not opened",

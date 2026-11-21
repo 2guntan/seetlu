@@ -24,10 +24,10 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
-from seetlu.core.config import get_settings
 from seetlu.core.security import hash_token
 from seetlu.db import models as m
 from seetlu.domain.report import opening_intervals
+from seetlu.phone import rules as phone_rules
 from seetlu.reports import service
 
 DEFAULT_ANCHOR = date(2026, 11, 20)  # the date of the fixed `normal-day` scenario (docs/10)
@@ -177,7 +177,7 @@ def _demo_phone(s: Session, shop: m.Shop, anchor: date) -> None:
     if phone is None:
         phone = m.PhoneDevice(shop_id=shop.id, token_hash=hash_token(secrets.token_urlsafe(24)), model="demo")
         s.add(phone)
-    phone.parser_version = get_settings().parser_version
+    phone.parser_version = phone_rules.current_version()
     phone.last_seen_at = max(phone.last_seen_at or seen, seen)
 
 

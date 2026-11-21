@@ -109,6 +109,8 @@ export async function mockApi(page: Page, role: Role = "owner", opts: { signedIn
       ]);
     if (path === `/v1/shops/${SHOP}/users`)
       return method === "POST" ? json(route, { ...user, id: "u2", ...(body as object) }, 201) : json(route, [user]);
+    if (path === `/v1/shops/${SHOP}/phone-pairing-codes`) return json(route, { code: "482913", expires_at: new Date(Date.now() + 600_000).toISOString() }, 201);
+    if (path === `/v1/shops/${SHOP}/phones`) return json(route, []);
     // installer
     if (path === "/v1/shops" && method === "POST") return json(route, { ...state.shop, ...(body as object) }, 201);
     if (path === "/v1/kits/claim")

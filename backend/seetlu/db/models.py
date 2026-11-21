@@ -414,6 +414,26 @@ class PhoneDevice(Base):
     created_at: Mapped[datetime] = created()
 
 
+class PhonePairCode(Base):
+    __tablename__ = "phone_pair_codes"
+    __table_args__ = (Index("phone_pair_codes_code_hmac_idx", "code_hmac"),)
+    id: Mapped[uuid.UUID] = pk()
+    shop_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("shops.id"))
+    code_hmac: Mapped[str]
+    created_by: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
+    expires_at: Mapped[datetime]
+    used_at: Mapped[datetime | None]
+    created_at: Mapped[datetime] = created()
+
+
+class PhonePairFailure(Base):
+    __tablename__ = "phone_pair_failures"
+    __table_args__ = (Index("phone_pair_failures_ip_at_idx", "ip", "at"),)
+    id: Mapped[uuid.UUID] = pk()
+    ip: Mapped[str]
+    at: Mapped[datetime] = created()
+
+
 # ---------- reports, baselines, corrections ----------
 class DailyReport(Base):
     __tablename__ = "daily_reports"
