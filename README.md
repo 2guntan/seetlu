@@ -18,7 +18,8 @@ milestone by milestone (M0–M10).
 | M5 seetlu-agent | done: door/staff/counter/after-hours logic, Frigate config renderer (no biometrics), SQLite WAL outbox + uploader, ETag config, commands (clip, snapshot, count check, update, reboot), heartbeats, LAN setup page, `make sim-day` |
 | M6 | done: report engine (metrics, baseline, verdict, confidence, moments, vs last week), beat scheduling, late-data recompute, 30-day seed history, `make report`, `make e2e` golden |
 | M7 | done: WhatsApp provider (mock + Cloud API), webhook, inbound grammar (1/2/3, photo, faux, +amount, cash reply, annuler, stop/start, aide), clip links, alerts, cash prompt, mock inbox page |
-| M8–M10 | to do |
+| M8 | done: web app (owner screens, installer flow with zone drawing + count check + activation rules, support console), i18n fr/en (wo keys), PWA offline cache, bundle budget, 5 Playwright journeys |
+| M9–M10 | to do |
 
 ## Quick start (dev)
 

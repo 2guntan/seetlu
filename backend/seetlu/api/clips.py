@@ -2,9 +2,9 @@
 
 import uuid
 from datetime import UTC, datetime
-from typing import Literal
+from typing import Annotated, Literal
 
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Query, Response
 from pydantic import BaseModel
 
 from seetlu.api.deps import DB, CurrentUser, load_shop
@@ -14,6 +14,8 @@ from seetlu.core.problem import Problem
 from seetlu.db import models as m
 from seetlu.messaging import clips
 from seetlu.storage.s3 import GET_TTL_S, presigned_get
+
+CameraQ = Annotated[str, Query(pattern=r"^[a-z][a-z0-9_]{0,31}$")]
 
 router = APIRouter(prefix="/v1", tags=["clips"])
 
@@ -91,14 +93,15 @@ def moment_clip(
 
 
 @router.post("/shops/{shop_id}/snapshot", status_code=202)
-def snapshot(shop_id: uuid.UUID, user: CurrentUser, s: DB) -> ClipRequestOut:
+def snapshot(shop_id: uuid.UUID, user: CurrentUser, s: DB, camera: CameraQ = "counter") -> ClipRequestOut:
+    """Live photo; the installer asks one per camera to draw zones on (AC-F8-2)."""
     shop = load_shop(s, shop_id, user, Action.snapshot_request)
     kit = clips.shop_kit(s, shop.id)
     if kit is None:
         raise Problem(409, "no-kit", "No kit installed in this shop")
     from seetlu.domain import commands
 
-    cmd = commands.enqueue(s, kit, m.CommandType.snapshot, {"camera": "counter"}, requested_by=user.id)
+    cmd = commands.enqueue(s, kit, m.CommandType.snapshot, {"camera": camera}, requested_by=user.id)
     audit(
         s,
         user,
@@ -106,7 +109,7 @@ def snapshot(shop_id: uuid.UUID, user: CurrentUser, s: DB) -> ClipRequestOut:
         account_id=shop.account_id,
         target_type="edge_command",
         target_id=cmd.id,
-        detail={"via": "app"},
+        detail={"via": "app", "camera": camera},
     )
     s.commit()
     return ClipRequestOut(status="queued", command_id=cmd.id)
