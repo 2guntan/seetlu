@@ -139,7 +139,7 @@ export function DayPage() {
       {hours.data && <HourlyBars hours={hours.data} />}
       <h2>{t("day.moments")}</h2>
       {r && r.id && r.moments.length > 0 ? (
-        <ul className="plain">
+        <ul className="plain list surface">
           {r.moments.map((m) => (
             <MomentPlayer key={m.rank} reportId={r.id as string} moment={m} timeZone={tz} />
           ))}
