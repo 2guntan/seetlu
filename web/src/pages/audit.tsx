@@ -32,29 +32,17 @@ export function AuditPage() {
       <ErrorMessage error={q.error ?? grant.error} />
       {q.data?.length === 0 && <p className="muted">{t("audit.empty")}</p>}
       {q.data && q.data.length > 0 && (
-        <table>
-          <thead>
-            <tr>
-              <th>{t("audit.when")}</th>
-              <th>{t("audit.who")}</th>
-              <th>{t("audit.what")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {q.data.map((r) => (
-              <tr key={r.id}>
-                <td>{fmt(r.at)}</td>
-                <td>
-                  {r.actor_name ?? t("common.none")}
-                  {r.actor_role && <small className="muted"> · {t(`settings.roles.${r.actor_role}`)}</small>}
-                </td>
-                <td>
-                  <code>{r.action}</code>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="plain list surface">
+          {q.data.map((r) => (
+            <li key={r.id}>
+              <b>{t(`audit.actions.${r.action.replace(/\./g, "__")}`, { defaultValue: r.action })}</b>
+              <span className="muted small">
+                {r.actor_name ?? t("common.none")}
+                {r.actor_role && <> · {t(`settings.roles.${r.actor_role}`)}</>} · <span className="num-inline">{fmt(r.at)}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
     </main>
   );

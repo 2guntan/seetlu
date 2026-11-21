@@ -139,7 +139,7 @@ export function DayPage() {
       {hours.data && <HourlyBars hours={hours.data} />}
       <h2>{t("day.moments")}</h2>
       {r && r.id && r.moments.length > 0 ? (
-        <ul className="plain">
+        <ul className="plain list surface">
           {r.moments.map((m) => (
             <MomentPlayer key={m.rank} reportId={r.id as string} moment={m} timeZone={tz} />
           ))}
@@ -150,17 +150,19 @@ export function DayPage() {
       <h2>{t("day.salesList")}</h2>
       {sales.data && sales.data.length === 0 && <p className="muted">{t("sales.empty")}</p>}
       {sales.data && sales.data.length > 0 && (
-        <table>
-          <tbody>
-            {sales.data.map((s) => (
-              <tr key={s.id} className={s.voided_at ? "voided" : undefined}>
-                <td>{hhmm(s.occurred_at, tz)}</td>
-                <td>{t(`sales.src.${s.source}`)}</td>
-                <td className="num">{money(s.amount_xof)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="scroll-x">
+          <table>
+            <tbody>
+              {sales.data.map((s) => (
+                <tr key={s.id} className={s.voided_at ? "voided" : undefined}>
+                  <td>{hhmm(s.occurred_at, tz)}</td>
+                  <td>{t(`sales.src.${s.source}`)}</td>
+                  <td className="num">{money(s.amount_xof)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </main>
   );

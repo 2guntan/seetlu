@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { get, patch, post, put, type AlertRule, type Shop, type User } from "../api/client";
 import { ErrorMessage, Loading } from "../components/states";
@@ -61,17 +61,17 @@ function ShopForm({ shop }: { shop: Shop }) {
       {DAYS.map((d) => {
         const v = form.hours[d];
         return (
-          <div className="row" key={d}>
-            <span className="grow">{t(`settings.days.${d}`)}</span>
+          <div className="hours-row" key={d}>
+            <span className="day">{t(`settings.days.${d}`)}</span>
             <label className="inline m0">
               <input type="checkbox" checked={!v} onChange={(e) => set("hours", { ...form.hours, [d]: e.target.checked ? null : ["08:00", "21:00"] })} />
               {t("settings.closed")}
             </label>
             {v && (
-              <>
+              <span className="times">
                 <input type="time" aria-label={`${d}-open`} value={v[0]} onChange={(e) => set("hours", { ...form.hours, [d]: [e.target.value, v[1]] })} />
                 <input type="time" aria-label={`${d}-close`} value={v[1]} onChange={(e) => set("hours", { ...form.hours, [d]: [v[0], e.target.value] })} />
-              </>
+              </span>
             )}
           </div>
         );
@@ -179,18 +179,20 @@ function Users({ shop }: { shop: Shop }) {
   return (
     <section className="card">
       <h2>{t("settings.users")}</h2>
-      <table>
-        <tbody>
-          {q.data?.map((u) => (
-            <tr key={u.id}>
-              <td>{u.name}</td>
-              <td>{u.phone_e164}</td>
-              <td>{t(`settings.roles.${u.role}`)}</td>
-              <td>{u.receives_report ? t("settings.receivesReport") : ""}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ul className="plain list">
+        {q.data?.map((u) => (
+          <li key={u.id}>
+            <div className="row">
+              <b className="grow">{u.name}</b>
+              <span className="badge">{t(`settings.roles.${u.role}`)}</span>
+            </div>
+            <span className="muted">
+              <span className="num-inline">{u.phone_e164}</span>
+              {u.receives_report && <> · {t("settings.receivesReport")}</>}
+            </span>
+          </li>
+        ))}
+      </ul>
       {me?.user.role === "owner" && (
         <>
           <form onSubmit={submit} className="mt">
@@ -247,7 +249,7 @@ function PairPhone({ shopId }: { shopId: string }) {
       </button>
       {code.data && (
         <p>
-          <b data-testid="pair-code" style={{ fontSize: "2rem", letterSpacing: "0.3em" }}>
+          <b data-testid="pair-code" className="code-big">
             {code.data.code}
           </b>{" "}
           <small className="muted">{t("settings.pairExpires", { time: hhmm(code.data.expires_at) })}</small>
@@ -279,6 +281,9 @@ export function SettingsPage() {
       <Alerts shopId={shop.id} />
       <Users shop={shop} />
       <PairPhone shopId={shop.id} />
+      <p>
+        <Link to="/audit">{t("audit.title")} ›</Link>
+      </p>
     </main>
   );
 }

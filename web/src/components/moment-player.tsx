@@ -26,12 +26,16 @@ export function MomentPlayer({ reportId, moment, timeZone }: { reportId: string;
   }
 
   return (
-    <li className="card" data-testid={`moment-${moment.rank}`}>
+    <li data-testid={`moment-${moment.rank}`}>
       <div className="row">
         <b className="grow">
           {moment.rank}. {t(`moment.${moment.kind}`)} · {hhmm(moment.started_at, timeZone)}
         </b>
-        {!clip && state === "idle" && <button onClick={() => void play()}>{t("moment.play")}</button>}
+        {!clip && state === "idle" && (
+          <button className="ghost" onClick={() => void play()}>
+            {t("moment.play")}
+          </button>
+        )}
       </div>
       {!clip && state === "waiting" && !polled.failed && <p className="muted">{t("moment.preparing")}</p>}
       {(state === "unavailable" || polled.failed) && <p className="muted">{t("moment.unavailable")}</p>}

@@ -34,35 +34,37 @@ export function SupportKitsPage() {
       </label>
       {q.isPending && <Loading />}
       <ErrorMessage error={q.error} />
-      <table>
-        <thead>
-          <tr>
-            <th>{t("support.serial")}</th>
-            <th>{t("support.shop")}</th>
-            <th>{t("support.health")}</th>
-            <th>{t("support.lastHeartbeat")}</th>
-            <th>{t("support.versions")}</th>
-            <th>{t("support.queue")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {q.data?.map((k) => (
-            <tr key={k.id} data-testid={`kit-${k.serial}`}>
-              <td>
-                <Link to={`/support/kits/${k.id}`}>{k.serial}</Link>
-              </td>
-              <td>{k.shop_name ?? "—"}</td>
-              <td className={`h-${k.health}`}>{t(`support.${k.health}`)}</td>
-              <td>{ago(k.last_heartbeat_at)}</td>
-              <td>
-                {k.agent_version ?? "—"}
-                {k.target_agent_version && k.target_agent_version !== k.agent_version && <> → {k.target_agent_version}</>}
-              </td>
-              <td>{k.queue_depth ?? "—"}</td>
+      <div className="scroll-x">
+        <table>
+          <thead>
+            <tr>
+              <th>{t("support.serial")}</th>
+              <th>{t("support.shop")}</th>
+              <th>{t("support.health")}</th>
+              <th>{t("support.lastHeartbeat")}</th>
+              <th>{t("support.versions")}</th>
+              <th>{t("support.queue")}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {q.data?.map((k) => (
+              <tr key={k.id} data-testid={`kit-${k.serial}`}>
+                <td>
+                  <Link to={`/support/kits/${k.id}`}>{k.serial}</Link>
+                </td>
+                <td>{k.shop_name ?? "—"}</td>
+                <td className={`h-${k.health}`}>{t(`support.${k.health}`)}</td>
+                <td>{ago(k.last_heartbeat_at)}</td>
+                <td>
+                  {k.agent_version ?? "—"}
+                  {k.target_agent_version && k.target_agent_version !== k.agent_version && <> → {k.target_agent_version}</>}
+                </td>
+                <td>{k.queue_depth ?? "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
@@ -99,7 +101,7 @@ export function SupportKitPage() {
           <section className="card">
             <h2>{t("support.commands")}</h2>
             <div className="row">
-              <button onClick={() => cmd.mutate("reboot")}>{t("support.reboot")}</button>
+              <button className="ghost" onClick={() => cmd.mutate("reboot")}>{t("support.reboot")}</button>
               <button className="ghost" onClick={() => cmd.mutate("snapshot")}>
                 {t("support.snapshot")}
               </button>

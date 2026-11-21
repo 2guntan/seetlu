@@ -1,4 +1,4 @@
-import { addDays, count, hourRanges, money } from "./format";
+import { addDays, count, hourRanges, money, seen } from "./format";
 import { uuid7 } from "./offline-queue";
 import { normalizePhone, parseQr, verdictClass } from "./parse";
 
@@ -7,6 +7,11 @@ describe("format", () => {
     expect(count(null)).toBe("—");
     expect(money(undefined)).toBe("—");
     expect(count(0)).toBe("0");
+  });
+  it("rule 3 (design review FINDING-003): a camera zero while hours are missing shows as unknown", () => {
+    expect(seen(0, [8, 9])).toBe("—");
+    expect(seen(12, [8, 9])).toBe("12");
+    expect(seen(0, [])).toBe("0");
   });
   it("formats integer XOF with French grouping", () => {
     expect(money(262500)).toBe("262 500 F");

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { get, type Shop, type Today } from "../api/client";
 import { ErrorMessage, Loading } from "../components/states";
 import { useAuth } from "../lib/use-auth";
-import { count, hhmm, hourRanges, localToday, money } from "../lib/format";
+import { hhmm, hourRanges, localToday, money, seen } from "../lib/format";
 
 function ShopToday({ shop }: { shop: Shop }) {
   const { t } = useTranslation();
@@ -36,11 +36,11 @@ function ShopToday({ shop }: { shop: Shop }) {
             </div>
             <div className="stat">
               <small>{t("today.visitors")}</small>
-              <b>{count(d.visitors_in)}</b>
+              <b>{seen(d.visitors_in, d.missing_hours)}</b>
             </div>
             <div className="stat">
               <small>{t("today.served")}</small>
-              <b>{count(d.served)}</b>
+              <b>{seen(d.served, d.missing_hours)}</b>
             </div>
             <div className="stat">
               <small>{t("today.counter")}</small>

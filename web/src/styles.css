@@ -107,6 +107,7 @@ pre { overflow-x: auto; font-size: 0.8rem; background: var(--surface-sunk); padd
 /* Layout helpers (replace inline styles) */
 .row { display: flex; gap: var(--sp-2); align-items: center; flex-wrap: wrap; }
 .grow { flex: 1; }
+.stack { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0; }
 .m0 { margin: 0; }
 .mt { margin-top: var(--sp-3); }
 .cap { text-transform: capitalize; }
@@ -191,7 +192,32 @@ input[type="checkbox"], input[type="radio"] { min-height: 0; width: 22px; height
 input[type="number"].narrow { width: 88px; }
 label { display: grid; gap: var(--sp-1); margin-bottom: var(--sp-3); font-weight: 600; font-size: var(--fs-label); }
 label > input, label > select, label > textarea { font-size: var(--fs-body); font-weight: 430; }
-label.inline { display: flex; align-items: center; gap: var(--sp-2); font-weight: 430; font-size: var(--fs-body); }
+label.inline { display: flex; align-items: center; gap: var(--sp-2); min-height: 44px; font-weight: 430; font-size: var(--fs-body); }
+label small { font-weight: 430; }
+.card > button, .card > form > button, .card > div.row:has(> button) { margin-top: var(--sp-2); }
+.card > button + label, .card > form > button + label { margin-top: var(--sp-3); }
+.row.bottom { align-items: flex-end; }
+.code-big { font-size: 2rem; letter-spacing: 0.3em; font-variant-numeric: tabular-nums; }
+
+/* Opening hours: day + closed on one line, open/close times side by side below. */
+.hours-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--sp-2) var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--line); }
+.hours-row .day { font-weight: 600; }
+.hours-row .times { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
+@media (min-width: 600px) {
+  .hours-row { grid-template-columns: 7rem auto 1fr; }
+  .hours-row .times { grid-column: auto; }
+}
+
+/* Tables scroll inside their own box on narrow screens, never the page. */
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 calc(-1 * var(--sp-1)); }
+.num-inline { font-variant-numeric: tabular-nums; }
+.scroll-x td:first-child, .scroll-x th:first-child { white-space: nowrap; }
+
+/* Lists: one surface, rows split by lines (instead of a stack of cards). */
+.list > li { padding: var(--sp-3) 0; display: grid; gap: var(--sp-1); border-bottom: 1px solid var(--line); }
+.list > li:last-child { border-bottom: 0; }
+ul.list.surface:empty { display: none; }
+ul.list.surface { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 0 var(--sp-4); margin-bottom: var(--sp-3); }
 
 /* Tables */
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
@@ -208,13 +234,14 @@ nav.tabs {
   box-shadow: 0 -1px 0 var(--line);
   display: flex; overflow-x: auto;
   padding-bottom: env(safe-area-inset-bottom);
+  padding-inline: max(0px, calc((100% - 760px) / 2));
 }
 nav.tabs a {
-  flex: 1 0 auto; min-height: 56px;
+  flex: 1 1 auto; min-height: 56px;
   display: flex; align-items: center; justify-content: center;
-  padding: 0 var(--sp-3);
+  padding: 0 var(--sp-1);
   text-decoration: none; color: var(--text-muted);
-  white-space: nowrap; font-size: var(--fs-label); font-weight: 600;
+  white-space: nowrap; font-size: clamp(0.75rem, 3.3vw, 0.875rem); font-weight: 600;
   border-top: 3px solid transparent;
   transition: color var(--t-short);
 }

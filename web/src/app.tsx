@@ -21,7 +21,8 @@ const SupportKitsPage = lazy(() => import("./pages/support").then((m) => ({ defa
 const SupportKitPage = lazy(() => import("./pages/support").then((m) => ({ default: m.SupportKitPage })));
 
 const TABS: Record<Role, [string, string][]> = {
-  owner: [["/", "today"], ["/history", "history"], ["/moments", "moments"], ["/sales", "sales"], ["/settings", "settings"], ["/audit", "audit"]],
+  // The access log is reached from Settings: six tabs do not fit a 360px phone.
+  owner: [["/", "today"], ["/history", "history"], ["/moments", "moments"], ["/sales", "sales"], ["/settings", "settings"]],
   manager: [["/", "today"], ["/history", "history"], ["/moments", "moments"], ["/sales", "sales"]],
   staff: [["/sales", "sales"]],
   installer: [["/install", "install"]],
@@ -87,13 +88,15 @@ function Shell() {
           <Route path="*" element={<Navigate to={HOME[role]} replace />} />
         </Routes>
       </Suspense>
-      <nav className="tabs">
-        {TABS[role].map(([to, key]) => (
-          <NavLink key={to} to={to} end={to === "/"} className={({ isActive }) => (isActive ? "active" : "")}>
-            {t(`nav.${key}`)}
-          </NavLink>
-        ))}
-      </nav>
+      {TABS[role].length > 1 && (
+        <nav className="tabs">
+          {TABS[role].map(([to, key]) => (
+            <NavLink key={to} to={to} end={to === "/"} className={({ isActive }) => (isActive ? "active" : "")}>
+              {t(`nav.${key}`)}
+            </NavLink>
+          ))}
+        </nav>
+      )}
     </>
   );
 }
