@@ -326,6 +326,7 @@ class ClipOut(BaseModel):
     saved: bool = False
     expires_at: datetime | None
     created_at: datetime
+    moment_at: datetime | None = None  # when the filmed event happened; created_at is when it was cut
 
 
 @router.get("/shops/{shop_id}/clips")
@@ -333,15 +334,22 @@ def list_clips(shop_id: uuid.UUID, user: CurrentUser, s: DB) -> list[ClipOut]:
     """docs/08 /moments: clips still stored (7 days) and saved ones. Metadata only; playback is audited."""
     load_shop(s, shop_id, user, Action.clip_view)
     now = datetime.now(UTC)
-    q = select(m.Clip).where(
-        m.Clip.shop_id == shop_id,
-        m.Clip.kind == "clip",
-        (m.Clip.expires_at.is_(None)) | (m.Clip.expires_at > now),
+    moment_at = m.Event.started_at
+    q = (
+        select(m.Clip, moment_at)
+        .outerjoin(m.Event, m.Event.id == m.Clip.event_id)
+        .where(
+            m.Clip.shop_id == shop_id,
+            m.Clip.kind == "clip",
+            (m.Clip.expires_at.is_(None)) | (m.Clip.expires_at > now),
+        )
+        .order_by(func.coalesce(moment_at, m.Clip.created_at).desc())
     )
     out = []
-    for c in s.scalars(q.order_by(m.Clip.created_at.desc())):
+    for c, at in s.execute(q):
         item = ClipOut.model_validate(c)
         item.saved = c.saved_by is not None
+        item.moment_at = at
         out.append(item)
     return out
 
