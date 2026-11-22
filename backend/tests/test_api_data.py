@@ -186,3 +186,27 @@ def test_m8_audit_log_scoped_to_account(client: TestClient, db: Session, world: 
         client.post("/v1/support-grants", headers=bearer(db, world.owner_a), json={"hours": 48}).status_code
         == 422
     )
+
+
+def test_ac_f5_3_clips_listed_by_moment_time_not_cut_time(
+    client: TestClient, db: Session, world: World
+) -> None:
+    """Moments shows when the filmed event happened; all clips of a report are cut at the same minute."""
+    cam = m.Camera(kit_id=world.kit_a1.id, role=m.CameraRole.door, name="door", rtsp_main_path="/a",
+                   rtsp_sub_path="/b")  # fmt: skip
+    db.add(cam)
+    db.flush()
+    early, late = datetime(2026, 11, 20, 9, 5, tzinfo=UTC), datetime(2026, 11, 20, 15, 5, tzinfo=UTC)
+    evs = [m.Event(id=uuid7(), started_at=at, shop_id=world.shop_a1.id, kit_id=world.kit_a1.id,
+                   camera_id=cam.id, type=m.EventType.entry) for at in (early, late)]  # fmt: skip
+    db.add_all(evs)
+    db.commit()
+    for ev in evs:
+        _clip(db, world, event_id=ev.id)
+    loose = _clip(db, world)  # no event: falls back to the cut time
+    listed = client.get(f"/v1/shops/{world.shop_a1.id}/clips", headers=bearer(db, world.owner_a)).json()
+    assert listed[0]["id"] == str(loose.id)
+    by_event = {c["event_id"]: c["moment_at"] for c in listed if c["event_id"]}
+    assert datetime.fromisoformat(by_event[str(evs[0].id)]) == early
+    assert datetime.fromisoformat(by_event[str(evs[1].id)]) == late
+    assert [c["event_id"] for c in listed][1:] == [str(evs[1].id), str(evs[0].id)]

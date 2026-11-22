@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ApiError, del, get, post, type Clip, type ClipUrl } from "../api/client";
 import { ShopPicker } from "../components/shop-picker";
 import { ErrorMessage, Loading } from "../components/states";
-import { dateLabel, hhmm } from "../lib/format";
+import { dateLabel, hhmm, localDate } from "../lib/format";
 import { useShopChoice } from "../lib/use-shop";
 
 function ClipRow({ clip, shopId, timeZone }: { clip: Clip; shopId: string; timeZone: string }) {
@@ -17,13 +17,14 @@ function ClipRow({ clip, shopId, timeZone }: { clip: Clip; shopId: string; timeZ
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["clips", shopId] }),
   });
   const play = async () => setUrl((await get<ClipUrl>(`/v1/clips/${clip.id}`)).url); // audit-logged server side
+  const at = clip.moment_at ?? clip.created_at; // the moment filmed, not when the kit cut it
   const limit = toggle.error instanceof ApiError && toggle.error.status === 409;
   return (
     <li data-testid={`clip-${clip.id}`}>
       <div className="row">
         <span className="grow stack">
-          <b className="num-inline">{hhmm(clip.created_at, timeZone)}</b>
-          <span className="muted small cap">{dateLabel(clip.created_at.slice(0, 10), i18n.language)}</span>
+          <b className="num-inline">{hhmm(at, timeZone)}</b>
+          <span className="muted small cap">{dateLabel(localDate(at, timeZone), i18n.language)}</span>
           {clip.saved && <span className="badge">{t("moments.saved")}</span>}
         </span>
         {!url && (

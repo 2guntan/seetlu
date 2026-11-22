@@ -202,6 +202,8 @@ export interface Clip {
   saved: boolean;
   expires_at: string | null;
   created_at: string;
+  /** When the filmed event happened; null when the clip has no event. */
+  moment_at?: string | null;
 }
 export interface ClipUrl {
   id: string;

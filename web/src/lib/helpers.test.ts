@@ -1,4 +1,4 @@
-import { addDays, count, hourRanges, money, moneySeen, seen } from "./format";
+import { addDays, count, hourRanges, localDate, money, moneySeen, seen } from "./format";
 import { uuid7 } from "./offline-queue";
 import { normalizePhone, parseQr, verdictClass } from "./parse";
 
@@ -17,6 +17,10 @@ describe("format", () => {
     expect(moneySeen(0, [8, 9, 10])).toBe("—");
     expect(moneySeen(2500, [8])).toBe("2\u202f500 F");
     expect(moneySeen(0, [])).toBe("0 F");
+  });
+  it("AC-F5-3: a moment's date is the shop's local date", () => {
+    expect(localDate("2026-11-20T23:30:00Z", "Africa/Dakar")).toBe("2026-11-20");
+    expect(localDate("2026-11-20T23:30:00Z", "Asia/Tokyo")).toBe("2026-11-21");
   });
   it("formats integer XOF with French grouping", () => {
     expect(money(262500)).toBe("262 500 F");

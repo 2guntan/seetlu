@@ -50,6 +50,11 @@ export function hourRanges(hours: number[]): string {
   return out.join(", ");
 }
 
+/** Shop-local calendar date (YYYY-MM-DD) of an instant: 23:30 UTC can already be tomorrow. */
+export function localDate(iso: string, timeZone = "Africa/Dakar"): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone }).format(new Date(iso));
+}
+
 export function localToday(timeZone = "Africa/Dakar"): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone }).format(new Date());
 }
