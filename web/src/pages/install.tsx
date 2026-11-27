@@ -1,20 +1,24 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
   ApiError,
+  get,
   patch,
   post,
   put,
   type CameraIn,
   type ClipRequest,
+  type CameraSetup,
   type CountCheck,
   type Kit,
+  type KitSetup,
   type Shop,
   type Zone,
   type ZoneType,
 } from "../api/client";
+import { CameraChecks } from "../components/camera-checks";
 import { ZoneEditor } from "../components/zone-editor";
 import { ErrorMessage } from "../components/states";
 import { useAuth } from "../lib/use-auth";
@@ -203,7 +207,19 @@ function ShopStep({ serial, token, onDone }: { serial: string; token: string; on
   );
 }
 
-function CameraZones({ shopId, cam, onChange }: { shopId: string; cam: CameraIn; onChange: (c: CameraIn) => void }) {
+function CameraZones({
+  shopId,
+  kitId,
+  cam,
+  setup,
+  onChange,
+}: {
+  shopId: string;
+  kitId: string;
+  cam: CameraIn;
+  setup: CameraSetup | undefined;
+  onChange: (c: CameraIn) => void;
+}) {
   const { t } = useTranslation();
   const [commandId, setCommandId] = useState<string | null>(null);
   const [drawing, setDrawing] = useState<ZoneType | null>(null);
@@ -228,7 +244,8 @@ function CameraZones({ shopId, cam, onChange }: { shopId: string; cam: CameraIn;
   const door = cam.zones.find((z) => z.type === "door_line");
   return (
     <section className="card" data-testid={`camera-${cam.name}`}>
-      <h2>{t("install.camera", { name: cam.name })}</h2>
+      <h2>{t(`install.role.${cam.role}`)}</h2>
+      {setup ? <CameraChecks key={setup.stream?.source ?? "none"} kitId={kitId} cam={setup} /> : null}
       <button type="button" className="ghost" onClick={() => snap.mutate()} disabled={snap.isPending || (!!commandId && !clip)}>
         {commandId && !clip ? t("install.snapshotWait") : t("install.snapshot")}
       </button>
@@ -268,11 +285,25 @@ function ZonesStep({ kit, shop, onDone }: { kit: Kit; shop: Shop; onDone: () => 
     { name: "counter", role: "counter", zones: [] },
   ]);
   const save = useMutation({ mutationFn: () => put(`/v1/kits/${kit.id}/cameras`, cams), onSuccess: onDone });
+  // AC-F8-6..8: the box reports each slot's stream once the installer picks the channel on its LAN page
+  const setup = useQuery({
+    queryKey: ["kit-setup", kit.id],
+    queryFn: () => get<KitSetup>(`/v1/kits/${kit.id}/setup`),
+    refetchInterval: 5000,
+  });
   return (
     <div>
       <h2>{t("install.cameras")}</h2>
+      <p className="muted">{t("install.recorderHelp", { serial: kit.serial })}</p>
       {cams.map((c, i) => (
-        <CameraZones key={c.name} shopId={shop.id} cam={c} onChange={(nc) => setCams(cams.map((x, j) => (j === i ? nc : x)))} />
+        <CameraZones
+          key={c.name}
+          shopId={shop.id}
+          kitId={kit.id}
+          cam={c}
+          setup={setup.data?.cameras.find((s) => s.role === c.role)}
+          onChange={(nc) => setCams(cams.map((x, j) => (j === i ? nc : x)))}
+        />
       ))}
       <button onClick={() => save.mutate()} disabled={save.isPending}>
         {t("install.saveZones")}
@@ -376,6 +407,10 @@ function ActivateStep({ kit }: { kit: Kit }) {
       {act.isSuccess && <p role="status">{t("install.activated")}</p>}
       {err?.type.endsWith("cdp-missing") && <p className="error">{t("install.cdpMissing")}</p>}
       {err?.type.endsWith("count-check-required") && <p className="error">{t("install.checkRequired")}</p>}
+      {err?.type.endsWith("cameras-required") && <p className="error">{t("install.camerasRequired")}</p>}
+      {err?.type.endsWith("stream-check-failed") && <p className="error">{t("install.streamFailed")}</p>}
+      {err?.type.endsWith("angle-check-required") && <p className="error">{t("install.angleRequired")}</p>}
+      {err?.type.endsWith("addon-camera-needed") && <p className="error">{t("install.angle.addon")}</p>}
     </section>
   );
 }

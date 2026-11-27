@@ -277,7 +277,36 @@
     "activate": "Activate the kit",
     "activated": "Kit activated.",
     "cdpMissing": "The shop's CDP reference is missing.",
-    "checkRequired": "A passed check (or a reason) is needed."
+    "checkRequired": "A passed check (or a reason) is needed.",
+    "role": {
+      "door": "Door camera",
+      "counter": "Counter camera"
+    },
+    "recorderHelp": "On the shop network, open http://{{serial}}.local:8080 (code: the last 6 characters of the kit code). Pick the recorder brand, scan, then pick the door camera and the counter camera.",
+    "stream": {
+      "waiting": "Waiting for the kit: pick the camera on the kit page.",
+      "ok": "Stream OK",
+      "low_fps": "Stream OK, but under 5 fps: set 5 to 8 fps on the recorder",
+      "unreachable": "The kit cannot read this camera",
+      "bad_codec": "Codec not supported: set H.264 or H.265 on the recorder",
+      "too_small": "Picture too small: set 640×360 or more on the recorder",
+      "fps": "fps"
+    },
+    "angle": {
+      "title": "Camera angle (on the photo)",
+      "items": {
+        "doorway_in_frame": "The whole doorway is in the picture",
+        "person_big_enough": "A person in the doorway is at least 1/6 of the picture height",
+        "customer_side_visible": "The customer side of the counter is visible",
+        "staff_side_visible": "The seller side of the counter is visible"
+      },
+      "save": "Confirm the angle",
+      "passed": "Angle confirmed",
+      "addon": "This angle does not work: this role needs an add-on camera. Plug it in, pick it on the kit page, then check again."
+    },
+    "camerasRequired": "A door camera and a counter camera are needed.",
+    "streamFailed": "A camera stream does not work. See the message under the camera.",
+    "angleRequired": "Confirm the angle of each camera."
   },
   "support": {
     "title": "Kits",

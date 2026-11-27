@@ -1,0 +1,43 @@
+// Device-tree overlay for the Seetlu box front panel (AC-F10-4, docs/13 section 4.3).
+// Two LEDs (green, red; amber = both) and one recessed push button (KEY_RESTART), read by seetlu-panel.
+//
+// The GPIO lines below are PLACEHOLDERS: set them when the panel board is wired on the H1 samples
+// (docs/12). Compile and enable on Ubuntu Rockchip / Armbian:
+//   dtc -@ -I dts -O dtb -o seetlu-panel.dtbo seetlu-panel.dts
+//   armbian-add-overlay seetlu-panel.dts        (Armbian)  or copy the .dtbo next to the other overlays
+//   and list it in the boot configuration (Ubuntu Rockchip), then reboot.
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/linux-event-codes.h>
+
+/ {
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			seetlu-leds {
+				compatible = "gpio-leds";
+				green {
+					label = "seetlu:green";
+					gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;   /* PLACEHOLDER */
+					default-state = "off";
+				};
+				red {
+					label = "seetlu:red";
+					gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>;   /* PLACEHOLDER */
+					default-state = "off";
+				};
+			};
+			seetlu-keys {
+				compatible = "gpio-keys";
+				restart {
+					label = "seetlu-button";
+					gpios = <&gpio1 4 GPIO_ACTIVE_LOW>;    /* PLACEHOLDER, pull-up on the panel */
+					linux,code = <KEY_RESTART>;
+					debounce-interval = <50>;
+				};
+			};
+		};
+	};
+};

@@ -62,6 +62,14 @@ export async function mockApi(page: Page, role: Role = "owner", opts: { signedIn
   const state: MockState = { calls: [], shop: { ...shop, status: role === "installer" ? "installing" : "active" } };
   let commandPolls = 0;
   let checkStarted = "";
+  const stream = (fps: number) => ({ source: "hikvision 10.0.0.5 ch1", reachable: true, codec: "h264", width: 704, height: 576, fps, checked_at: new Date().toISOString(), verdict: fps < 5 ? "low_fps" : "ok" });
+  const kitSetup = {
+    cameras: [
+      { name: "door", role: "door", stream: stream(8), angle: null, angle_items: ["doorway_in_frame", "person_big_enough"], angle_passed: false, addon_camera_needed: false },
+      { name: "counter", role: "counter", stream: stream(3), angle: null, angle_items: ["customer_side_visible", "staff_side_visible"], angle_passed: false, addon_camera_needed: false },
+    ],
+    blockers: ["angle-check-required:door"],
+  };
   if (opts.signedIn !== false) {
     await page.addInitScript(() => {
       localStorage.setItem("seetlu.access", "test-access");
@@ -119,6 +127,16 @@ export async function mockApi(page: Page, role: Role = "owner", opts: { signedIn
         : json(route, { type: "https://seetlu.sn/problems/not-found", status: 404 }, 404);
     if (path === `/v1/shops/${SHOP}/snapshot`) return json(route, { status: "queued", command_id: "snap-1" }, 202);
     if (path === `/v1/kits/${KIT}/cameras`) return json(route, body);
+    // AC-F8-6..8: what the box reported for each slot, and the angle checklist
+    if (path === `/v1/kits/${KIT}/setup`) return json(route, kitSetup);
+    if (path.startsWith(`/v1/kits/${KIT}/angle-checks/`)) {
+      const name = path.split("/").pop();
+      const items = (body as { items: Record<string, boolean> }).items;
+      const passed = Object.values(items).every(Boolean);
+      for (const cam of kitSetup.cameras.filter((c) => c.name === name))
+        Object.assign(cam, { angle_passed: passed, addon_camera_needed: !passed });
+      return json(route, kitSetup);
+    }
     if (path === `/v1/kits/${KIT}/count-checks`) {
       checkStarted = new Date().toISOString();
       return json(route, { id: "chk", started_at: checkStarted, manual_count: null, agent_count: null, error_pct: null, passed: null, override_reason: null }, 201);

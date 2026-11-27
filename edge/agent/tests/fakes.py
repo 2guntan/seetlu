@@ -31,6 +31,7 @@ class FakeCloud:
     uploads: dict[str, bytes] = field(default_factory=dict)
     fail_events: int = 0
     calls: list[str] = field(default_factory=list)
+    streams: dict[str, dict[str, Any]] = field(default_factory=dict)
 
     def handler(self, request: httpx.Request) -> httpx.Response:
         path = request.url.path
@@ -60,6 +61,9 @@ class FakeCloud:
             for e in batch:
                 self.events[e["id"]] = e
             return httpx.Response(200, json={"accepted": len(batch) - dup, "duplicates": dup})
+        if request.method == "PUT" and path.startswith("/v1/edge/streams/"):
+            self.streams[path.rsplit("/", 1)[1]] = json.loads(request.content)
+            return httpx.Response(204)
         if path == "/v1/edge/heartbeat":
             self.heartbeats.append(json.loads(request.content))
             return httpx.Response(204)

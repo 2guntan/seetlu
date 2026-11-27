@@ -95,3 +95,27 @@ Fields per `Heartbeat` schema. `power_source` and `battery_pct` come from the mi
 ## Local LAN setup page (installer only)
 
 Port 8080, LAN only, PIN-protected. Pages: network setup (Wi-Fi/4G status), camera discovery (ONVIF WS-Discovery), RTSP credential entry and test, live snapshot per camera. Zone drawing itself is done in the web app on the uploaded snapshot (F8).
+
+AI box on an existing recorder (docs/13, AC-F8-5..7):
+
+- Two fixed slots, `door` and `counter`. Each takes a recorder login (brand Hikvision, Dahua, Xiongmai or
+  other, host, port, user, password) and a channel number; `recorder.sub_path()` builds the sub-stream
+  RTSP path per brand. "Other" takes a raw path (or the cloud's `rtsp_sub_path`).
+- `POST /api/recorder/scan` tries channels 1–16 and returns a 320 px thumbnail per channel that answers
+  (stops after 4 misses in a row); the installer taps Porte or Comptoir under a thumbnail. One channel
+  cannot fill both slots (409).
+- Saving or testing a slot runs ffprobe on the sub stream and queues a report
+  (`PUT /v1/edge/streams/{camera}`: source label without credentials, codec, size, fps). The cloud keeps it
+  on `kits.stream_checks` and blocks activation on unreachable, non-H.264/H.265 or under 640×360;
+  under 5 fps is only a warning. The box never writes recorder settings (D3).
+- The page is open while the kit is not active. After activation it answers 403 until someone holds the
+  front-panel button for 10 s (AC-F10-4).
+
+### Front panel (AC-F10-4)
+
+The agent writes the wanted LED state to `/data/agent/host/led` (`panel.led_state`: blinking green for the
+first 2 min until the cloud answers, red when a configured camera has no frames, amber when the cloud has
+not answered for 3 min, green otherwise). The host daemon `seetlu-panel` (`edge/os/seetlu-panel.py`,
+systemd unit installed by `provision.sh`) drives two LED-class GPIOs from the `seetlu-panel.dts` overlay
+(amber = both on) and reads the gpio-keys button. A 10 s hold writes `setup-open-until` (now + 30 min) and
+restarts the agent container. GPIO lines in the overlay are placeholders until the H1 enclosure is wired.

@@ -274,6 +274,29 @@ export interface Zone {
   geometry: number[][];
   inward_side?: "left" | "right" | null;
 }
+export type StreamVerdict = "ok" | "low_fps" | "unreachable" | "bad_codec" | "too_small";
+export interface CameraSetup {
+  name: string;
+  role: "door" | "counter";
+  stream: {
+    source: string;
+    reachable: boolean;
+    codec: string | null;
+    width: number | null;
+    height: number | null;
+    fps: number | null;
+    checked_at: string;
+    verdict: StreamVerdict;
+  } | null;
+  angle: { passed: boolean; failed_items: string[]; source: string; checked_at: string } | null;
+  angle_items: string[];
+  angle_passed: boolean;
+  addon_camera_needed: boolean;
+}
+export interface KitSetup {
+  cameras: CameraSetup[];
+  blockers: string[];
+}
 export interface CameraIn {
   name: string;
   role: "door" | "counter";

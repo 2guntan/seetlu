@@ -49,6 +49,7 @@ class EdgeConfig(_Model):
     shop: ShopConfig = Field(default_factory=ShopConfig)
     cameras: list[Camera] = []
     target_agent_version: str | None = None
+    activated: bool = False  # the LAN setup page closes once the kit is active (AC-F10-4)
 
     def camera_for(self, role: str, default: str) -> str:
         return next((c.name for c in self.cameras if c.role == role), default)

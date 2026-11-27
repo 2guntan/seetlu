@@ -5,7 +5,7 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any, Literal
 
-from fastapi import APIRouter, Depends, Header, Request, Response
+from fastapi import APIRouter, Depends, Header, Path, Request, Response
 from pydantic import BaseModel, Field, model_validator
 from sqlalchemy import literal_column, select
 from sqlalchemy.dialects.postgresql import insert
@@ -111,6 +111,7 @@ class EdgeConfig(BaseModel):
     shop: ShopConfig
     cameras: list[CameraOut]
     target_agent_version: str | None
+    activated: bool = False  # the box closes its LAN setup page once the kit is active (AC-F10-4)
 
 
 class EdgeEventIn(BaseModel):
@@ -161,6 +162,18 @@ class EdgeCommandOut(BaseModel):
     params: dict[str, Any]
     upload_url: str | None
     expires_at: datetime
+
+
+class StreamReportIn(BaseModel):
+    """What the box sees on a camera's sub stream (docs/13, AC-F8-7). `source` names the recorder
+    channel without credentials, e.g. `hikvision 192.168.1.64 ch3`."""
+
+    source: str = Field(min_length=1, max_length=200)
+    reachable: bool
+    codec: str | None = Field(default=None, max_length=32)
+    width: int | None = Field(default=None, ge=0, le=10_000)
+    height: int | None = Field(default=None, ge=0, le=10_000)
+    fps: float | None = Field(default=None, ge=0, le=240)
 
 
 class CommandResultIn(BaseModel):
@@ -218,6 +231,7 @@ def build_config(s: Session, kit: m.Kit) -> EdgeConfig:
         ),
         cameras=out,
         target_agent_version=kit.target_agent_version,
+        activated=kit.status is m.KitStatus.active,
     )
 
 
@@ -238,6 +252,23 @@ def get_config(
         media_type="application/json",
         headers={"ETag": etag},
     )
+
+
+@router.put("/streams/{camera}", status_code=204, response_class=Response)
+def put_stream(
+    camera: Annotated[str, Path(pattern=r"^[a-z][a-z0-9_]{0,31}$")],
+    body: StreamReportIn,
+    kit: CurrentKit,
+    s: DB,
+) -> Response:
+    """Last stream check per camera name; stored even before the cameras exist in the cloud."""
+    s.refresh(kit, with_for_update=True)
+    kit.stream_checks = {
+        **kit.stream_checks,
+        camera: body.model_dump() | {"checked_at": datetime.now(UTC).isoformat()},
+    }
+    s.commit()
+    return Response(status_code=204)
 
 
 @router.post("/events")

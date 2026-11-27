@@ -51,7 +51,7 @@ test("journey 3 — history → day detail → play a moment (AC-F7-1, AC-F5-2)"
   expect(api.calls.some((c) => c.path.startsWith("/v1/clips/"))).toBe(true); // playback goes through the audited API
 });
 
-test("journey 4 — installer: claim, shop, zones, count check, activate (AC-F8-1..4)", async ({ page }) => {
+test("journey 4 — installer: claim, shop, zones, count check, activate (AC-F8-1..4, AC-F8-7, AC-F8-8)", async ({ page }) => {
   const api = await mockApi(page, "installer");
   await page.goto("/install");
   await page.getByLabel("Numéro de série").fill("SN-0001");
@@ -62,6 +62,17 @@ test("journey 4 — installer: claim, shop, zones, count check, activate (AC-F8-
   await expect(page.getByRole("heading", { name: "Caméras et zones" })).toBeVisible();
 
   const door = page.getByTestId("camera-door");
+  // AC-F8-7: stream verdict from the box, low fps only warns
+  await expect(page.getByTestId("checks-door")).toContainText("Flux correct");
+  await expect(page.getByTestId("checks-counter")).toContainText("moins de 5 images/s");
+  // AC-F8-8: angle checklist; a failed item means an add-on camera
+  await page.getByTestId("checks-door").getByRole("checkbox").first().check();
+  await page.getByTestId("checks-door").getByRole("checkbox").nth(1).check();
+  await page.getByTestId("checks-door").getByRole("button", { name: "Valider l'angle" }).click();
+  await expect(page.getByTestId("checks-door")).toContainText("Angle validé");
+  await page.getByTestId("checks-counter").getByRole("checkbox").first().check();
+  await page.getByTestId("checks-counter").getByRole("button", { name: "Valider l'angle" }).click();
+  await expect(page.getByTestId("addon-counter")).toContainText("il faut une caméra en plus");
   await door.getByRole("button", { name: "Prendre une photo" }).click();
   await door.getByRole("button", { name: /ligne de porte/ }).click();
   const dc = door.getByTestId("zone-canvas");

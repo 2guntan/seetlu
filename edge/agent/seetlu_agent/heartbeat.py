@@ -42,6 +42,15 @@ def network(sys_net: Path = Path("/sys/class/net")) -> str | None:
     return None
 
 
+def camera_fps(stats: dict[str, Any]) -> dict[str, float]:
+    """Frames per second per camera from Frigate's latest `frigate/stats`."""
+    return {
+        name: float(cam.get("camera_fps", 0.0))
+        for name, cam in (stats.get("cameras") or {}).items()
+        if isinstance(cam, dict)
+    }
+
+
 def build(
     at: float,
     stats: dict[str, Any],
@@ -56,11 +65,7 @@ def build(
         "network": network,
     }
     p |= probes or {}
-    fps = {
-        name: float(cam.get("camera_fps", 0.0))
-        for name, cam in (stats.get("cameras") or {}).items()
-        if isinstance(cam, dict)
-    }
+    fps = camera_fps(stats)
     body: dict[str, Any] = {
         "at": iso(at),
         "agent_version": __version__,

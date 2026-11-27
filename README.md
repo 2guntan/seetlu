@@ -21,6 +21,7 @@ milestone by milestone (M0–M10).
 | M8 | done: web app (owner screens, installer flow with zone drawing + count check + activation rules, support console), i18n fr/en (wo keys), PWA offline cache, bundle budget, 5 Playwright journeys |
 | M9 | done: shop phone app (pairing, parser rules from the server, notification listener, sealed raw text, Room queue, WorkManager upload, quick-log pad, health screen) + phone API (pairing codes, parsers, sales batch) |
 | M10 | done: production compose (Caddy TLS, one-shot migrations, worker-only private key, dev values refused), Postgres base backup + WAL to MinIO with 30-day retention and a restore drill, Prometheus/Alertmanager/Grafana, journald log retention, VM setup + cloud-init, operator CLI, edge OS provisioning (tested on arm64), OTA release flow, runbooks, field-validation protocol |
+| AI box (docs/13) | done in software: recorder brand presets + channel scan with thumbnails on the LAN page, stream check reported to the cloud (blocks activation, low fps warns), angle checklist in the installer app (fail = add-on camera), status LED + 10 s button via host daemon `seetlu-panel` (AC-F8-5..8, AC-F10-4) |
 | Design system | done: `DESIGN.md` (tokens, type, verdict colours, components); `web/src/styles.css` carries the tokens as CSS custom properties, light + dark; Atkinson Hyperlegible Next self-hosted and precached |
 
 ## Quick start (dev)

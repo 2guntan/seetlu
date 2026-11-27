@@ -153,3 +153,26 @@ def test_rotated_token_triggers_re_registration(tmp_path: Path) -> None:
     agent.uploader.run(agent.wall(), force=True)
     agent.send_heartbeats()
     assert agent.registered and agent.outbox.depth() == 0 and agent.pending_heartbeats() == 0
+
+
+def test_ac_f8_7_stream_reports_wait_for_registration_then_reach_the_cloud(tmp_path: Path) -> None:
+    agent, cloud = make_agent(tmp_path)
+    cloud.claimed = False
+    agent.queue_stream_report("door", {"source": "hikvision 192.168.1.64 ch1", "reachable": True, "codec": "h264",
+                                       "width": 704, "height": 576, "fps": 6.0})  # fmt: skip
+    agent.periodic()
+    assert cloud.streams == {}
+    cloud.claimed = True
+    agent.last.clear()
+    agent.periodic()
+    assert cloud.streams["door"]["source"] == "hikvision 192.168.1.64 ch1"
+    assert json.loads((tmp_path / "agent" / "streams-pending.json").read_text()) == {}
+
+
+def test_ac_f10_4_agent_writes_led_state_for_the_host_daemon(tmp_path: Path) -> None:
+    agent, _cloud = make_agent(tmp_path)
+    agent.update_panel()
+    assert (tmp_path / "agent" / "host" / "led").read_text().strip() == "green-blink"  # starting
+    agent.started_at -= 1000
+    agent.update_panel()
+    assert (tmp_path / "agent" / "host" / "led").read_text().strip() == "red"  # no frames yet

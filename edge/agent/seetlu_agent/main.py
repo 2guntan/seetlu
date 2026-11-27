@@ -18,7 +18,7 @@ import paho.mqtt.client as mqtt
 import uvicorn
 from paho.mqtt.enums import CallbackAPIVersion
 
-from seetlu_agent import __version__, frigate_config, heartbeat
+from seetlu_agent import __version__, frigate_config, heartbeat, panel
 from seetlu_agent.api import Api, ApiError
 from seetlu_agent.commands import CommandRunner
 from seetlu_agent.config import AgentEnv
@@ -59,6 +59,10 @@ class Agent:
         self.last: dict[str, float] = {}
         self.last_heartbeat: float | None = None
         self.ota_requested: str | None = None
+        self.host_dir = env.data_dir / "host"
+        self.streams_pending = env.data_dir / "streams-pending.json"
+        self.started_at = wall()
+        self.last_cloud_ok: float | None = None
 
     # ---------- time ----------
     def now(self) -> float:
@@ -114,6 +118,7 @@ class Agent:
         except httpx.HTTPError as exc:
             log.warning("config poll failed: %s", exc)
             return
+        self.last_cloud_ok = self.wall()
         if cfg is not None:
             self.apply_config(cfg)
 
@@ -186,13 +191,54 @@ class Agent:
     def pending_heartbeats(self) -> int:
         return len(self.outbox.due(float("inf"), 10**6, kind="heartbeat"))
 
+    # ---------- installation: stream reports (AC-F8-7), front panel (AC-F10-4) ----------
+    def queue_stream_report(self, camera: str, report: dict[str, object]) -> None:
+        """Kept on disk until the cloud has it: the installer may set cameras before the box registers."""
+        pending = self._pending_streams()
+        pending[camera] = report
+        self.streams_pending.write_text(json.dumps(pending))
+
+    def _pending_streams(self) -> dict[str, dict[str, object]]:
+        try:
+            data: dict[str, dict[str, object]] = json.loads(self.streams_pending.read_text())
+        except (OSError, ValueError):
+            return {}
+        return data
+
+    def send_stream_reports(self) -> None:
+        pending = self._pending_streams()
+        for camera, report in list(pending.items()):
+            try:
+                self.api.put_stream(camera, report)
+            except (ApiError, httpx.HTTPError) as exc:
+                log.warning("stream report for %s not sent: %s", camera, exc)
+                return
+            del pending[camera]
+            self.streams_pending.write_text(json.dumps(pending))
+
+    def update_panel(self) -> None:
+        wall = self.wall()
+        ok = self.last_cloud_ok
+        fps = heartbeat.camera_fps(self.engine.stats)
+        state = panel.led_state(
+            starting=ok is None and wall - self.started_at < panel.STARTING_S,
+            internet_ok=ok is not None and wall - ok < panel.INTERNET_STALE_S,
+            cameras_ok=panel.cameras_streaming([c.name for c in self.cfg.cameras], fps),
+        )
+        panel.write_led(self.host_dir, state)
+
+    def setup_open(self) -> bool:
+        return panel.setup_open(self.host_dir, activated=self.cfg.activated, now=self.wall())
+
     def periodic(self) -> None:
         wall = self.wall()
         if not self.env.sim_clock:
             self._store(self.engine.tick(wall))
             self._maybe_heartbeat()
+        self.update_panel()
         if not self.ensure_registered():
             return
+        self.send_stream_reports()
         if self._due("config", CONFIG_EVERY_S, wall):
             self.poll_config()
         if self._due("commands", COMMANDS_EVERY_S, wall):
@@ -232,6 +278,8 @@ class Agent:
             registered=lambda: self.registered,
             on_change=self.render_frigate,
             frigate=self.frigate,
+            on_stream=self.queue_stream_report,
+            is_open=self.setup_open,
         )
         server = uvicorn.Server(uvicorn.Config(app, host="0.0.0.0", port=self.env.setup_port,  # noqa: S104
                                                log_level="warning"))  # fmt: skip

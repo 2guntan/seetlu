@@ -329,3 +329,28 @@ def test_m3_count_check_result_payload_kept(
 def test_m3_unknown_command_404(client: TestClient, dev: dict[str, str]) -> None:
     r = client.post(f"/v1/edge/commands/{uuid.uuid4()}/result", headers=dev, json={"status": "done"})
     assert r.status_code == 404
+
+
+# ---------- AI box: stream report, activation flag (docs/13) ----------
+def test_ac_f8_7_box_reports_stream_per_camera(
+    client: TestClient, db: Session, dev: dict[str, str], kit: m.Kit
+) -> None:
+    body = {"source": "dahua 192.168.1.108 ch2", "reachable": True, "codec": "hevc", "width": 704,
+            "height": 576, "fps": 8}  # fmt: skip
+    assert client.put("/v1/edge/streams/counter", headers=dev, json=body).status_code == 204
+    assert client.put("/v1/edge/streams/Bad-Name", headers=dev, json=body).status_code == 422
+    assert client.put("/v1/edge/streams/door", json=body).status_code == 401
+    db.expire_all()
+    stored = db.get(m.Kit, kit.id)
+    assert stored is not None and stored.stream_checks["counter"]["codec"] == "hevc"
+    assert "password" not in str(stored.stream_checks) and "checked_at" in stored.stream_checks["counter"]
+
+
+def test_ac_f10_4_config_says_when_the_kit_is_active(
+    client: TestClient, db: Session, dev: dict[str, str], kit: m.Kit
+) -> None:
+    assert client.get("/v1/edge/config", headers=dev).json()["activated"] is False
+    kit.status = m.KitStatus.active
+    kit.config_version += 1
+    db.commit()
+    assert client.get("/v1/edge/config", headers=dev).json()["activated"] is True
