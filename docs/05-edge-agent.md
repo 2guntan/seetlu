@@ -2,7 +2,7 @@
 
 ## Hardware and OS (reference kit)
 
-- Orange Pi 5 (RK3588S, 8 GB) with a Rockchip BSP kernel (5.10.x-rockchip or 6.1.x-rockchip) so that `/dev/dri/renderD129` (NPU) and the RKNN runtime are available. Fallback: Raspberry Pi 5 + AI HAT+ (Hailo detector).
+- Orange Pi 5 Plus (RK3588, 8 GB, 2 × Ethernet: one to the shop's recorder, one to the internet; spec in `docs/13-ai-box.md`) with a Rockchip BSP kernel (5.10.x-rockchip or 6.1.x-rockchip) so that `/dev/dri/renderD129` (NPU) and the RKNN runtime are available. The plain Orange Pi 5 (RK3588S, one Ethernet port) runs the same image. Raspberry Pi 5 + AI HAT+ would need a Hailo mode that is not built.
 - 128 GB NVMe mounted at `/data`. Docker + Docker Compose v2.
 - `edge/os/provision.sh` must: set hostname to the kit serial, create `/data/{frigate,agent}`, install Docker, enable unattended security upgrades, configure the hardware watchdog, disable SSH password login, install the systemd unit that starts `docker-compose.edge.yml` on boot.
 
