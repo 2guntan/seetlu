@@ -7,10 +7,10 @@ import math
 import os
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
 
 import yaml
 
+from seetlu_agent import recorder
 from seetlu_agent.edge_config import Camera, EdgeConfig, Zone
 
 TEMPLATE = Path(
@@ -64,10 +64,7 @@ def _rtsp(cam: Camera, secrets: dict[str, Any]) -> tuple[str, bool]:
     s = secrets.get("cameras", {}).get(cam.name)
     if not s or not s.get("host"):
         return "rtsp://127.0.0.1:554" + cam.rtsp_sub_path, False  # not set up yet on the LAN page
-    auth = ""
-    if s.get("username"):
-        auth = f"{quote(str(s['username']), safe='')}:{quote(str(s.get('password', '')), safe='')}@"
-    return f"rtsp://{auth}{s['host']}:{int(s.get('port', 554))}{cam.rtsp_sub_path}", True
+    return recorder.url_for(s, cam.rtsp_sub_path), True  # brand preset + channel, or the raw path
 
 
 def render(

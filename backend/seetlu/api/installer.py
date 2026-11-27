@@ -1,11 +1,12 @@
-"""Installer flow (docs/08, AC-F8-1..4): claim a kit, set cameras and zones, count check, activate."""
+"""Installer flow (docs/08, docs/13, AC-F8-1..8): claim a kit, check the recorder streams and camera angles,
+set cameras and zones, count check, activate."""
 
 import uuid
 from datetime import UTC, datetime
 from decimal import Decimal
-from typing import Literal
+from typing import Annotated, Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Path
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy import delete, func, select
 
@@ -15,7 +16,7 @@ from seetlu.core.authz import Action
 from seetlu.core.problem import Problem
 from seetlu.core.security import verify_token
 from seetlu.db import models as m
-from seetlu.domain import commands
+from seetlu.domain import commands, setup_checks
 
 router = APIRouter(prefix="/v1", tags=["installer"])
 
@@ -152,6 +153,111 @@ def put_cameras(kit_id: uuid.UUID, body: list[CameraIn], user: CurrentUser, s: D
     return out
 
 
+class StreamOut(BaseModel):
+    source: str
+    reachable: bool
+    codec: str | None
+    width: int | None
+    height: int | None
+    fps: float | None
+    checked_at: str
+    verdict: setup_checks.StreamVerdict
+
+
+class AngleOut(BaseModel):
+    passed: bool
+    failed_items: list[str]
+    source: str
+    checked_at: str
+
+
+class CameraSetupOut(BaseModel):
+    name: str
+    role: Literal["door", "counter"]
+    stream: StreamOut | None
+    angle: AngleOut | None
+    angle_items: list[str]
+    angle_passed: bool
+    addon_camera_needed: bool
+
+
+class KitSetupOut(BaseModel):
+    cameras: list[CameraSetupOut]
+    blockers: list[str]
+
+
+SETUP_ROLES: tuple[Literal["door", "counter"], ...] = ("door", "counter")
+
+
+def _setup(s: DB, kit: m.Kit) -> KitSetupOut:
+    cameras = list(s.scalars(select(m.Camera).where(m.Camera.kit_id == kit.id)))
+    by_role = {c.role.value: c.name for c in cameras}
+    out = []
+    for role in SETUP_ROLES:
+        name = by_role.get(role, role)  # the box names its two slots after the roles
+        report = kit.stream_checks.get(name)
+        angle = kit.angle_checks.get(name)
+        verdict = setup_checks.stream_verdict(report)
+        stream = StreamOut.model_validate(report | {"verdict": verdict}) if report and verdict else None
+        out.append(
+            CameraSetupOut(
+                name=name,
+                role=role,
+                stream=stream,
+                angle=AngleOut.model_validate(angle) if angle else None,
+                angle_items=list(setup_checks.ANGLE_ITEMS[role]),
+                angle_passed=setup_checks.angle_passed(kit, name),
+                addon_camera_needed=setup_checks.addon_camera_needed(kit, name),
+            )
+        )
+    return KitSetupOut(cameras=out, blockers=setup_checks.blockers(kit, cameras))
+
+
+@router.get("/kits/{kit_id}/setup")
+def get_setup(kit_id: uuid.UUID, user: CurrentUser, s: DB) -> KitSetupOut:
+    """Stream checks reported by the box and angle checks, per role (AC-F8-6..8)."""
+    kit, _ = _kit_for(s, kit_id, user, Action.zones_edit)
+    return _setup(s, kit)
+
+
+class AngleCheckIn(BaseModel):
+    role: Literal["door", "counter"]
+    items: dict[str, bool]
+
+
+@router.put(
+    "/kits/{kit_id}/angle-checks/{camera}",
+    responses={409: {"description": "no stream reported by the box yet"}},
+)
+def put_angle_check(
+    kit_id: uuid.UUID,
+    camera: Annotated[str, Path(pattern=r"^[a-z][a-z0-9_]{0,31}$")],
+    body: AngleCheckIn,
+    user: CurrentUser,
+    s: DB,
+) -> KitSetupOut:
+    """AC-F8-8: every item ticked = passed; any item failed records "add-on camera needed" for the
+    stream source it was done on. A new channel or an add-on camera gets a new check."""
+    kit, shop = _kit_for(s, kit_id, user, Action.zones_edit)
+    expected = set(setup_checks.ANGLE_ITEMS[body.role])
+    if set(body.items) != expected:
+        raise Problem(422, "validation-error", f"items must be exactly {sorted(expected)}")
+    report = kit.stream_checks.get(camera)
+    if not report:
+        raise Problem(409, "stream-check-required", "The box has not reported this camera's stream yet")
+    failed = sorted(k for k, ok in body.items.items() if not ok)
+    now = datetime.now(UTC)
+    kit.angle_checks = {
+        **kit.angle_checks,
+        camera: {"passed": not failed, "failed_items": failed, "source": report["source"],
+                 "checked_at": now.isoformat(), "by": str(user.id)},
+    }  # fmt: skip
+    audit(s, user, "kit.angle_check", account_id=shop.account_id, target_type="kit", target_id=kit.id,
+          detail={"camera": camera, "passed": not failed, "failed_items": failed})  # fmt: skip
+    s.commit()
+    return _setup(s, kit)
+
+
 class CountCheckOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: uuid.UUID
@@ -248,6 +354,11 @@ def activate(kit_id: uuid.UUID, user: CurrentUser, s: DB) -> KitOut:
     kit, shop = _kit_for(s, kit_id, user, Action.kit_command)
     if not shop.cdp_declaration_ref:
         raise Problem(409, "cdp-missing", "The shop needs its CDP declaration reference first (AC-F8-4)")
+    cameras = list(s.scalars(select(m.Camera).where(m.Camera.kit_id == kit.id)))
+    blocking = setup_checks.blockers(kit, cameras)
+    if blocking:
+        code = blocking[0].split(":")[0]
+        raise Problem(409, code, "Recorder setup is not finished (AC-F8-6..8): " + ", ".join(blocking))
     check = s.scalars(
         select(m.CountCheck)
         .where(m.CountCheck.kit_id == kit.id, m.CountCheck.ended_at.is_not(None))
@@ -259,6 +370,7 @@ def activate(kit_id: uuid.UUID, user: CurrentUser, s: DB) -> KitOut:
         )
     now = datetime.now(UTC)
     kit.status, kit.installed_at = m.KitStatus.active, kit.installed_at or now
+    kit.config_version += 1  # the box learns it is active and closes its setup page (AC-F10-4)
     if shop.status is not m.ShopStatus.active:
         shop.status, shop.activated_at = m.ShopStatus.active, now
     audit(

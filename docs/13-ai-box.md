@@ -105,12 +105,12 @@ Cost estimates are to be filled after the H1 sample order; the retail price is s
 | seetlu-agent: events, heartbeats, outbox, clips, OTA | Done |
 | LAN setup page with RTSP credentials (host, port, user, password) | Done |
 | Per-camera RTSP path and detect size from the cloud config | Done |
-| **Brand presets** (Hikvision/Dahua/Xiongmai paths, channel number instead of a raw path) | To build |
-| **Channel scan**: list channels of the recorder with a thumbnail, installer picks door and counter | To build |
-| **Stream check**: resolution, codec, fps of the sub stream; refuse CIF; warn under 5 fps | To build (probe exists) |
-| **ONVIF discovery** of recorders and cameras on the LAN | To build |
+| **Brand presets** (Hikvision/Dahua/Xiongmai paths, channel number instead of a raw path) | Done (paths to confirm on H1 samples) |
+| **Channel scan**: list channels of the recorder with a thumbnail, installer picks door and counter | Done |
+| **Stream check**: resolution, codec, fps of the sub stream; refuse CIF; warn under 5 fps | Done (box reports, cloud blocks activation) |
+| **ONVIF discovery** of recorders and cameras on the LAN | Done (WS-Discovery on the LAN page) |
 | Mini-UPS status probe (`power_source`, `battery_pct`) | To build when the UPS model is chosen |
-| Status LED + button | To build (GPIO) |
+| Status LED + button | Done in software; GPIO lines set when the H1 enclosure is wired |
 
 Rules that do not change: no faces, no biometrics; video stays in the shop; the recorder password never
 leaves the box; every clip access is audited.

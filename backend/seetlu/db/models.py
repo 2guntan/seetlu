@@ -286,6 +286,9 @@ class Kit(Base):
     last_seen_at: Mapped[datetime | None]
     installed_at: Mapped[datetime | None]
     created_at: Mapped[datetime] = created()
+    # 0005: per camera name; see seetlu.domain.setup_checks
+    stream_checks: Mapped[dict[str, Any]] = mapped_column(server_default=text("'{}'"))
+    angle_checks: Mapped[dict[str, Any]] = mapped_column(server_default=text("'{}'"))
 
 
 class Camera(Base):

@@ -84,6 +84,10 @@ class Api:
     def heartbeat(self, body: dict[str, Any]) -> None:
         self._check(self.http.post("/v1/edge/heartbeat", json=body, headers=self._headers()))
 
+    def put_stream(self, camera: str, report: dict[str, Any]) -> None:
+        """AC-F8-7: stream check of one camera slot; `source` carries no credentials."""
+        self._check(self.http.put(f"/v1/edge/streams/{camera}", json=report, headers=self._headers()))
+
     def commands(self) -> list[dict[str, Any]]:
         r = self._check(self.http.get("/v1/edge/commands", headers=self._headers()))
         out: list[dict[str, Any]] = r.json()

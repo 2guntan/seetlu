@@ -69,6 +69,10 @@ IMPLEMENTED: set[tuple[str, str]] = {
     ("post", "/v1/phone/pair"),
     ("get", "/v1/phone/parsers"),
     ("post", "/v1/sales/batch"),
+    # AI box (docs/13)
+    ("put", "/v1/edge/streams/{camera}"),
+    ("get", "/v1/kits/{kit_id}/setup"),
+    ("put", "/v1/kits/{kit_id}/angle-checks/{camera}"),
 }
 METHODS = {"get", "post", "put", "patch", "delete"}
 

@@ -277,7 +277,36 @@
     "activate": "Activer le kit",
     "activated": "Kit activé.",
     "cdpMissing": "Il manque la référence CDP de la boutique.",
-    "checkRequired": "Il faut une vérification réussie (ou une raison)."
+    "checkRequired": "Il faut une vérification réussie (ou une raison).",
+    "role": {
+      "door": "Caméra de la porte",
+      "counter": "Caméra du comptoir"
+    },
+    "recorderHelp": "Sur le réseau de la boutique, ouvrez http://{{serial}}.local:8080 (code : les 6 derniers caractères du code du kit). Choisissez la marque de l'enregistreur, lancez la recherche, puis choisissez la caméra de la porte et celle du comptoir.",
+    "stream": {
+      "waiting": "En attente du kit : choisissez la caméra sur la page du kit.",
+      "ok": "Flux correct",
+      "low_fps": "Flux correct, mais moins de 5 images/s : réglez 5 à 8 images/s sur l'enregistreur",
+      "unreachable": "Le kit n'arrive pas à lire cette caméra",
+      "bad_codec": "Codec non pris en charge : réglez H.264 ou H.265 sur l'enregistreur",
+      "too_small": "Image trop petite : réglez 640×360 ou plus sur l'enregistreur",
+      "fps": "images/s"
+    },
+    "angle": {
+      "title": "Angle de la caméra (sur la photo)",
+      "items": {
+        "doorway_in_frame": "Toute la porte est dans l'image",
+        "person_big_enough": "Une personne dans la porte fait au moins 1/6 de la hauteur de l'image",
+        "customer_side_visible": "Le côté client du comptoir est visible",
+        "staff_side_visible": "Le côté vendeur du comptoir est visible"
+      },
+      "save": "Valider l'angle",
+      "passed": "Angle validé",
+      "addon": "Cet angle ne convient pas : il faut une caméra en plus pour ce rôle. Branchez-la, choisissez-la sur la page du kit, puis refaites la vérification."
+    },
+    "camerasRequired": "Il faut une caméra de porte et une caméra de comptoir.",
+    "streamFailed": "Le flux d'une caméra ne convient pas. Voir le message sous la caméra.",
+    "angleRequired": "Validez l'angle de chaque caméra."
   },
   "support": {
     "title": "Kits",

@@ -51,7 +51,7 @@ grep -q "127.0.1.1 $serial" "/etc/hosts" 2>/dev/null || echo "127.0.1.1 $serial"
 
 step "packages: docker, compose, unattended-upgrades, cryptsetup"
 apt-get update -q
-apt-get install -y -q ca-certificates curl gnupg systemd openssh-server unattended-upgrades cryptsetup docker.io
+apt-get install -y -q ca-certificates curl gnupg systemd openssh-server unattended-upgrades cryptsetup docker.io python3
 if ! apt-get install -y -q docker-compose-v2 2>/dev/null; then
   # Debian/Armbian: compose v2 from Docker's own repository
   # shellcheck source=/dev/null
@@ -184,11 +184,30 @@ Type=oneshot
 ExecStart=/bin/rm -f /data/agent/host/reboot-requested
 ExecStart=/bin/systemctl reboot
 UNIT
+step "front panel daemon (status LED + button, AC-F10-4)"
+install -m 0755 "$here/seetlu-panel.py" /usr/local/bin/seetlu-panel
+install -d /usr/local/share/seetlu
+install -m 0644 "$here/seetlu-panel.dts" /usr/local/share/seetlu/seetlu-panel.dts  # GPIO lines set at hardware time
+cat >"$units/seetlu-panel.service" <<'UNIT'
+[Unit]
+Description=Seetlu box front panel: status LED and setup button
+After=docker.service
+RequiresMountsFor=/data
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/seetlu-panel
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+UNIT
 sysctl_ daemon-reload
-sysctl_ enable seetlu-edge.service seetlu-reboot.path
+sysctl_ enable seetlu-edge.service seetlu-reboot.path seetlu-panel.service
 sysctl_ restart systemd-journald
 sysctl_ start seetlu-reboot.path
+sysctl_ restart seetlu-panel.service
 sysctl_ start seetlu-edge.service
 
 step "done: $serial → $api (agent $(sed -n 's/^SEETLU_AGENT_VERSION=//p' "$envf"))"
-echo "next: plug the cameras, open http://$serial.local:8080 (PIN = last 6 of the claim token), then claim the kit in the installer app"
+echo "next: plug the box into the shop recorder's network, open http://$serial.local:8080 (PIN = last 6 of the claim token), then claim the kit in the installer app"

@@ -84,6 +84,18 @@ components:
                     geometry: { type: array, items: { type: array, items: { type: number }, minItems: 2, maxItems: 2 } }
                     inward_side: { type: [string, 'null'], enum: [left, right, null] }
         target_agent_version: { type: string }
+        activated: { type: boolean, description: "Kit is active; the box closes its LAN setup page (AC-F10-4)" }
+    StreamReport:
+      type: object
+      required: [source, reachable]
+      description: "What the box sees on a camera's sub stream (docs/13, AC-F8-7); source has no credentials"
+      properties:
+        source: { type: string, maxLength: 200 }
+        reachable: { type: boolean }
+        codec: { type: [string, 'null'] }
+        width: { type: [integer, 'null'] }
+        height: { type: [integer, 'null'] }
+        fps: { type: [number, 'null'] }
     EdgeCommand:
       type: object
       properties:
@@ -235,6 +247,14 @@ paths:
   /v1/kits/{kit_id}/cameras:
     parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
     put: { security: [ { userJwt: [] } ], summary: "Set cameras and zones (bumps config_version)", responses: { '200': { description: ok } } }
+  /v1/kits/{kit_id}/setup:
+    parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
+    get: { security: [ { userJwt: [] } ], summary: "Per role (door, counter): stream reported by the box with its verdict, angle check, add-on camera needed, activation blockers (AC-F8-6..8)", responses: { '200': { description: ok } } }
+  /v1/kits/{kit_id}/angle-checks/{camera}:
+    parameters:
+      - { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } }
+      - { name: camera, in: path, required: true, schema: { type: string } }
+    put: { security: [ { userJwt: [] } ], summary: "Angle checklist {role, items: {item: bool}}; any false item records add-on camera needed (AC-F8-8); audited", responses: { '200': { description: ok }, '409': { description: no stream reported yet } } }
   /v1/kits/{kit_id}/count-checks:
     parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
     post: { security: [ { userJwt: [] } ], summary: "Start a count check", responses: { '201': { description: started } } }
@@ -243,7 +263,7 @@ paths:
     post: { security: [ { userJwt: [] } ], summary: "Stop with manual_count; returns agent_count, error_pct, passed", responses: { '200': { description: ok } } }
   /v1/kits/{kit_id}/activate:
     parameters: [ { name: kit_id, in: path, required: true, schema: { $ref: '#/components/schemas/Uuid' } } ]
-    post: { security: [ { userJwt: [] } ], summary: "Requires passed count check (or override) and shop.cdp_declaration_ref", responses: { '200': { description: activated }, '409': { description: preconditions not met } } }
+    post: { security: [ { userJwt: [] } ], summary: "Requires shop.cdp_declaration_ref, one door and one counter camera with usable streams and passed angle checks (AC-F8-6..8), and a passed count check (or override); bumps config_version", responses: { '200': { description: activated }, '409': { description: preconditions not met } } }
 
   # ---------------- support ----------------
   /v1/support/kits:
@@ -280,6 +300,13 @@ paths:
       security: [ { deviceToken: [] } ]
       requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/Heartbeat' } } } }
       responses: { '204': { description: ok } }
+  /v1/edge/streams/{camera}:
+    parameters: [ { name: camera, in: path, required: true, schema: { type: string } } ]
+    put:
+      security: [ { deviceToken: [] } ]
+      summary: Stream check of one camera slot (codec, size, fps), sent after the installer assigns a channel (AC-F8-7)
+      requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/StreamReport' } } } }
+      responses: { '204': { description: stored } }
   /v1/edge/commands:
     get:
       security: [ { deviceToken: [] } ]
