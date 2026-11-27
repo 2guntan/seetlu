@@ -2,7 +2,7 @@
 
 | # | Task | Needed before | Owner |
 | --- | --- | --- | --- |
-| H1 | Order samples in China: 2 RK3588 boards (Orange Pi 5, Radxa ROCK 5), 3 PoE camera models, PoE switch 12 V, 12 V mini-UPS, 4G router | M5 field test | Bou |
+| H1 | Order samples: 2 Orange Pi 5 Plus 8 GB + 128 GB NVMe + fan + aluminium case, 2 DC mini-UPS with USB status (5 V USB-C + 12 V out), 1 4G router, 1 add-on PoE camera + injector; borrow or buy one DVR each of Hikvision, Dahua and Xiongmai for compatibility tests; note unit costs for the box price (docs/13 D4) | AI box field test | Bou |
 | H2 | Record 10+ hours of real shop footage (with the shop owner's written consent, signage in place) for accuracy tests and model tuning | Pilot | Bou / installer |
 | H3 | Collect 30+ real Wave and Orange Money payment notification texts (screenshots or copied text, amounts and refs anonymised) for parser fixtures | M9 | Bou |
 | H4 | Ask Wave and Orange Money whether a merchant transaction API exists for small merchants | Before pilot | Bou |

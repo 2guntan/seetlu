@@ -97,6 +97,10 @@ Story: as an owner, I want one evening message that tells me if the day was norm
 - AC-F8-2: Installer draws the door line and the counter zones on a live snapshot per camera; the agent receives them as config.
 - AC-F8-3: Count check: installer starts a 30-min check, taps +1 for each real entry; the app compares with the agent's count. Activation requires error ≤ 10% on ≥ 20 entries (or installer override with a reason, logged).
 - AC-F8-4: Kit cannot be activated without a CDP declaration reference on the shop record.
+- AC-F8-5: The box reads the shop's existing recorder (Hikvision, Dahua or Xiongmai DVR/NVR) or an RTSP/ONVIF camera: the installer picks the brand, enters the recorder login on the LAN setup page and picks a channel number; the box builds the sub-stream RTSP path from the brand preset. A raw RTSP path stays possible ("other").
+- AC-F8-6: The LAN setup page lists the recorder's channels with a thumbnail each; the installer assigns exactly one `door` and one `counter` channel.
+- AC-F8-7: Stream check per assigned channel: codec H.264/H.265 and sub-stream resolution of at least 640×360 are required (activation blocked otherwise); under 5 fps shows a warning. The box never changes recorder settings.
+- AC-F8-8: Angle checklist on each snapshot (door fully in frame and a person at least 1/6 of the image height; counter with both sides visible); a failed item records "add-on camera needed" on the kit and blocks activation for that role until a camera passes.
 
 ## F9 — Corrections and confidence
 
@@ -108,6 +112,7 @@ Story: as an owner, I want one evening message that tells me if the day was norm
 - AC-F10-1: Edge agent sends a heartbeat every 5 min (power source, battery %, storage %, CPU temp, fps per camera, network type, agent version, frigate version).
 - AC-F10-2: Support console lists kits by status `ok|degraded|offline` and shows the last 7 days of heartbeats.
 - AC-F10-3: OTA: the cloud sets a target agent version per kit or per cohort; the agent updates itself (docker compose pull/up) and reports the result.
+- AC-F10-4: Box front panel: one status LED (green steady ok, green blinking starting, amber no internet, red no camera stream) and one recessed button (hold 10 s: restart the agent and reopen the LAN setup page for 30 min).
 
 ## Out of scope (never build)
 

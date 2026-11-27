@@ -189,6 +189,7 @@ docs/               specs + decisions.md
 | `docs/10-testing.md` | Simulator, scenarios, test layers |
 | `docs/11-milestones.md` | Build order M0–M10 |
 | `docs/12-human-tasks.md` | What a human must do in parallel |
+| `docs/13-ai-box.md` | AI box product spec: reads the shop's existing recorder |
 | `docs/field-validation.md` | Pilot protocol: install tally, weekly audits, labelled clips |
 | `docs/decisions.md` | Decision log (Claude Code appends to it) |
 

@@ -5,7 +5,7 @@
 ```
  SHOP (per kit)                                   CLOUD (hosted in Senegal)                 OWNER
  ┌───────────────────────────────┐                ┌──────────────────────────────┐          ┌────────────┐
- │ 2 PoE IP cameras (RTSP)       │                │ api (FastAPI)                │◄────────►│ web (PWA)  │
+ │ existing DVR/NVR, 2 channels  │                │ api (FastAPI)                │◄────────►│ web (PWA)  │
  │   │                           │   HTTPS only,  │ worker + beat (Celery)       │          └────────────┘
  │   ▼                           │   outbound     │ postgres + timescaledb       │          ┌────────────┐
  │ Frigate (rknn detector)       │   from shop    │ redis                        │─────────►│ WhatsApp   │
